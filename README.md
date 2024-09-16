@@ -83,11 +83,11 @@ The syntax for making `git commit -m <insert_message_here>` messages should foll
 "category: do something"
 ```
 
-1. `do something` must be written in [imperative tone](https://www.theserverside.com/video/Follow-these-git-commit-message-guidelines#:~:text=If%20you%20want%20to%20write,Instead%2C%20describe%20what%20was%20done.).
+1. `do something` must be written in imperative tone
 2. `category` must fall under these categories;
    - `feat:` introduces a new feature or component to the codebase
    - `style:` changes a layout, stylesheet, UI look of a certain component
    - `fix:` patches a bug
    - `docs:` any addition pertaining to documentation (comments, README.md, etc)
-   - `nit:` small change based on some sort of convention, see [this SO question](https://stackoverflow.com/questions/27810522/what-does-nit-mean-in-hacker-speak).
+   - `nit:` small change
    - `BREAKING CHANGE:` a change that dramatically changes a pre-existing system - possibly leading to bugs to be patched
