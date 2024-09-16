@@ -72,9 +72,15 @@ Atlas/
 Here's an example commit flow with git:
 
 ```bash
+# sync latest code from the remote repository
+git pull
+# create a new branch based on the feature you want to work on
+git checkout -b <new_branch>
+# after making some changes, add and commit your work
 git add .
 git commit -m "category: do something"
-git push origin main
+# push your changes and make a pull request on GitHub afterwards so that I can review them
+git push -u origin main
 ```
 
 The syntax for making `git commit -m <insert_message_here>` messages should follow this syntax for consistency:
