@@ -6,7 +6,6 @@ export default function Login() {
       <div className="mt-[-140px]">
         <LoginForm />
       </div>
-      
     </div>
   )
 }
