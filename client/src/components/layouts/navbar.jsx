@@ -77,7 +77,7 @@ export default function Navbar() {
                 className="flex items-center gap-2 text-lg font-semibold"
               >
                 <Package2 className="h-6 w-6" />
-                <span className="sr-only">Acme Inc</span>
+                <span className="sr-only">Atlas</span>
               </Link>
               <Link href="#" className="hover:text-foreground">
                 Dashboard
@@ -86,25 +86,25 @@ export default function Navbar() {
                 href="#"
                 className="text-muted-foreground hover:text-foreground"
               >
-                Orders
+                Quests
               </Link>
               <Link
                 href="#"
                 className="text-muted-foreground hover:text-foreground"
               >
-                Products
+                Calendar
               </Link>
               <Link
                 href="#"
                 className="text-muted-foreground hover:text-foreground"
               >
-                Customers
+                Shop
               </Link>
               <Link
                 href="#"
                 className="text-muted-foreground hover:text-foreground"
               >
-                Analytics
+                Achievements
               </Link>
             </nav>
           </SheetContent>
