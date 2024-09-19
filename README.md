@@ -80,7 +80,7 @@ git checkout -b <new_branch>
 git add .
 git commit -m "category: do something"
 # push your changes and make a pull request on GitHub afterwards so that I can review them
-git push -u origin main
+git push origin HEAD
 ```
 
 The syntax for making `git commit -m <insert_message_here>` messages should follow this syntax for consistency:
