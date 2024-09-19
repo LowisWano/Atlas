@@ -1,19 +1,15 @@
-import { ThemeProvider } from "@/components/theme-provider"
 import { Outlet } from 'react-router-dom';
-import Navbar from "./components/layouts/navbar";
+import Layout from '@/components/layouts/layout';
 
 function App() {
-
   return (
     <>
-      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <Navbar />
+      <Layout>
         <main>
           {/* Child routes (like Login) will be rendered here */}
           <Outlet />
         </main>
-
-      </ThemeProvider>
+      </Layout>
     </>
   )
 }
