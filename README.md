@@ -11,7 +11,7 @@ Navigate to your desired directory and run this command:
 
 ```bash
 # clone the remote repository into your machine
-git clone git@github.com:LowisWano/Atlas.git
+git clone https://github.com/LowisWano/Atlas.git
 # change current working directory to the project
 cd Atlas
 # get the newest version of the remote repo
