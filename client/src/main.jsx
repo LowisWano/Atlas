@@ -7,6 +7,7 @@ import './index.css'
 // pages
 import Dashboard from './pages/dashboard/index.jsx';
 import Login from './pages/login/index.jsx';
+import Signup from './pages/signup/index.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
+      },
+      {
+        path: "signup",
+        element: <Signup />,
       }
     ]
   }
@@ -27,6 +32,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-      <RouterProvider router={router} />
+    <RouterProvider router={router} />
   </StrictMode>,
 )

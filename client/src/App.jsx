@@ -8,10 +8,10 @@ function App() {
     <>
       <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
         <Navbar />
-          <main>
-            {/* Child routes (like Login) will be rendered here */}
-            <Outlet />
-          </main>
+        <main>
+          {/* Child routes (like Login) will be rendered here */}
+          <Outlet />
+        </main>
 
       </ThemeProvider>
     </>
