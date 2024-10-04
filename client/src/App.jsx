@@ -1,17 +1,26 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet,useLocation } from 'react-router-dom';
 import Layout from '@/components/layouts/layout';
+import { ThemeProvider } from './components/theme-provider';
 
 function App() {
+  const location = useLocation();
+  const hideLayoutPaths = ['/login', '/signup'];
+
   return (
-    <>
-      <Layout>
+    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+      {hideLayoutPaths.includes(location.pathname) ? (
         <main>
-          {/* Child routes (like Login) will be rendered here */}
           <Outlet />
         </main>
-      </Layout>
-    </>
-  )
+      ) : (
+        <Layout>
+          <main>
+            <Outlet />
+          </main>
+        </Layout>
+      )}
+    </ThemeProvider>
+  );
 }
 
 export default App
