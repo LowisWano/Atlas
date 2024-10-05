@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const prisma = require('../lib/prisma')
 require('express-async-errors');
 
@@ -16,7 +17,7 @@ const signup = async (req, res) => {
   let user = await prisma.user.findFirst({where: {email}})
 
   if(user){
-    throw Error('User already exists!')
+    throw Error('User already exists.')
   }
 
   const passwordHash = await bcrypt.hash(password, 10)
@@ -32,6 +33,29 @@ const signup = async (req, res) => {
   res.json(user)
 }
 
+const login =  async (req, res) => {
+  const { email, password } = req.body
+
+  let user = await prisma.user.findFirst({where: {email}})
+  const passwordIsCorrect =  await bcrypt.compare(password, user.password_hash)
+
+  if(!(user && passwordIsCorrect)){
+    res.status(401).json({
+      error: 'invalid username or password'
+    })
+  }
+
+  const token = jwt.sign({
+    name: user.name,
+    id: user.id
+  }, process.env.JWT_SECRET)
+
+  res
+    .status(200)
+    .send({ token, user })
+}
+
 module.exports = {
-  signup
+  signup,
+  login
 }

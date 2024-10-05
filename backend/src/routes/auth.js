@@ -1,9 +1,7 @@
 const authRouter = require('express').Router()
-const signup = require('../controllers/auth.controller').signup
+const auth = require('../controllers/auth.controller')
 
-authRouter.post('/signup', signup)
-authRouter.get('/signup', async (req,res) => {
-  res.json("sign up!")
-})
+authRouter.post('/signup', auth.signup)
+authRouter.post('/login', auth.login)
 
 module.exports = authRouter

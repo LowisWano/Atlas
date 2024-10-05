@@ -1,0 +1,13 @@
+POST http://localhost:3001/api/auth/login 
+Content-Type: application/json
+# valid user
+{
+    "email": "luisandreiouano@gmail.com",
+    "password": "123"
+}
+
+# invalid user
+# { 
+#   "username": "luis", 
+#   "password": "luis" 
+# }
