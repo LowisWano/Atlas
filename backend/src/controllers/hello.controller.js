@@ -1,7 +1,7 @@
-const helloRouter = require('express').Router()
-
-helloRouter.get('/', async (req, res) => {
+const hello =  async (req, res) => {
   res.json("Hello World!");
-})
+}
 
-module.exports = helloRouter
+module.exports = {
+  hello
+}
