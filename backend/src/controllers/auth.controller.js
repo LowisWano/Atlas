@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const prisma = require('../lib/prisma')
+const z = require("zod").z
 require('express-async-errors');
 
 const signup = async (req, res) => {
@@ -13,6 +14,8 @@ const signup = async (req, res) => {
   if(password.length < 3){
     res.status(400).json({error: 'password is too short'})
   }
+
+  // const emailSchema = z.string().email({ message: "Invalid email address" });
 
   let user = await prisma.user.findFirst({where: {email}})
 
