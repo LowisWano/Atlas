@@ -15,8 +15,19 @@ import {
   Package2,
 } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
+import { useUserStore } from "@/hooks/auth-hooks"
+import { useNavigate } from "react-router-dom"
 
 export default function Navbar() {
+  const logoutUser = useUserStore(state=>state.logoutUser);
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    window.localStorage.removeItem("token");
+    logoutUser();
+    navigate('/login');
+  }
+
   return (
     <div>
       <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -126,7 +137,7 @@ export default function Navbar() {
               <DropdownMenuItem>Settings</DropdownMenuItem>
               <DropdownMenuItem>Support</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              <DropdownMenuItem onClick={logoutHandler}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
