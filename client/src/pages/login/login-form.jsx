@@ -33,11 +33,10 @@ export function LoginForm() {
         "token",
         JSON.stringify(userToken),
       );
-
-      // use auth hook to store user state
       setUser(userToken);
-      
+
       // display notification login successful
+      console.log('login succesful!');
 
       // navigate to dashboard '/'
       navigate('/');

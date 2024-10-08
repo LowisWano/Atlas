@@ -6,6 +6,14 @@ require('express-async-errors');
 
 const signup = async (req, res) => {
   const { name, email, password } = req.body
+  // probably better to use zod for validating
+  if(!name){
+    res.status(400).json({error: 'name is required'})
+  }
+
+  if(!email){
+    res.status(400).json({error: 'email is required'})
+  }
 
   if (!password){
     res.status(400).json({error: 'password is required'})
@@ -33,18 +41,23 @@ const signup = async (req, res) => {
     }
   })
 
-  res.json(user)
+  return res.json(user)
 }
 
 const login =  async (req, res) => {
   const { email, password } = req.body
 
   let user = await prisma.user.findFirst({where: {email}})
-  const passwordIsCorrect =  await bcrypt.compare(password, user.password_hash)
+  if(!user){
+    return res.status(401).json({
+      error: 'User not found!'
+    })
+  }
 
-  if(!(user && passwordIsCorrect)){
-    res.status(401).json({
-      error: 'invalid username or password'
+  const passwordIsCorrect =  await bcrypt.compare(password, user.password_hash)
+  if(!passwordIsCorrect){
+    return res.status(401).json({
+      error: 'invalid password'
     })
   }
 
@@ -53,7 +66,7 @@ const login =  async (req, res) => {
     id: user.id
   }, process.env.JWT_SECRET)
 
-  res
+  return res
     .status(200)
     .send({ token, user })
 }
