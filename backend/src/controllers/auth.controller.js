@@ -8,19 +8,19 @@ const signup = async (req, res) => {
   const { name, email, password } = req.body
   // probably better to use zod for validating
   if(!name){
-    res.status(400).json({error: 'name is required'})
+    res.status(400).json({error: 'Name is required'})
   }
 
   if(!email){
-    res.status(400).json({error: 'email is required'})
+    res.status(400).json({error: 'Email is required'})
   }
 
   if (!password){
-    res.status(400).json({error: 'password is required'})
+    res.status(400).json({error: 'Password is required'})
   }
 
   if(password.length < 3){
-    res.status(400).json({error: 'password is too short'})
+    res.status(400).json({error: 'Password is too short'})
   }
 
   // const emailSchema = z.string().email({ message: "Invalid email address" });
@@ -57,7 +57,7 @@ const login =  async (req, res) => {
   const passwordIsCorrect =  await bcrypt.compare(password, user.password_hash)
   if(!passwordIsCorrect){
     return res.status(401).json({
-      error: 'invalid password'
+      error: 'Invalid password.'
     })
   }
 

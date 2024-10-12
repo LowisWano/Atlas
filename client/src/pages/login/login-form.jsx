@@ -14,10 +14,12 @@ import { Label } from "@/components/ui/label"
 import { login } from "@/services/auth.service"
 import { useUserStore } from "@/hooks/auth-hooks"
 import { useNavigate } from "react-router-dom"
+import { useToast } from "@/hooks/use-toast"
 
 export function LoginForm() {
   const setUser = useUserStore(state=>state.setUser)
   const navigate = useNavigate()
+  const { toast } = useToast()
 
   const loginHandler = async (event) => {
     event.preventDefault();
@@ -42,6 +44,11 @@ export function LoginForm() {
       navigate('/');
     }catch(err){
       console.log(err.response.data.error)
+      toast({
+        variant: "destructive",
+        title: "Login Failed!",
+        description: err.response.data.error,
+      })
     }
     
   }

@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "./navbar"
 import { Outlet } from "react-router-dom"
+import { Toaster } from "../ui/toaster"
 
 // eslint-disable-next-line react/prop-types
 export default function Layout({ children }) {
@@ -11,6 +12,7 @@ export default function Layout({ children }) {
           <main>
           {children ? children : <Outlet />}
           </main>
+        <Toaster />
       </ThemeProvider>
     </>
   )
