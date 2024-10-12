@@ -17,9 +17,9 @@ import { useNavigate } from "react-router-dom"
 import { useToast } from "@/hooks/use-toast"
 
 export function LoginForm() {
-  const setUser = useUserStore(state=>state.setUser)
-  const navigate = useNavigate()
-  const { toast } = useToast()
+  const { setUser } = useUserStore(state=>state);
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const loginHandler = async (event) => {
     event.preventDefault();
@@ -38,8 +38,11 @@ export function LoginForm() {
       setUser(userToken);
 
       // display notification login successful
-      console.log('login succesful!');
-
+      toast({
+        title: "Login Success!",
+        description: `Welcome back, ${userToken.user.name}! You're now logged in.`,
+      })
+      
       // navigate to dashboard '/'
       navigate('/');
     }catch(err){
