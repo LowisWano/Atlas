@@ -1,13 +1,18 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useUserStore } from "@/hooks/auth-hooks";
+import { useEffect } from "react";
 
 const ProtectedRoutes = () => {
-  // disable protected route 
-	// const localStorageToken = true;
+  const { setUser, user } = useUserStore();
+  useEffect(() => {
+    const cachedUser = JSON.parse(localStorage.getItem("token"));
 
-  // comment this line if you want to temporarily disable protected routes
-	const localStorageToken = localStorage.getItem("token");
-
-	return localStorageToken ? <Outlet /> : <Navigate to="/login"  replace />;
+    if (cachedUser && !user) {
+      setUser(cachedUser);
+    }
+  }, [])
+  
+  return user ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default ProtectedRoutes;
