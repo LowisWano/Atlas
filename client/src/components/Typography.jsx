@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 export function H1(props) {
   return (
     <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
@@ -13,3 +14,13 @@ export function P(props) {
     </p>
   )
 }
+
+export function H4(props) {
+  return (
+    <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+      {props.children}
+    </h4>
+  )
+}
+
+
