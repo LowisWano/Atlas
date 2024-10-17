@@ -18,8 +18,9 @@ import {
 import { H4 } from "@/components/Typography";
 
 import Quest from "./quest"
+import { Input } from "@/components/ui/input";
 
-export default function DashboardBlock(){
+export default function QuestsBlock(){
   const quests = [
     {
       title: "Defeat the Dragon",
@@ -94,6 +95,11 @@ export default function DashboardBlock(){
       <CardHeader>
         <CardTitle className="scroll-m-20 text-3xl font-semibold tracking-tight">Quests</CardTitle>
         <CardDescription>Accomplish your quests!</CardDescription>
+        <Input
+              type="search"
+              placeholder="Search..."
+              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+            />
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
         {

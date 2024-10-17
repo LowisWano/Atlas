@@ -2,7 +2,6 @@ import { useState } from "react"
 
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -19,7 +18,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-import { Button } from "@/components/ui/button"
 import { Trash, Edit, EllipsisVerticalIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
