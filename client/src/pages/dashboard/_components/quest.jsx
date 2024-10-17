@@ -15,25 +15,20 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
 import { Button } from "@/components/ui/button"
 import { Trash, Edit, EllipsisVerticalIcon } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 
-export default function Quest({ title, description }){
+export default function Quest({ title, description, rewards }){
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   return (
     <Card className="group hover:shadow-lg transition-shadow duration-300">
-      <CardHeader className="flex flex-row justify-between pl-2">
+      <CardHeader className="flex items-center flex-row justify-between py-5 pl-2">
         <div className="flex gap-2">
           <DropdownMenu open={isDropdownOpen} onOpenChange={setDropdownOpen}>
             <DropdownMenuTrigger asChild>
@@ -57,8 +52,11 @@ export default function Quest({ title, description }){
           <div className="flex flex-col gap-1">
             <CardTitle>{title}</CardTitle>
             <CardDescription>{description}</CardDescription>
+            <div className="space-x-1 pt-1">
+              <Badge variant="secondary" className="rounded-xl">{rewards.gold} gold</Badge>
+              <Badge variant="secondary" className="rounded-xl">{rewards.exp} exp</Badge>
+            </div>
           </div>
-          
         </div>
         <Checkbox className="h-10 w-10"/>
       </CardHeader>
