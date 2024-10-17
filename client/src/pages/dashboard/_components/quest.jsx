@@ -21,7 +21,7 @@ import {
 import { Trash, Edit, EllipsisVerticalIcon } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
-export default function Quest({ title, description, rewards }){
+export default function Quest({ quest }){
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   return (
@@ -48,11 +48,11 @@ export default function Quest({ title, description, rewards }){
             </DropdownMenuContent>
           </DropdownMenu>
           <div className="flex flex-col gap-1">
-            <CardTitle>{title}</CardTitle>
-            <CardDescription>{description}</CardDescription>
+            <CardTitle>{quest.title}</CardTitle>
+            <CardDescription>{quest.description}</CardDescription>
             <div className="space-x-1 pt-1">
-              <Badge variant="secondary" className="rounded-xl">{rewards.gold} gold</Badge>
-              <Badge variant="secondary" className="rounded-xl">{rewards.exp} exp</Badge>
+              <Badge variant="secondary" className="rounded-xl">{quest.rewards.gold} gold</Badge>
+              <Badge variant="secondary" className="rounded-xl">{quest.rewards.exp} exp</Badge>
             </div>
           </div>
         </div>
