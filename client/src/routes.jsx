@@ -5,6 +5,7 @@ import Signup from './pages/signup/index.jsx'
 import ErrorPage from './components/layouts/error-page.jsx';
 import ProtectedRoutes from './components/layouts/protected-routes.jsx';
 import Calendar from './pages/calendar/index.jsx';
+import Shop from './pages/shop/index.jsx';
 
 const routes = [
   {
@@ -22,6 +23,10 @@ const routes = [
           {
             path: "calendar",
             element: <Calendar />,
+          },
+          {
+            path: "shop",
+            element: <Shop />,
           }
           // Add more protected routes here
         ],
