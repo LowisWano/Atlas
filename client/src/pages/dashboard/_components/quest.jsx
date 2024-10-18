@@ -56,7 +56,7 @@ export default function Quest({ quest }){
             </div>
           </div>
         </div>
-        <Checkbox className="h-10 w-10"/>
+        <Checkbox checked={quest.status === "active" ? false: true} className="h-10 w-10"/>
       </CardHeader>
     </Card>
   )
