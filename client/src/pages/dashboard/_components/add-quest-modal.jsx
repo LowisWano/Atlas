@@ -22,7 +22,7 @@ export default function AddQuestModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="gap-2" variant="outline">Add Quest <CopyPlus className="h-4 w-4"/></Button>
+        <Button className="gap-2">Add Quest <CopyPlus className="h-4 w-4"/></Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
