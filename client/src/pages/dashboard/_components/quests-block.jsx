@@ -10,7 +10,6 @@ import Quest from "./quest"
 import { Input } from "@/components/ui/input";
 
 import AddQuestModal from "./add-quest-modal";
-import DueDatePicker from "./due-date-picker";
 
 export default function QuestsBlock(){
   const quests = [

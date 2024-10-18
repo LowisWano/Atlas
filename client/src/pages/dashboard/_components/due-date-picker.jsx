@@ -20,12 +20,12 @@ export default function DueDatePicker() {
         <Button
           variant={"outline"}
           className={cn(
-            "w-full justify-start text-left font-normal",
+            "w-full justify-start text-left font-normal text-muted-foreground",
             !date && "text-muted-foreground"
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? format(date, "PPP") : <span>Select due date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent 
