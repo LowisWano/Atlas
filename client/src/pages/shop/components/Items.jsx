@@ -19,9 +19,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { H1, H2, H3, H4, P, Small } from "@/components/Typography";
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
-import CARD from "./CARD";
+import { H1, H2, H3, H4, P } from "@/components/Typography";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "@/components/ui/tooltip";
+import ItemCard from "./Item-Card";
 
 export default function Items({ photos }) {
   return (
@@ -30,7 +35,7 @@ export default function Items({ photos }) {
         {photos.map((photo, index) => (
           <Tooltip key={index}>
             <TooltipTrigger>
-              <CARD photos = {photo}/>
+              <ItemCard photos={photo} />
             </TooltipTrigger>
             <TooltipContent className="bg-slate-100 text-slate-950 zoom-in-0">
               <span className="text-s">Item name</span>
