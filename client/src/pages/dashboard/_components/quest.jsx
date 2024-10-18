@@ -23,6 +23,13 @@ import { Badge } from "@/components/ui/badge"
 
 export default function Quest({ quest }){
   const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const [checked, setChecked] = useState(quest.status === "completed");
+
+  const handleCheckToggle = (newValue) => {
+    setChecked(newValue);
+    const updatedStatus = newValue ? "completed" : "active";
+    console.log(`Quest "${quest.title}" is now marked as ${updatedStatus}`);
+  };
 
   return (
     <Card className="group hover:shadow-lg transition-shadow duration-300">
@@ -56,7 +63,7 @@ export default function Quest({ quest }){
             </div>
           </div>
         </div>
-        <Checkbox checked={quest.status === "active" ? false: true} className="h-10 w-10"/>
+        <Checkbox checked={checked} onCheckedChange={handleCheckToggle} className="h-10 w-10"/>
       </CardHeader>
     </Card>
   )
