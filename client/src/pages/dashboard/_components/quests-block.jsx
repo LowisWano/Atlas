@@ -9,6 +9,9 @@ import { Search } from "lucide-react";
 import Quest from "./quest"
 import { Input } from "@/components/ui/input";
 
+import AddQuestModal from "./add-quest-modal";
+import DueDatePicker from "./due-date-picker";
+
 export default function QuestsBlock(){
   const quests = [
     {
@@ -89,8 +92,13 @@ export default function QuestsBlock(){
     <div className="pt-5">
       <Card>
       <CardHeader>
-        <CardTitle className="scroll-m-20 text-3xl font-semibold tracking-tight">Quests</CardTitle>
-        <CardDescription>Accomplish your quests!</CardDescription>
+        <div className="pb-3 flex justify-between items-center">
+          <div>
+            <CardTitle className="scroll-m-20 text-4xl font-semibold tracking-tight">Quests</CardTitle>
+            <CardDescription>Accomplish your quests!</CardDescription>
+          </div>
+          <AddQuestModal/>
+        </div>
         <div className="relative mr-auto flex-1 md:grow-0">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
