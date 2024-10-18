@@ -12,7 +12,6 @@ import {
 import {
   CircleUser,
   Menu,
-  Package2,
 } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
 import { useUserStore } from "@/hooks/auth-hooks"
@@ -36,7 +35,7 @@ export default function Navbar() {
             to="/"
             className="flex items-center gap-2 text-lg font-semibold md:text-base"
           >
-            <Package2 className="h-6 w-6" />
+            <img src="/atlas-web-logo-theme.png" loading="lazy" className="object-cover h-10 w-10 max-w-none" alt="atlas logo" />
             <span className="sr-only">Atlas</span>
           </Link>
           <Link
@@ -81,7 +80,7 @@ export default function Navbar() {
                 to="/"
                 className="flex items-center gap-2 text-lg font-semibold"
               >
-                <Package2 className="h-6 w-6" />
+                <img src="/atlas-web-logo-theme.png" loading="lazy" className="object-cover h-10 w-10 max-w-none" alt="atlas logo" />
                 <span className="sr-only">Atlas</span>
               </Link>
               <Link to="/" className="hover:text-foreground">

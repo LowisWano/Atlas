@@ -14,7 +14,7 @@ const routes = [
     errorElement: <ErrorPage />,
     children: [
       {
-        element: <ProtectedRoutes />,  // Protects all nested routes
+        // element: <ProtectedRoutes />,  // Protects all nested routes
         children: [
           {
             index: true,

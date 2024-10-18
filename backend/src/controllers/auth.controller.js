@@ -50,7 +50,7 @@ const login =  async (req, res) => {
   let user = await prisma.user.findFirst({where: {email}})
   if(!user){
     return res.status(401).json({
-      error: 'User not found!'
+      error: 'User not found.'
     })
   }
 
