@@ -12,7 +12,6 @@ import {
 import {
   CircleUser,
   Menu,
-  Package2,
 } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
 import { useUserStore } from "@/hooks/auth-hooks"

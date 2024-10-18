@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-
+import { Search } from "lucide-react";
 import Quest from "./quest"
 import { Input } from "@/components/ui/input";
 
@@ -85,19 +85,20 @@ export default function QuestsBlock(){
     },
   ];
   
-  
-  
   return(
     <div className="pt-5">
       <Card>
       <CardHeader>
         <CardTitle className="scroll-m-20 text-3xl font-semibold tracking-tight">Quests</CardTitle>
         <CardDescription>Accomplish your quests!</CardDescription>
-        <Input
-              type="search"
-              placeholder="Search..."
-              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
-            />
+        <div className="relative mr-auto flex-1 md:grow-0">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="search"
+            placeholder="Search..."
+            className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+          />
+        </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
         {
