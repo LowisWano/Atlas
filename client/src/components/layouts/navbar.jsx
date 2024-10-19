@@ -15,17 +15,37 @@ import {
 } from "lucide-react"
 import { ModeToggle } from "@/components/mode-toggle"
 import { useUserStore } from "@/hooks/auth-hooks"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 
 export default function Navbar() {
-  const logoutUser = useUserStore(state=>state.logoutUser);
+  const { user, logoutUser }= useUserStore();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const logoutHandler = () => {
     window.localStorage.removeItem("token");
     logoutUser();
     navigate('/login');
   }
+
+  const navLinks = [
+    {
+      name: "Dashboard",
+      to: "/",
+    },
+    {
+      name: "Calendar",
+      to: "/calendar",
+    },
+    {
+      name: "Shop",
+      to: "/shop",
+    },
+    {
+      name: "Achievements",
+      to: "/achievements",
+    },
+  ];
 
   return (
     <div>
@@ -38,30 +58,15 @@ export default function Navbar() {
             <img src="/atlas-web-logo-theme.png" loading="lazy" className="object-cover h-10 w-10 max-w-none" alt="atlas logo" />
             <span className="sr-only">Atlas</span>
           </Link>
-          <Link
-            to="/"
-            className="text-foreground transition-colors hover:text-foreground"
-          >
-            Dashboard
-          </Link>
-          <Link
-            to="/calendar"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Calendar
-          </Link>
-          <Link
-            to="/shop"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Shop
-          </Link>
-          <Link
-            to="/achievements"
-            className="text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Achievements
-          </Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              className={`transition-colors hover:text-foreground ${location.pathname === link.to ? 'text-foreground' : 'text-muted-foreground'}`}
+            >
+              {link.name}
+            </Link>
+          ))}
         </nav>
         <Sheet>
           <SheetTrigger asChild>
@@ -83,27 +88,15 @@ export default function Navbar() {
                 <img src="/atlas-web-logo-theme.png" loading="lazy" className="object-cover h-10 w-10 max-w-none" alt="atlas logo" />
                 <span className="sr-only">Atlas</span>
               </Link>
-              <Link to="/" className="hover:text-foreground">
-                Dashboard
-              </Link>
-              <Link
-                to="/calendar"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Calendar
-              </Link>
-              <Link
-                to="/shop"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Shop
-              </Link>
-              <Link
-                to="/achievements"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                Achievements
-              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`hover:text-foreground ${location.pathname === link.to ? 'text-foreground' : 'text-muted-foreground'}`}
+                >
+                  {link.name}
+                </Link>
+              ))}
             </nav>
           </SheetContent>
         </Sheet>
