@@ -20,22 +20,24 @@ import {
 } from "@/components/ui/select";
 
 import { H1, H2, H3, H4, P } from "@/components/Typography";
+
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
   TooltipProvider,
 } from "@/components/ui/tooltip";
-import ItemCard from "./Item-Card";
+import DialogCard from "./Dialog-Card";
 
-export default function Items({ photos }) {
+export default function Items({ items }) {
   return (
+
     <TooltipProvider>
       <div className="flex flex-wrap justify-center gap-2">
-        {photos.map((photo, index) => (
+        {items.map((item, index) => (
           <Tooltip key={index}>
             <TooltipTrigger>
-              <ItemCard photos={photo} />
+              <DialogCard item={item} />
             </TooltipTrigger>
             <TooltipContent className="bg-slate-100 text-slate-950 zoom-in-0">
               <span className="text-s">Item name</span>
