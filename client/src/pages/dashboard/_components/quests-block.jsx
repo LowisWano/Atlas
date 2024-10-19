@@ -101,7 +101,6 @@ export default function QuestsBlock(){
     },
   ];
   
-  
   return(
     <div className="pt-5">
       <Tabs defaultValue="active" className="">
@@ -114,12 +113,12 @@ export default function QuestsBlock(){
             </div>
             <AddQuestModal/>
           </div>
-          <div className="flex justify-between gap-4 flex-1 md:grow-0">
-            <TabsList className="grid w-1/4 grid-cols-2 mb-3">
+          <div className="flex flex-col md:flex-row justify-between gap-4 flex-1 md:grow-0">
+            <TabsList className="grid w-full md:w-1/4 grid-cols-2 mb-3">
                 <TabsTrigger value="active">Active</TabsTrigger>
                 <TabsTrigger value="completed">Completed</TabsTrigger>
             </TabsList>
-            <div className="relative">
+            <div className="relative w-full md:w-auto">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
