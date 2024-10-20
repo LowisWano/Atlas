@@ -3,7 +3,7 @@ import { H1 } from "../../../components/Typography";
 export default function ShopHeader() {
   return (
     <div className="flex justify-center my-6">
-      <div className="content-center px-20">
+      <div className="content-center ">
         <div>
           <H1>Welcome Adventurer!</H1>
         </div>

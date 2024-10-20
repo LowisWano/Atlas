@@ -1,12 +1,7 @@
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipProvider,
-} from "@/components/ui/tooltip";
+import { H1, H2, H3, H4, P } from "@/components/Typography";
 import {
   Dialog,
   DialogContent,
@@ -17,7 +12,6 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
-
 
 export default function DialogCard({ item }) {
   return (
@@ -33,8 +27,8 @@ export default function DialogCard({ item }) {
                 className="w-full h-auto rounded-t-lg"
               />
             </CardContent>
-            <CardFooter className="flex justify-center bg-slate-900 pt-0 pb-0 rounded-b-xl transition-colors duration-300 hover:bg-slate-800">
-              <div className="flex justify-center items-center">
+            <CardFooter className="flex justify-center  pt-0 pb-0 rounded-b-xl transition-colors duration-300  bg-purple-700 hover:bg-purple-600 text-white">
+              <div className="flex justify-center items-center ">
                 <img src="/chinese-coin.png" alt="" className="h-5 mt-1 mb-1" />
                 <div className="flex align-middle justify-center mx-3">
                   <p className="self-center">{item.price}</p>
@@ -45,15 +39,16 @@ export default function DialogCard({ item }) {
         </DialogTrigger>
         {/* Dialog or Modal content here */}
         <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="flex">
-            {/* User Gold ammount goes here */}
-            <img src="/chinese-coin.png" alt="" className="h-5 mt-1 mb-1" />
-                <div className="flex align-middle justify-center mx-1">
-                  <p className="self-center">0</p>
-                </div>
-          </DialogTitle>
-        </DialogHeader>
+          <DialogHeader>
+            <DialogTitle className="flex">
+              {/* User Gold ammount goes here */}
+              <img src="/chinese-coin.png" alt="" className="h-5 mt-1 mb-1" />
+              <div className="flex align-middle justify-center mx-1">
+                <P className="self-center">0</P>
+              </div>
+            </DialogTitle>
+            <DialogDescription></DialogDescription>
+          </DialogHeader>
           <div>
             <div className="flex justify-center">
               <img
