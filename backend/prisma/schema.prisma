@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -18,4 +12,25 @@ model User {
   name     String
   email    String
   password_hash String
+  player   Player @relation(fields: [playerId], references: [id])
+  playerId Int @unique
+}
+
+model Player {
+  id              Int @id @default(autoincrement())
+  user            User?
+  level           Int
+  experience      Int
+  gold            Int
+  adventurerRank  Rank
+}
+
+enum Rank {
+  COPPER
+  IRON
+  SILVER
+  GOLD
+  PLATINUM
+  MYTHRIL
+  ADAMANTITE
 }
