@@ -28,7 +28,7 @@ export default function Navbar() {
     navigate('/login');
   }
 
-  const navLinks = [
+  const navLinks = user ? [
     {
       name: "Dashboard",
       to: "/",
@@ -45,7 +45,7 @@ export default function Navbar() {
       name: "Achievements",
       to: "/achievements",
     },
-  ];
+  ]: [];
 
   return (
     <div>

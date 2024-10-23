@@ -19,7 +19,7 @@ CREATE TYPE "QuestType" AS ENUM ('NORMAL_QUEST', 'DAILY_QUEST', 'MAIN_QUEST');
 
 -- AlterTable
 ALTER TABLE "User" DROP COLUMN "password_hash",
-ADD COLUMN     "passwordHash" TEXT NOT NULL;
+ADD COLUMN "passwordHash" TEXT NOT NULL;
 
 -- CreateTable
 CREATE TABLE "Quest" (
