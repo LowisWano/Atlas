@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useUserStore } from "@/hooks/auth-hooks";
 import { useEffect, useState } from "react";
+import { LoaderCircle } from 'lucide-react';
 
 const ProtectedRoutes = () => {
   const { setUser, user } = useUserStore();
@@ -17,9 +18,12 @@ const ProtectedRoutes = () => {
     setLoading(false);
   }, [setUser]);
 
-  // If still loading, don't render anything
   if (loading) {
-    return <div>Loading...</div>; // You can replace this with a spinner or some other placeholder
+    return (
+      <div className="flex justify-center items-center p-20">
+        <LoaderCircle />
+      </div> 
+    );
   }
 
   // Once loading is complete, check user and render protected route or navigate to login
