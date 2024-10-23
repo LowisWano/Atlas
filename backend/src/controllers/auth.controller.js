@@ -38,7 +38,7 @@ const signup = async (req, res) => {
         data: {
           name,
           email,
-          password_hash: passwordHash,
+          passwordHash: passwordHash,
           player: {
             create: {
               level: 1,
@@ -73,7 +73,7 @@ const login =  async (req, res) => {
     })
   }
 
-  const passwordIsCorrect =  await bcrypt.compare(password, user.password_hash)
+  const passwordIsCorrect =  await bcrypt.compare(password, user.passwordHash)
   if(!passwordIsCorrect){
     return res.status(401).json({
       error: 'Invalid password.'

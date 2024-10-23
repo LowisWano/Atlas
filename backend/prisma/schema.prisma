@@ -8,21 +8,73 @@ datasource db {
 }
 
 model User {
-  id       Int @id @default(autoincrement())
-  name     String
-  email    String
-  password_hash String
-  player   Player @relation(fields: [playerId], references: [id])
-  playerId Int @unique
+  id           Int    @id @default(autoincrement())
+  name         String
+  email        String
+  passwordHash String
+  player       Player @relation(fields: [playerId], references: [id])
+  playerId     Int    @unique
 }
 
 model Player {
-  id              Int @id @default(autoincrement())
-  user            User?
-  level           Int
-  experience      Int
-  gold            Int
-  adventurerRank  Rank
+  id             Int     @id @default(autoincrement())
+  user           User?
+  level          Int
+  experience     Int
+  gold           Int
+  adventurerRank Rank
+  quests         Quest[]
+}
+
+model Quest {
+  id          Int             @id @default(autoincrement())
+  title       String
+  description String
+  quest_type  QuestType
+  difficutly  DifficultyType
+  status      StatusType
+  createdAt   DateTime        @default(now())
+  dueDate     DateTime
+  rewardGold  Int
+  rewardExp   Int
+  priority    Int
+  playerId    Int
+  player      Player          @relation(fields: [playerId], references: [id])
+  reccurance  RecurringQuest?
+}
+
+model RecurringQuest {
+  id        Int           @id @default(autoincrement())
+  questId   Int           @unique
+  quest     Quest         @relation(fields: [questId], references: [id])
+  frequency FrequencyType
+  runAt     DateTime
+}
+
+enum FrequencyType {
+  DAILY
+  WEEKLY
+  MONTHLY
+}
+
+enum StatusType {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+}
+
+enum DifficultyType {
+  EASY
+  MEDIUM
+  HARD
+  INSANE
+}
+
+enum QuestType {
+  NORMAL_QUEST
+  DAILY_QUEST
+  MAIN_QUEST
 }
 
 enum Rank {
