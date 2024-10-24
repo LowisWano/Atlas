@@ -102,7 +102,7 @@ export default function QuestsBlock(){
   ];
   
   return(
-    <div className="pt-5">
+    <div className="pt-5 w-full">
       <Tabs defaultValue="active" className="">
         <Card>
           <CardHeader className="pb-1">
