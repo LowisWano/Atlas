@@ -30,7 +30,7 @@ model Quest {
   id          Int             @id @default(autoincrement())
   title       String
   description String
-  quest_type  QuestType
+  questType   QuestType
   difficutly  DifficultyType
   status      StatusType
   createdAt   DateTime        @default(now())
