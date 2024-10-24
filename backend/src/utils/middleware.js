@@ -1,6 +1,14 @@
 const jwt = require('jsonwebtoken')
 const prisma = require('../lib/prisma')
 
+const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
+}
+
 const tokenExtractor = (request, response, next) => {
   const authorization = request.get('authorization')
   if (authorization && authorization.startsWith('Bearer ')) {
@@ -10,16 +18,9 @@ const tokenExtractor = (request, response, next) => {
 }
 
 const userExtractor = async (request, response, next) => {
-  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  const decodedToken = jwt.verify(request.token, process.env.JWT_SECRET)
 
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: 'token invalid' })
-  }
-  const user = await prisma.user.findFirst({ id: decodedToken.id })
-  if (!user) {
-    return response.status(401).json({ error: 'user not found' })
-  }
-  request.user = user
+  request.user = decodedToken
   next()
 }
 
@@ -40,5 +41,7 @@ const errorHandler = (error, request, response, next) => {
 module.exports = {
   tokenExtractor,
   unknownEndpoint,
-  errorHandler
+  errorHandler,
+  userExtractor,
+  requestLogger
 }

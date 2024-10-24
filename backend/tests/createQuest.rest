@@ -1,0 +1,11 @@
+POST http://localhost:3001/api/quests/ 
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoid2lzd2lzcyIsImlkIjoyLCJpYXQiOjE3Mjk3ODA2NjV9.dU8WQvhBeivNRUcKZ6DxOuNV3vILMJEKUQVM1WvPc_w
+
+{
+  "title": "Retrieve the Ancient Artifact",
+  "description": "Find and bring back the ancient artifact from the old ruins.",
+  "questType": "NORMAL_QUEST",
+  "dueDate": "2023-12-31T23:59:59.999Z",
+  "difficulty": "MEDIUM"
+}

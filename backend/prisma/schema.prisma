@@ -31,13 +31,13 @@ model Quest {
   title       String
   description String
   questType   QuestType
-  difficutly  DifficultyType
-  status      StatusType
+  difficulty  DifficultyType
+  status      StatusType      @default(PENDING)
   createdAt   DateTime        @default(now())
   dueDate     DateTime
   rewardGold  Int
   rewardExp   Int
-  priority    Int
+  priority    Int             @default(100)
   playerId    Int
   player      Player          @relation(fields: [playerId], references: [id])
   reccurance  RecurringQuest?
