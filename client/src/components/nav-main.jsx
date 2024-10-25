@@ -31,9 +31,12 @@ export function NavMain({
             asChild
             defaultOpen={item.isActive}
             className="group/collapsible">
-            <SidebarMenuItem>
+            <SidebarMenuItem className="mb-3">
               <SidebarMenuButton tooltip={item.title}>
-                {item.icon && <item.icon />}
+                <span>
+                  {item.icon && <item.icon />}
+                </span>
+                  {/* {item.icon && <item.icon />} */}
                 <span>{item.title}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
