@@ -1,0 +1,2 @@
+GET http://localhost:3001/api/player/2/quests
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoid2lzd2lzcyIsImlkIjoyLCJpYXQiOjE3Mjk4NDUyNjF9.DU3gDRlCJppzZnriobKxCAAoADzP9KrNq3fySL749Zw
