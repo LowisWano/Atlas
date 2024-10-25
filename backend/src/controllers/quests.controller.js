@@ -2,12 +2,16 @@ const prisma = require('../lib/prisma')
 require('express-async-errors');
 const { calculateRewards } = require('../utils/utils')
 
-const getAllQuests = async (req, res) => {
-  const quests = await prisma.quest.findMany({
+const getPlayerQuests = async (req, res) => {
+  const id = Number(req.params.id);
+  const quests = await prisma.player.findUnique({
     include:{
-      player: true
-    }
-  });
+      quests: true
+    },
+    where: {
+      id: id,
+    },
+  })
 
   res.json(quests);
 }
@@ -41,6 +45,6 @@ const createQuest = async (req, res) => {
 }
 
 module.exports = {
-  getAllQuests,
+  getPlayerQuests,
   createQuest
 }

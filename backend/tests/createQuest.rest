@@ -1,9 +1,9 @@
-POST http://localhost:3001/api/quests/ 
+POST http://localhost:3001/api/player/2/quests 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoid2lzd2lzcyIsImlkIjoyLCJpYXQiOjE3Mjk3ODA2NjV9.dU8WQvhBeivNRUcKZ6DxOuNV3vILMJEKUQVM1WvPc_w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoid2lzd2lzcyIsImlkIjoyLCJpYXQiOjE3Mjk4NDUyNjF9.DU3gDRlCJppzZnriobKxCAAoADzP9KrNq3fySL749Zw
 
 {
-  "title": "Retrieve the Ancient Artifact",
+  "title": "Study DSA",
   "description": "Find and bring back the ancient artifact from the old ruins.",
   "questType": "NORMAL_QUEST",
   "dueDate": "2023-12-31T23:59:59.999Z",

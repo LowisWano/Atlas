@@ -7,6 +7,6 @@ const rootRouter = express.Router();
 
 rootRouter.use('/auth', authRouter)
 rootRouter.use('/hello', helloRouter)
-rootRouter.use('/quests', questsRouter)
+rootRouter.use('/player', questsRouter)
 
 module.exports = rootRouter
