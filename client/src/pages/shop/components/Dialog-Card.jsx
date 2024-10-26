@@ -27,8 +27,8 @@ export default function DialogCard({ item }) {
                 className="w-full h-auto rounded-t-lg"
               />
             </CardContent>
-            <CardFooter className="flex justify-center  pt-0 pb-0 rounded-b-xl transition-colors duration-300  bg-purple-700 hover:bg-purple-600 text-white">
-              <div className="flex justify-center items-center ">
+            <CardFooter className="flex justify-center pt-0 pb-0 rounded-b-xl transition-colors duration-300 bg-purple-700 hover:bg-purple-600 text-white">
+              <div className="flex justify-center items-center">
                 <img src="/chinese-coin.png" alt="" className="h-5 mt-1 mb-1" />
                 <div className="flex align-middle justify-center mx-3">
                   <p className="self-center">{item.price}</p>
@@ -41,7 +41,7 @@ export default function DialogCard({ item }) {
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="flex">
-              {/* User Gold ammount goes here */}
+              {/* User Gold amount goes here */}
               <img src="/chinese-coin.png" alt="" className="h-5 mt-1 mb-1" />
               <div className="flex align-middle justify-center mx-1">
                 <P className="self-center">0</P>
@@ -54,7 +54,7 @@ export default function DialogCard({ item }) {
               <img
                 src={item.item_img}
                 alt={`Photo ${item.index}`}
-                className="w-6/12 h-auto rounded-lg"
+                className="w-full md:w-6/12 h-auto rounded-lg"
               />
             </div>
             <div className="flex justify-center mt-4">

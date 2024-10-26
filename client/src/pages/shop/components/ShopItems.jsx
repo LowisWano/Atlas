@@ -22,24 +22,23 @@ export default function ShopItems() {
 
   return (
     <>
-      <div className="flex gap-5 mt-20 mb-3 justify-center content-center">
-        <div className="flex justify-center content-center gap-5">
-          <div>
-            <Input
-              placeholder="Search"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            ></Input>
-          </div>
-          <div>
-            <ItemRarity
-              categories={categories}
-              setSelectedCategory={setSelectedCategory}
-            />
-          </div>
+      <div className="flex flex-col md:flex-row justify-between gap-5 mt-20 mb-5 mx-4 md:mx-32">
+        <div>
+          <Input
+            className="w-full md:w-64" // Fixed width for the input
+            placeholder="Search"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+        <div>
+          <ItemRarity
+            categories={categories}
+            setSelectedCategory={setSelectedCategory}
+          />
         </div>
       </div>
-      <div className="px-10">
+      <div className="px-4 md:px-10">
         <Items items={filteredItems} />
       </div>
     </>

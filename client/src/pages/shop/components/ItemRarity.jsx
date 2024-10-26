@@ -11,8 +11,8 @@ import {
 export default function ItemRarity({ categories, setSelectedCategory }) {
   return (
     <Select>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Categry" />
+      <SelectTrigger className="w-full md:w-[180px]">
+        <SelectValue placeholder="Category" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

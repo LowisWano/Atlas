@@ -4,8 +4,8 @@ import ShopItems from "./components/ShopItems";
 export default function Shop() {
   return (
     <>
-    <ShopHeader/>
-    <ShopItems/>
+      <ShopHeader />
+      <ShopItems />
     </>
   );
 }
