@@ -1,11 +1,11 @@
 POST http://localhost:3001/api/player/2/quests 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoid2lzd2lzcyIsImlkIjoyLCJpYXQiOjE3Mjk4NDUyNjF9.DU3gDRlCJppzZnriobKxCAAoADzP9KrNq3fySL749Zw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoid2lzd2lzcyIsImlkIjoxLCJpYXQiOjE3MzAwODU2ODV9.cjrfxZFR6g-hEuVeg33-0TVbfdviEBztaJnPCfDoL0Q
 
 {
   "title": "Study DSA",
-  "description": "Find and bring back the ancient artifact from the old ruins.",
+  "description": "Focus on Priority Ordered Trees",
   "questType": "NORMAL_QUEST",
-  "dueDate": "2023-12-31T23:59:59.999Z",
+  "dueDate": "2024-10-28T23:59:59.999Z",
   "difficulty": "MEDIUM"
 }
