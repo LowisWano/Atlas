@@ -16,9 +16,10 @@ export default function SelectDifficulty() {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="apple">Easy</SelectItem>
-          <SelectItem value="banana">Medium</SelectItem>
-          <SelectItem value="blueberry">Hard</SelectItem>
+          <SelectItem value="EASY">Easy</SelectItem>
+          <SelectItem value="MEDIUM">Medium</SelectItem>
+          <SelectItem value="HARD">Hard</SelectItem>
+          <SelectItem value="INSANE">Insane</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
