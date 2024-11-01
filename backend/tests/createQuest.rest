@@ -1,10 +1,10 @@
-POST http://localhost:3001/api/player/2/quests 
+POST http://localhost:3001/api/player/1/quests 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoid2lzd2lzcyIsImlkIjoxLCJpYXQiOjE3MzAwODU2ODV9.cjrfxZFR6g-hEuVeg33-0TVbfdviEBztaJnPCfDoL0Q
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoid2lzd2lzcyIsImlkIjoxLCJpYXQiOjE3MzA0MzQyNzR9.-HrresauZ5R-JLvO5YX0uZIPvI4cfk592GpnxUcyeQ0
 
 {
-  "title": "Study DSA",
-  "description": "Focus on Priority Ordered Trees",
+  "title": "Study Discrete Math",
+  "description": "Focus on graph theory and combinatorics",
   "questType": "NORMAL_QUEST",
   "dueDate": "2024-10-28T23:59:59.999Z",
   "difficulty": "MEDIUM"
