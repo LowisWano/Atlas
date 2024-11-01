@@ -25,7 +25,7 @@ export default function DueDatePicker() {
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "MM/dd/yyyy") : <span>Select due date</span>}
+          {date ? format(date, "MM/dd/yyyy") : <span>Select date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent 

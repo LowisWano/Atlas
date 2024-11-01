@@ -11,7 +11,7 @@ export default function SelectQuestType() {
   return (
     <Select>
       <SelectTrigger className="w-full text-muted-foreground">
-        <SelectValue placeholder="Select Quest Type" />
+        <SelectValue placeholder="Select quest type" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
