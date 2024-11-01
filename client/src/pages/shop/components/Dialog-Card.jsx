@@ -20,7 +20,7 @@ export default function DialogCard({ item }) {
         <DialogTrigger asChild>
           {/* Card content is here */}
           <Card className="w-36 m-2 transition-transform duration-300 hover:-translate-y-2 cursor-pointer">
-            <CardContent className="p-0">
+            <CardContent className="p-5">
               <img
                 src={item.item_img}
                 alt={`Photo ${item.index}`}
