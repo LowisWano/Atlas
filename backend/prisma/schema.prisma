@@ -25,6 +25,7 @@ model Player {
   adventurerRank     Rank
   quests             Quest[]
   PlayerAchievements PlayerAchievement[]
+  items              playerPurchases[]
 }
 
 model Quest {
@@ -70,6 +71,33 @@ model PlayerAchievement {
   achievementId Int
   achievement   Achievement @relation(fields: [achievementId], references: [id])
   createdAt     DateTime    @default(now())
+}
+
+model Item {
+  id              Int               @id @default(autoincrement())
+  itemName        String
+  itemImg         String
+  description     String
+  price           Int
+  rarity          RarityType
+  playerPurchases playerPurchases[]
+}
+
+model playerPurchases {
+  id          Int      @id @default(autoincrement())
+  playerId    Int
+  player      Player   @relation(fields: [playerId], references: [id])
+  itemId      Int
+  item        Item     @relation(fields: [itemId], references: [id])
+  purchasedAt DateTime @default(now())
+}
+
+enum RarityType {
+  COMMON
+  UNCOMMON
+  RARE
+  EPIC
+  LEGENDARY
 }
 
 enum FrequencyType {
