@@ -1,28 +1,31 @@
-const prisma = require('../lib/prisma')
+const prisma = require("../lib/prisma");
 
 const fetchPlayerQuests = async (id) => {
   const quests = await prisma.player.findUnique({
-    include:{
-      quests: true
+    include: {
+      quests: {
+        where: {
+          status: "ACTIVE",
+        },
+      },
     },
     where: {
       id: id,
     },
-  })
-  return quests
-}
+  });
+  return quests;
+};
 
-const savePlayerQuest = async (
-  { 
-    playerId,
-    title, 
-    description, 
-    questType, 
-    dueDate, 
-    difficulty,
-    gold,
-    exp
-  }) => {
+const savePlayerQuest = async ({
+  playerId,
+  title,
+  description,
+  questType,
+  dueDate,
+  difficulty,
+  gold,
+  exp,
+}) => {
   const quest = await prisma.quest.create({
     data: {
       title,
@@ -34,18 +37,18 @@ const savePlayerQuest = async (
       rewardExp: exp,
       player: {
         connect: {
-          id: playerId
-        }
-      }
+          id: playerId,
+        },
+      },
     },
     include: {
-      player: true
-    }
+      player: true,
+    },
   });
-  return quest
-}
+  return quest;
+};
 
 module.exports = {
   fetchPlayerQuests,
-  savePlayerQuest
-}
+  savePlayerQuest,
+};

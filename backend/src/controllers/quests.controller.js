@@ -1,12 +1,15 @@
-const { fetchPlayerQuests, savePlayerQuest } = require('../services/quests.service');
-require('express-async-errors');
-const { calculateRewards } = require('../utils/utils')
+const {
+  fetchPlayerQuests,
+  savePlayerQuest,
+} = require("../services/quests.service");
+require("express-async-errors");
+const { calculateRewards } = require("../utils/utils");
 
-const getPlayerQuests = async (req, res) => {
+const getActiveQuests = async (req, res) => {
   const id = Number(req.params.id);
   const quests = await fetchPlayerQuests(id);
   res.json(quests);
-}
+};
 
 const createQuest = async (req, res) => {
   const { title, description, questType, dueDate, difficulty } = req.body;
@@ -19,12 +22,12 @@ const createQuest = async (req, res) => {
     dueDate,
     difficulty,
     gold,
-    exp
-  })
+    exp,
+  });
   res.json(quest);
-}
+};
 
 module.exports = {
-  getPlayerQuests,
-  createQuest
-}
+  getActiveQuests,
+  createQuest,
+};
