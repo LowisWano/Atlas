@@ -5,7 +5,7 @@ export const items = [
     item_img: "src/assets/items/adventure_compass.gif",
     description:
       "Navigate through life's twists and turns with confidence, and you'll never feel lost or un-compass-ionate about your choices.",
-    rarity: "common",
+    rarity: "UNCOMMON",
     price: 125,
   },
   {
@@ -14,7 +14,7 @@ export const items = [
     item_img: "src/assets/items/ban_hammer.png",
     description:
       "Mods swing this hard and fast, which also happens to be the title of my next se-",
-    rarity: "common",
+    rarity: "RARE",
     price: 275,
   },
   {
@@ -23,7 +23,7 @@ export const items = [
     item_img: "src/assets/items/big_brain.gif",
     description:
       "A brain so massive that it simply CANNOT be a discord user. Therefore, we sellin this shit for profit.",
-    rarity: "common",
+    rarity: "LEGENDARY",
     price: 95,
   },
   {
@@ -31,7 +31,7 @@ export const items = [
     item_name: "Binary",
     item_img: "src/assets/items/binary.gif",
     description: "I dare you to translate this binary into text.",
-    rarity: "common",
+    rarity: "EPIC",
     price: 410,
   },
   {
@@ -40,7 +40,7 @@ export const items = [
     item_img: "src/assets/items/chads_weights.png",
     description:
       "He doesn't need these anymore, he's got a permanant gains buff.",
-    rarity: "common",
+    rarity: "COMMON",
     price: 350,
   },
   {
@@ -48,7 +48,7 @@ export const items = [
     item_name: "Chill Pill",
     item_img: "src/assets/items/chill_pill.png",
     description: "Chill Phil, take a big ol chill pill.",
-    rarity: "common",
+    rarity: "UNCOMMON",
     price: 150,
   },
   {
@@ -57,7 +57,7 @@ export const items = [
     item_img: "src/assets/items/crypto_scam_coin.gif",
     description:
       "I will not comment on the state of crypto. I will not comment on the state of crypto. I will not comment on the state of crypto.",
-    rarity: "common",
+    rarity: "RARE",
     price: 85,
   },
   {
@@ -66,7 +66,7 @@ export const items = [
     item_img: "src/assets/items/dank_memers_hardDrive.gif",
     description:
       "The developers dropped this in the water. Who wants free currency?The developers dropped this in the water. Who wants free currency?",
-    rarity: "common",
+    rarity: "LEGENDARY",
     price: 220,
   },
   {
@@ -75,7 +75,7 @@ export const items = [
     item_img: "src/assets/items/empowered_fart_bottle.gif",
     description:
       "This is like a fart bottle but like, without the downsides. Crazy item design right?",
-    rarity: "common",
+    rarity: "COMMON",
     price: 300,
   },
   {
@@ -84,7 +84,7 @@ export const items = [
     item_img: "src/assets/items/enchanted_badosz_card.gif",
     description:
       "It's a Badosz card, but enchanted. If only the enchantment DID something!",
-    rarity: "common",
+    rarity: "EPIC",
     price: 440,
   },
   {
@@ -93,7 +93,7 @@ export const items = [
     item_img: "src/assets/items/energy_drink.png",
     description:
       "Guess the brand that inspired this art. Nope, wrong. It was bud lite.",
-    rarity: "common",
+    rarity: "RARE",
     price: 135,
   },
   {
@@ -101,7 +101,7 @@ export const items = [
     item_name: "Engagement Ring",
     item_img: "src/assets/items/engagement_ring.png",
     description: "Marriage in a MEME game? Disgusting.",
-    rarity: "common",
+    rarity: "LEGENDARY",
     price: 500,
   },
   {
@@ -110,7 +110,7 @@ export const items = [
     item_img: "src/assets/items/fake_id.png",
     description:
       "McLovin would be proud of the quality of this expensive and very real ID.",
-    rarity: "common",
+    rarity: "COMMON",
     price: 175,
   },
   {
@@ -118,7 +118,7 @@ export const items = [
     item_name: "Fidget Spinner",
     item_img: "src/assets/items/fidget_spinner.gif",
     description: "Once a stimulation tool, now a bad meme.",
-    rarity: "common",
+    rarity: "UNCOMMON",
     price: 200,
   },
   {
@@ -126,7 +126,7 @@ export const items = [
     item_name: "Headphones",
     item_img: "src/assets/items/headphones.png",
     description: "Open back is the best quality you'll find in headphones.",
-    rarity: "common",
+    rarity: "RARE",
     price: 390,
   },
   {
@@ -134,7 +134,7 @@ export const items = [
     item_name: "Literally Karen",
     item_img: "src/assets/items/literally_karen.png",
     description: "She wants to speak to your manager.",
-    rarity: "common",
+    rarity: "EPIC",
     price: 145,
   },
   {
@@ -142,7 +142,7 @@ export const items = [
     item_name: "Sugar Skull",
     item_img: "src/assets/items/sugar_skull.png",
     description: "Celebrate Día de los Muertos by using this, yum!",
-    rarity: "common",
+    rarity: "LEGENDARY",
     price: 270,
   },
   {
@@ -150,7 +150,7 @@ export const items = [
     item_name: "Beaker of sus fluid",
     item_img: "src/assets/items/sus_fluid.png",
     description: "Please do not drink this, I think it came from Craig's room.",
-    rarity: "common",
+    rarity: "COMMON",
     price: 105,
   },
   {
@@ -159,7 +159,7 @@ export const items = [
     item_img: "src/assets/items/winning_lottery_ticket.png",
     description:
       "Is it even that lucky?? You probably paid 5b to win, p2w p2w p2w- oh that's a lottery.",
-    rarity: "common",
+    rarity: "UNCOMMON",
     price: 465,
   },
   {
@@ -168,7 +168,7 @@ export const items = [
     item_img: "src/assets/items/zombie_hand.gif",
     description:
       "The hand of the undead. Do NOT even think about doing what you're thinking about doing.",
-    rarity: "common",
+    rarity: "RARE",
     price: 180,
   },
 ];

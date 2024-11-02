@@ -10,7 +10,7 @@ import {
 
 export default function ItemRarity({ categories, setSelectedCategory }) {
   return (
-    <Select>
+    <Select onValueChange={setSelectedCategory}>
       <SelectTrigger className="w-full md:w-[180px]">
         <SelectValue placeholder="Category" />
       </SelectTrigger>
@@ -20,11 +20,7 @@ export default function ItemRarity({ categories, setSelectedCategory }) {
             Rarity
           </SelectItem>
           {categories.map((category) => (
-            <SelectItem
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              value={category}
-            >
+            <SelectItem key={category} value={category}>
               {category}
             </SelectItem>
           ))}

@@ -9,7 +9,7 @@ import { items } from "../data";
 export default function ShopItems() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("ALL");
-  const categories = ["ALL", "common", "uncommon", "rare", "legendary"];
+  const categories = ["ALL", "COMMON", "UNCOMMON", "RARE","EPIC","LEGENDARY"];
 
   const filteredItems = items.filter((item) => {
     const matchesSearchQuery = item.item_name
