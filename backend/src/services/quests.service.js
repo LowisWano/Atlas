@@ -1,6 +1,6 @@
 const prisma = require("../lib/prisma");
 
-const fetchPlayerQuests = async (id) => {
+const fetchActiveQuests = async (playerId) => {
   const quests = await prisma.player.findUnique({
     include: {
       quests: {
@@ -10,10 +10,27 @@ const fetchPlayerQuests = async (id) => {
       },
     },
     where: {
-      id: id,
+      id: playerId,
     },
   });
   return quests;
+};
+
+const fetchScheduledQuests = async (playerId) => {
+  const scheduledQuests = await prisma.recurringQuest.findMany({
+    where: {
+      quest: {
+        playerId: playerId,
+      },
+      runAt: {
+        equals: new Date(),
+      },
+    },
+    include: {
+      quest: true,
+    },
+  });
+  return scheduledQuests;
 };
 
 const savePlayerQuest = async ({
@@ -48,7 +65,29 @@ const savePlayerQuest = async ({
   return quest;
 };
 
+const saveRecurringQuest = async ({
+  questId, 
+  frequency, 
+  runAt,
+}) => {
+  const recurringQuest = await prisma.recurringQuest.create({
+    data: {
+      quest: {
+        connect: {
+          id: questId,
+        },
+      },
+      frequency,
+      runAt
+    }
+  })
+
+  return recurringQuest;
+}
+
 module.exports = {
-  fetchPlayerQuests,
+  fetchActiveQuests,
+  fetchScheduledQuests,
   savePlayerQuest,
+  saveRecurringQuest
 };
