@@ -1,0 +1,13 @@
+POST http://localhost:3001/api/player/1/quests 
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoid2lzd2lzcyIsImlkIjoxLCJpYXQiOjE3MzA0MzQyNzR9.-HrresauZ5R-JLvO5YX0uZIPvI4cfk592GpnxUcyeQ0
+
+{
+  "title": "New Daily QUest that runs on nov 6 fix",
+  "description": "Must observe object oriented programming principles",
+  "questType": "DAILY_QUEST",
+  "dueDate": "2024-11-06T23:59:59.999Z",
+  "difficulty": "MEDIUM",
+  "frequency": "DAILY",
+  "runAt": "2024-11-06T12:34:56.789Z"
+}

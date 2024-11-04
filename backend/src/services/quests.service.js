@@ -1,36 +1,52 @@
 const prisma = require("../lib/prisma");
 
 const fetchActiveQuests = async (playerId) => {
-  const quests = await prisma.player.findUnique({
+  const activeQuests = await prisma.player.findUnique({
     include: {
       quests: {
         where: {
           status: "ACTIVE",
+          questType: "NORMAL_QUEST"
         },
+        include: {
+          reccurance: true
+        }
       },
     },
     where: {
       id: playerId,
     },
   });
-  return quests;
+  return activeQuests.quests;
 };
 
 const fetchScheduledQuests = async (playerId) => {
-  const scheduledQuests = await prisma.recurringQuest.findMany({
-    where: {
-      quest: {
-        playerId: playerId,
-      },
-      runAt: {
-        equals: new Date(),
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const endOfToday = new Date(today.getTime() + 24 * 60 * 60 * 1000);
+  const scheduledQuests = await prisma.player.findUnique({
+    include: {
+      quests: {
+        where: {
+          status: "ACTIVE",
+          questType: "DAILY_QUEST",
+          reccurance: {
+            runAt: {
+              gte: today,
+              lt: endOfToday,
+            },
+          },
+        },
+        include: {
+          reccurance: true
+        }
       },
     },
-    include: {
-      quest: true,
+    where: {
+      id: playerId,
     },
   });
-  return scheduledQuests;
+  return scheduledQuests.quests;
 };
 
 const savePlayerQuest = async ({

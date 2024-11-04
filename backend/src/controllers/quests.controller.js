@@ -9,10 +9,10 @@ const { calculateRewards } = require("../utils/utils");
 
 const getActiveQuestsController = async (req, res) => {
   const playerId = Number(req.params.id);
-  const playerInfo = await fetchActiveQuests(playerId);
+  const normalQuests = await fetchActiveQuests(playerId);
   const scheduledQuests = await fetchScheduledQuests(playerId);
-  playerInfo.quests.concat(scheduledQuests);
-  res.json(playerInfo.quests);
+  const activeQuests = normalQuests.concat(scheduledQuests)
+  res.json(activeQuests);
 };
 
 const createQuestController = async (req, res) => {
@@ -29,7 +29,9 @@ const createQuestController = async (req, res) => {
     exp,
   });
 
-  if(questType !== 'DAILY_QUEST'){
+  if(questType === 'DAILY_QUEST'){
+    const { frequency, runAt } = req.body
+    // add validation if values exist
     const recurringQuest = await saveRecurringQuest({
       questId: quest.id, 
       frequency, 
