@@ -17,27 +17,29 @@ model User {
 }
 
 model Player {
-  id             Int     @id @default(autoincrement())
-  user           User?
-  level          Int
-  experience     Int
-  gold           Int
-  adventurerRank Rank
-  quests         Quest[]
+  id                 Int                 @id @default(autoincrement())
+  user               User?
+  level              Int
+  experience         Int
+  gold               Int
+  adventurerRank     Rank
+  quests             Quest[]
+  PlayerAchievements PlayerAchievement[]
+  items              playerPurchases[]
 }
 
 model Quest {
   id          Int             @id @default(autoincrement())
   title       String
   description String
-  quest_type  QuestType
-  difficutly  DifficultyType
-  status      StatusType
+  questType   QuestType
+  difficulty  DifficultyType
+  status      StatusType      @default(ACTIVE)
   createdAt   DateTime        @default(now())
   dueDate     DateTime
   rewardGold  Int
   rewardExp   Int
-  priority    Int
+  priority    Int             @default(100)
   playerId    Int
   player      Player          @relation(fields: [playerId], references: [id])
   reccurance  RecurringQuest?
@@ -47,8 +49,55 @@ model RecurringQuest {
   id        Int           @id @default(autoincrement())
   questId   Int           @unique
   quest     Quest         @relation(fields: [questId], references: [id])
+  isActive  Boolean       @default(true)
   frequency FrequencyType
   runAt     DateTime
+}
+
+model Achievement {
+  id                 Int                 @id @default(autoincrement())
+  title              String
+  description        String
+  rewardGold         Int
+  rewardExp          Int
+  iconImg            String
+  PlayerAchievements PlayerAchievement[]
+}
+
+model PlayerAchievement {
+  id            Int         @id @default(autoincrement())
+  playerId      Int
+  player        Player      @relation(fields: [playerId], references: [id])
+  achievementId Int
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  createdAt     DateTime    @default(now())
+}
+
+model Item {
+  id              Int               @id @default(autoincrement())
+  itemName        String
+  itemImg         String
+  description     String
+  price           Int
+  rarity          RarityType
+  playerPurchases playerPurchases[]
+}
+
+model playerPurchases {
+  id          Int      @id @default(autoincrement())
+  playerId    Int
+  player      Player   @relation(fields: [playerId], references: [id])
+  itemId      Int
+  item        Item     @relation(fields: [itemId], references: [id])
+  purchasedAt DateTime @default(now())
+}
+
+enum RarityType {
+  COMMON
+  UNCOMMON
+  RARE
+  EPIC
+  LEGENDARY
 }
 
 enum FrequencyType {
@@ -58,10 +107,8 @@ enum FrequencyType {
 }
 
 enum StatusType {
-  PENDING
-  IN_PROGRESS
+  ACTIVE
   COMPLETED
-  FAILED
 }
 
 enum DifficultyType {

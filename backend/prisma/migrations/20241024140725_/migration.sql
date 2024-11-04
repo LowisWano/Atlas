@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Quest" ALTER COLUMN "status" SET DEFAULT 'PENDING',
+ALTER COLUMN "priority" SET DEFAULT 100;
