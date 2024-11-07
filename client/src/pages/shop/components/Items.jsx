@@ -11,7 +11,7 @@ import DialogCard from "./Dialog-Card";
 export default function Items({ items }) {
   return (
     <TooltipProvider>
-      <div className="flex flex-wrap justify-center gap-2 border-2 border-transparent">
+      <div className="flex flex-wrap justify-center gap-2 ">
         {items.map((item, index) => (
           <Tooltip key={index}>
             <TooltipTrigger>

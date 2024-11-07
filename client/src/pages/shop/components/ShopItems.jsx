@@ -4,12 +4,15 @@ import Items from "./Items";
 import { H1, H2, H3, H4, P, TypographyLead } from "@/components/Typography";
 import { Input } from "@/components/ui/input";
 import ItemRarity from "./ItemRarity";
+import ItemOwnership from "./itemOwnership";
 import { items } from "../data";
 
 export default function ShopItems() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("ALL");
-  const categories = ["ALL", "COMMON", "UNCOMMON", "RARE","EPIC","LEGENDARY"];
+  const [selectedOwnership, setSelectedOwnership] = useState("UNCLAIMED");
+  const ownership = ["CLAIMED", "UNCLAIMED"];
+  const categories = ["ALL", "COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY"];
 
   const filteredItems = items.filter((item) => {
     const matchesSearchQuery = item.item_name
@@ -22,10 +25,10 @@ export default function ShopItems() {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-between gap-5 mt-20 mb-5 mx-4 md:mx-32">
+      <div className="flex flex-col md:flex-row justify-start gap-5 mt-20 mb-5">
         <div>
           <Input
-            className="w-full md:w-64" // Fixed width for the input
+            className="w-full md:w-64"
             placeholder="Search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -37,8 +40,14 @@ export default function ShopItems() {
             setSelectedCategory={setSelectedCategory}
           />
         </div>
+        <div>
+          <ItemOwnership
+            ownership={ownership}
+            setSelectedOwnership={setSelectedOwnership}
+          />
+        </div>
       </div>
-      <div className="px-4 md:px-10">
+      <div className="">
         <Items items={filteredItems} />
       </div>
     </>

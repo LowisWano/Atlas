@@ -8,20 +8,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export default function ItemRarity({ categories, setSelectedCategory }) {
+export default function ItemOwnership({ ownership, setSelectedOwnership }) {
   return (
-    <Select onValueChange={setSelectedCategory}>
+    <Select onValueChange={setSelectedOwnership}>
       <SelectTrigger className="w-full md:w-[180px]">
-        <SelectValue placeholder="Category" className="text-slate-500"/>
+        <SelectValue placeholder="Ownership" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem disabled value="Rarity">
-            Rarity
+        <SelectItem disabled value="Ownership">
+            Ownership
           </SelectItem>
-          {categories.map((category) => (
-            <SelectItem key={category} value={category}>
-              {category}
+          {ownership.map((status) => (
+            <SelectItem key={status} value={status}>
+              {status}
             </SelectItem>
           ))}
         </SelectGroup>
