@@ -65,7 +65,7 @@ export const items = [
     item_name: "Dank Memer's Hard Drive Disk",
     item_img: "src/assets/items/dank_memers_hardDrive.gif",
     description:
-      "The developers dropped this in the water. Who wants free currency?The developers dropped this in the water. Who wants free currency?",
+      "The developers dropped this in the water. Who wants free currency?",
     rarity: "LEGENDARY",
     price: 220,
   },
