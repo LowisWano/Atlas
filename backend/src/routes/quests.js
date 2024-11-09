@@ -4,6 +4,5 @@ const { userExtractor } = require("../utils/middleware");
 
 questsRouter.get("/:id/active-quests", userExtractor, quests.getActiveQuestsController);
 questsRouter.post("/:id/quests", userExtractor, quests.createQuestController);
-questsRouter.post("/:id/recurring-quests", userExtractor, quests.createRecurringQuestController);
 
 module.exports = questsRouter;

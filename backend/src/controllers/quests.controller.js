@@ -42,12 +42,7 @@ const createQuestController = async (req, res) => {
   res.json(quest);
 };
 
-const createRecurringQuestController = async (req, res) => {
-  
-};
-
 module.exports = {
   getActiveQuestsController,
   createQuestController,
-  createRecurringQuestController,
 };

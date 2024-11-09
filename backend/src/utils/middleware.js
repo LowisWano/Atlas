@@ -33,6 +33,8 @@ const errorHandler = (error, request, response, next) => {
 
   if(error.name ===  'JsonWebTokenError') {
     return response.status(401).json({ error: 'token invalid' })
+  } else if (error.name === 'ZodError') {
+    return response.status(400).json({ error: error.errors[0].message })
   }
 
   next(error)
