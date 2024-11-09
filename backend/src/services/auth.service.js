@@ -2,7 +2,10 @@ const prisma = require("../lib/prisma");
 require("express-async-errors");
 
 const getUser = async (username) => {
-  const user = await prisma.user.findFirst({ where: { username } });
+  if (!username) {
+    throw new Error("Username is empty");
+  }
+  const user = await prisma.user.findUniqueOrThrow({ where: { username } });
   return user;
 }
 
