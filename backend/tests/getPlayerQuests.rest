@@ -1,2 +1,2 @@
-GET http://localhost:3001/api/player/1/active-quests
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoid2lzd2lzcyIsImlkIjoxLCJpYXQiOjE3MzA0MzQyNzR9.-HrresauZ5R-JLvO5YX0uZIPvI4cfk592GpnxUcyeQ0
+GET http://localhost:3001/api/player/3/active-quests
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTHVpcyBBbmRyZWkgT3Vhbm8iLCJpZCI6MywidXNlcm5hbWUiOiJ3aXN3aXNzIiwiaWF0IjoxNzMxMTQ0NTQyfQ.qpUPvVqha_C4aWerFyC-aG-eFUn6KjeTxXBKh-e7jCs

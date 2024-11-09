@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const prisma = require('../lib/prisma')
+const { getUser } = require("../services/auth.service")
 
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
@@ -19,7 +20,10 @@ const tokenExtractor = (request, response, next) => {
 
 const userExtractor = async (request, response, next) => {
   const decodedToken = jwt.verify(request.token, process.env.JWT_SECRET)
-
+  const user = await getUser(decodedToken.username)
+  if(!user){
+    response.json({ error: "User not found" })
+  }
   request.user = decodedToken
   next()
 }

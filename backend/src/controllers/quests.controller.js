@@ -1,24 +1,24 @@
 const {
-  fetchActiveQuests,
-  fetchScheduledQuests,
-  savePlayerQuest,
-  saveRecurringQuest,
+  getNormalQuests,
+  getDailyQuests,
+  createPlayerQuest,
+  createRecurringQuest
 } = require("../services/quests.service");
 require("express-async-errors");
 const { calculateRewards } = require("../utils/utils");
 
 const getActiveQuestsController = async (req, res) => {
   const playerId = Number(req.params.id);
-  const normalQuests = await fetchActiveQuests(playerId);
-  const scheduledQuests = await fetchScheduledQuests(playerId);
-  const activeQuests = normalQuests.concat(scheduledQuests)
+  const normalQuests = await getNormalQuests(playerId);
+  const dailyQuests = await getDailyQuests(playerId);
+  const activeQuests = normalQuests.concat(dailyQuests)
   res.json(activeQuests);
 };
 
 const createQuestController = async (req, res) => {
   const { title, description, questType, dueDate, difficulty } = req.body;
   const { gold, exp } = calculateRewards(questType, difficulty);
-  const quest = await savePlayerQuest({
+  const quest = await createPlayerQuest({
     playerId: req.user.id,
     title,
     description,
@@ -32,7 +32,7 @@ const createQuestController = async (req, res) => {
   if(questType === 'DAILY_QUEST'){
     const { frequency, runAt } = req.body
     // add validation if values exist
-    const recurringQuest = await saveRecurringQuest({
+    const recurringQuest = await createRecurringQuest({
       questId: quest.id, 
       frequency, 
       runAt,

@@ -9,7 +9,7 @@ const signup = async (req, res) => {
 
   let user = await getUser(username);
   if (user) {
-    return res.status(400).json({ error: "User already exists." });
+    return res.status(400).json({ error: "Username is already taken." });
   }
 
   const passwordHash = await bcrypt.hash(password, 10);
@@ -28,14 +28,14 @@ const login = async (req, res) => {
   let user = await getUser(username);
   if (!user) {
     return res.status(401).json({
-      error: "User not found.",
+      error: "Verify your username or password and try again",
     });
   }
 
   const passwordIsCorrect = await bcrypt.compare(password, user.passwordHash);
   if (!passwordIsCorrect) {
     return res.status(401).json({
-      error: "Invalid password.",
+      error: "Verify your username or password and try again",
     });
   }
 
@@ -43,6 +43,7 @@ const login = async (req, res) => {
     {
       name: user.name,
       id: user.id,
+      username: user.username
     },
     process.env.JWT_SECRET
   );

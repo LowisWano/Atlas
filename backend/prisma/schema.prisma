@@ -102,12 +102,6 @@ enum RarityType {
   LEGENDARY
 }
 
-enum FrequencyType {
-  DAILY
-  WEEKLY
-  MONTHLY
-}
-
 enum StatusType {
   ACTIVE
   COMPLETED

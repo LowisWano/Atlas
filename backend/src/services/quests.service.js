@@ -1,7 +1,8 @@
 const prisma = require("../lib/prisma");
+require("express-async-errors");
 
-const fetchActiveQuests = async (playerId) => {
-  const activeQuests = await prisma.player.findUnique({
+const getNormalQuests = async (playerId) => {
+  const player = await prisma.player.findUnique({
     include: {
       quests: {
         where: {
@@ -17,14 +18,15 @@ const fetchActiveQuests = async (playerId) => {
       id: playerId,
     },
   });
-  return activeQuests.quests;
+  console.log("quests: ", player.quests)
+  return player.quests;
 };
 
-const fetchScheduledQuests = async (playerId) => {
+const getDailyQuests = async (playerId) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const endOfToday = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-  const scheduledQuests = await prisma.player.findUnique({
+  const player = await prisma.player.findUnique({
     include: {
       quests: {
         where: {
@@ -46,10 +48,10 @@ const fetchScheduledQuests = async (playerId) => {
       id: playerId,
     },
   });
-  return scheduledQuests.quests;
+  return player.quests;
 };
 
-const savePlayerQuest = async ({
+const createPlayerQuest = async ({
   playerId,
   title,
   description,
@@ -81,9 +83,8 @@ const savePlayerQuest = async ({
   return quest;
 };
 
-const saveRecurringQuest = async ({
+const createRecurringQuest = async ({
   questId, 
-  frequency, 
   runAt,
 }) => {
   const recurringQuest = await prisma.recurringQuest.create({
@@ -93,7 +94,6 @@ const saveRecurringQuest = async ({
           id: questId,
         },
       },
-      frequency,
       runAt
     }
   })
@@ -102,8 +102,8 @@ const saveRecurringQuest = async ({
 }
 
 module.exports = {
-  fetchActiveQuests,
-  fetchScheduledQuests,
-  savePlayerQuest,
-  saveRecurringQuest
+  getNormalQuests,
+  getDailyQuests,
+  createPlayerQuest,
+  createRecurringQuest
 };
