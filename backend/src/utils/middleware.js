@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const prisma = require("../lib/prisma");
+const z = require("zod").z;
 const { getUser } = require("../services/auth.service");
 
 const requestLogger = (request, response, next) => {
@@ -55,9 +55,15 @@ const errorHandler = (error, request, response, next) => {
   console.log(error.message);
 
   if (error.name === "JsonWebTokenError") {
-    return response.status(401).json({ error: "token invalid" });
-  } else if (error.name === "ZodError") {
-    return response.status(400).json({ error: error.errors[0].message });
+    response.status(401).json({ error: "token invalid" });
+  } else if (error instanceof z.ZodError) {
+    const errors = error.errors.map(err => ({
+      path: err.path,
+      message: err.message
+    }));
+    response.status(400).json({ errors });
+  }else {
+    response.status(500).send('Internal Server Error');
   }
 
   next(error);
