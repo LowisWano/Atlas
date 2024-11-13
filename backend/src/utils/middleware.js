@@ -57,11 +57,7 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === "JsonWebTokenError") {
     response.status(401).json({ error: "token invalid" });
   } else if (error instanceof z.ZodError) {
-    const errors = error.errors.map(err => ({
-      path: err.path,
-      message: err.message
-    }));
-    response.status(400).json({ errors });
+    response.status(400).send({ error: error.issues });
   }else {
     response.status(500).send('Internal Server Error');
   }
