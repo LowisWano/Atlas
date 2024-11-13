@@ -8,6 +8,7 @@ const signup = async (req, res) => {
   const { name, username, password } = req.body;
 
   let user = await getUser(username);
+  
   if (user) {
     return res.status(400).json({ error: "Username is already taken." });
   }

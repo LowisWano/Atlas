@@ -3,7 +3,7 @@ require("express-async-errors");
 
 const getUser = async (username) => {
   if (!username) {
-    throw new Error("Username is empty");
+    throw new Error("Invalid Token Credentials");
   }
   const user = await prisma.user.findUniqueOrThrow({ where: { username } });
   return user;

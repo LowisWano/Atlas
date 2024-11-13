@@ -1,8 +1,8 @@
 const questsRouter = require("express").Router();
 const quests = require("../controllers/quests.controller");
-const { userExtractor } = require("../utils/middleware");
+const { tokenValidator } = require("../utils/middleware");
 
-questsRouter.get("/:id/active-quests", userExtractor, quests.getActiveQuestsController);
-questsRouter.post("/:id/quests", userExtractor, quests.createQuestController);
+questsRouter.get("/:id/active-quests", tokenValidator, quests.getActiveQuestsController);
+questsRouter.post("/:id/quests", tokenValidator, quests.createQuestController);
 
 module.exports = questsRouter;
