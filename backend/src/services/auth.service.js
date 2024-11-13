@@ -5,7 +5,7 @@ const getUser = async (username) => {
   if (!username) {
     throw new Error("Invalid Token Credentials");
   }
-  const user = await prisma.user.findUniqueOrThrow({ where: { username } });
+  const user = await prisma.user.findUnique({ where: { username } });
   return user;
 }
 

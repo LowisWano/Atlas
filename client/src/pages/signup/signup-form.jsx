@@ -35,12 +35,12 @@ export default function SignupForm() {
       try{
         await signup({
           name: field.name.value,
-          email: field.email.value,
+          username: field.username.value,
           password: field.password.value
         });
 
         const userToken = await login({
-          email: field.email.value,
+          username: field.username.value,
           password: field.password.value
         });
   
@@ -75,17 +75,17 @@ export default function SignupForm() {
                     <div className="grid gap-4">
                         <div className="grid gap-2">
                             <Label htmlFor="name">Name</Label>
-                            <Input id="name" name="name" placeholder="Max" required />
+                            <Input id="name" name="name" placeholder="John Doe" required />
                         </div>
                
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="username">username</Label>
                         <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            placeholder="m@example.com"
+                            id="username"
+                            name="username"
+                            type="username"
+                            placeholder="johndoe123"
                             required
                         />
                     </div>

@@ -27,7 +27,7 @@ export function LoginForm() {
 
     try{
       const userToken = await login({
-        email: field.email.value,
+        username: field.username.value,
         password: field.password.value
       });
 
@@ -46,7 +46,6 @@ export function LoginForm() {
       // navigate to dashboard '/'
       navigate('/');
     }catch(err){
-      console.log(err.response.data.error)
       toast({
         variant: "destructive",
         title: "Login Failed!",
@@ -61,19 +60,19 @@ export function LoginForm() {
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account
+          Enter your username below to login to your account
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={loginHandler}>
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="username">Username</Label>
               <Input
-                id="email"
-                type="email"
-                name='email'
-                placeholder="johndoe@gmail.com"
+                id="username"
+                type="text"
+                name='username'
+                placeholder="johndoe123"
                 required
               />
             </div>

@@ -11,16 +11,16 @@ const signup = async (req, res) => {
   
   if (user) {
     return res.status(400).json({ error: "Username is already taken." });
-  }
-
-  const passwordHash = await bcrypt.hash(password, 10);
-  const result = await createUser({
-    name,
-    username,
-    passwordHash,
-  });
-
-  return res.json(result);
+  }else{
+    const passwordHash = await bcrypt.hash(password, 10);
+    const result = await createUser({
+      name,
+      username,
+      passwordHash,
+    });
+  
+    return res.json(result);
+  }  
 };
 
 const login = async (req, res) => {
