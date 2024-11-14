@@ -38,17 +38,8 @@ export default function QuestsBlock(){
   }
   
   const quests = data;
-  console.log(quests)
-
-  // if(quests.length === 0){
-  //   return (
-  //     <div>
-  //       These are your To Do&apos;s
-  //       To Do&apos;s need to be completed once. Add checklists to your To Do's to increase their value.
-  //     </div>
-  //   )  
-  // }
-
+  const active = quests.filter(q => q.status === "ACTIVE");
+  const completed = quests.filter(q => q.status === "COMPLETED")
   return(
     <div className="pt-5">
       <Tabs defaultValue="active" className="">
@@ -80,26 +71,26 @@ export default function QuestsBlock(){
           <TabsContent value="active" className="">
           <div className="flex flex-col gap-5">
               {
-                (quests.length === 0) ? 
+                (active.length === 0) ? 
                   <div className="text-gray-500 flex items-center justify-center flex-col gap-1 h-72">
                     <SquareCheck className="h-14 w-14 mb-1" />
                     <p className="text-lg">These are your Quests</p>
                     <p>Quests need to be completed once. Earn exp and gold as you complete them.</p>
                   </div>
-                : quests.filter(q => q.status === "ACTIVE").map((q) => <Quest key={q.id} quest={q} />)
+                : active.filter(q => q.status === "ACTIVE").map((q) => <Quest key={q.id} quest={q} />)
               }
             </div>
           </TabsContent>
           <TabsContent value="completed" className="">
             <div className="flex flex-col gap-5">
               {
-                (quests.length === 0) ? 
+                (completed.length === 0) ? 
                   <div className="text-gray-500 flex items-center justify-center flex-col gap-1 h-72">
                     <SquareCheck className="h-14 w-14 mb-1" />
                     <p className="text-lg">These are your Quests</p>
                     <p>Quests need to be completed once. Earn exp and gold as you complete them.</p>
                   </div>
-                : quests.filter(q => q.status === "COMPLETED").map((q) => <Quest key={q.id} quest={q} />)
+                : completed.map((q) => <Quest key={q.id} quest={q} />)
               }
             </div>
           </TabsContent>
