@@ -9,7 +9,7 @@ import {
 
 export default function SelectQuestType() {
   return (
-    <Select>
+    <Select id="quest-type">
       <SelectTrigger className="w-full text-muted-foreground">
         <SelectValue placeholder="Select quest type" />
       </SelectTrigger>

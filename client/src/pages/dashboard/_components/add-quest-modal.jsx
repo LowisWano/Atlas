@@ -47,21 +47,21 @@ export default function AddQuestModal() {
               <Label htmlFor="description">Description</Label>
               <Textarea
                 id="description"
-                placeholder="Add a description..."
+                placeholder="Add a description"
               />
             </div>
             <div className="flex flex-col gap-2">
-              <Label htmlFor="quest-type">Quest Type</Label>
+              <Label>Quest Type</Label>
               <SelectQuestType/>
             </div>
             <div className="flex flex-col gap-2">
               <div className="grid grid-cols-2 gap-4">
                 <div className="">
-                <Label htmlFor="due-date">Due Date</Label>
+                <Label>Due Date</Label>
                   <DueDatePicker />
                 </div>
                 <div className="">
-                  <Label htmlFor="difficulty">Difficulty</Label>
+                  <Label>Difficulty</Label>
                   <SelectDifficulty />
                 </div>
               </div>

@@ -3,14 +3,13 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
 
 export default function SelectDifficulty() {
   return (
-    <Select>
+    <Select id="select-difficulty">
       <SelectTrigger className="w-full text-muted-foreground">
         <SelectValue placeholder="Select difficulty" />
       </SelectTrigger>
