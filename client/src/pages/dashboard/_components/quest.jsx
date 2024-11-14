@@ -58,8 +58,8 @@ export default function Quest({ quest }){
             <CardTitle>{quest.title}</CardTitle>
             <CardDescription>{quest.description}</CardDescription>
             <div className="space-x-1 pt-1">
-              <Badge variant="secondary" className="rounded-xl">{quest.rewards.gold} gold</Badge>
-              <Badge variant="secondary" className="rounded-xl">{quest.rewards.exp} exp</Badge>
+              <Badge variant="secondary" className="rounded-xl">{quest.rewardGold} gold</Badge>
+              <Badge variant="secondary" className="rounded-xl">{quest.rewardExp} exp</Badge>
             </div>
           </div>
         </div>

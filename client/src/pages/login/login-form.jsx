@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -12,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 import { login } from "@/services/auth.service"
-import { useUserStore } from "@/hooks/auth-hooks"
+import { useUserStore, storeToken } from "@/hooks/auth-hooks"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@/hooks/use-toast"
 
@@ -26,17 +25,16 @@ export function LoginForm() {
     const field = event.target;
 
     try{
+      // api post request to login endpoint
       const userToken = await login({
         username: field.username.value,
         password: field.password.value
       });
-
-      window.localStorage.setItem(
-        "token",
-        JSON.stringify(userToken),
-      );
-      setUser(userToken);
-
+      
+      console.log(userToken)
+      setUser(userToken.user);
+      storeToken(userToken)
+      
       // display notification login successful
       toast({
         title: "Login Success!",
@@ -72,7 +70,7 @@ export function LoginForm() {
                 id="username"
                 type="text"
                 name='username'
-                placeholder="johndoe123"
+                placeholder="Username"
                 required
               />
             </div>
@@ -83,7 +81,7 @@ export function LoginForm() {
                   Forgot your password?
                 </Link>
               </div>
-              <Input id="password" name='password' type="password" autoComplete="on" required />
+              <Input id="password" name='password' placeholder="Password" type="password" autoComplete="on" required />
             </div>
             <Button type="submit" className="w-full">
               Login

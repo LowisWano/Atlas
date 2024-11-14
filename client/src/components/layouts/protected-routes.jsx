@@ -2,6 +2,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { useUserStore } from "@/hooks/auth-hooks";
 import { useEffect, useState } from "react";
 import { LoaderCircle } from 'lucide-react';
+import { storeToken } from "@/hooks/auth-hooks";
 
 const ProtectedRoutes = () => {
   const { setUser, user } = useUserStore();
@@ -9,12 +10,10 @@ const ProtectedRoutes = () => {
 
   useEffect(() => {
     const cachedUser = JSON.parse(localStorage.getItem("token"));
-
     if (cachedUser) {
+      storeToken(cachedUser)
       setUser(cachedUser);
     }
-
-    // Once the check is complete, stop loading
     setLoading(false);
   }, [setUser]);
 

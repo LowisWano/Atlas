@@ -1,12 +1,13 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/player/";
+const baseUrl = "http://localhost:3001/api/player";
 
 let token = null;
-const setToken = (newToken) => {
+
+export const setToken = (newToken) => {
   token = `Bearer ${newToken}`;
 };
 
-const getUserQuests = async (id) => {
-  const response = await axios.get(`${baseUrl}/${id}/quests`)
+export const getUserQuests = async (id) => {
+  const response = await axios.get(`${baseUrl}/${id}/active-quests`, { headers: { "Authorization" : token } });
   return response.data;
-}
+};

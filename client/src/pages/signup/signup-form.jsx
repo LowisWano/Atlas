@@ -14,6 +14,7 @@ import { signup, login } from "@/services/auth.service"
 import { useUserStore } from "@/hooks/auth-hooks"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@/hooks/use-toast"
+import { storeToken } from "@/hooks/auth-hooks"
 
 export default function SignupForm() {
   const setUser = useUserStore(state=>state.setUser)
@@ -44,11 +45,8 @@ export default function SignupForm() {
           password: field.password.value
         });
   
-        window.localStorage.setItem(
-          "token",
-          JSON.stringify(userToken),
-        );
-        setUser(userToken);
+        storeToken(userToken);
+        setUser(userToken.user);
         
         // display notification login successful
         console.log('login succesful!');

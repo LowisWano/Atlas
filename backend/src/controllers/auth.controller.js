@@ -49,7 +49,8 @@ const login = async (req, res) => {
     process.env.JWT_SECRET
   );
 
-  return res.status(200).send({ token, user });
+  const { passwordHash, ...userWithoutPassword } = user;
+  return res.status(200).send({ token, user: userWithoutPassword });
 };
 
 module.exports = {
