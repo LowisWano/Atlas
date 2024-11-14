@@ -5,7 +5,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Search, LoaderCircle } from "lucide-react";
+import { Search } from "lucide-react";
+import LoadingSpinner from "@/components/custom-ui/loading-spinner";
 import Quest from "./quest"
 import { Input } from "@/components/ui/input"
 import {
@@ -24,9 +25,7 @@ export default function QuestsBlock(){
 
   if (isPending){
     return (
-      <div className="flex justify-center items-center p-20">
-        <LoaderCircle />
-      </div> 
+      <LoadingSpinner/>
     );
   }
 

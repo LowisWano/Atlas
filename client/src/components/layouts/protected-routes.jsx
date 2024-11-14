@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useUserStore } from "@/hooks/auth-hooks";
 import { useEffect, useState } from "react";
-import { LoaderCircle } from 'lucide-react';
+import LoadingSpinner from "../custom-ui/loading-spinner";
 import { storeToken } from "@/hooks/auth-hooks";
 
 const ProtectedRoutes = () => {
@@ -9,18 +9,18 @@ const ProtectedRoutes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cachedUser = JSON.parse(localStorage.getItem("token"));
-    if (cachedUser) {
+    if (loading) {
+      const cachedUser = JSON.parse(localStorage.getItem("token"));
       storeToken(cachedUser)
       setUser(cachedUser);
+      setLoading(false);
     }
-    setLoading(false);
-  }, [setUser]);
+  }, [loading, setUser]);
 
   if (loading) {
     return (
       <div className="flex justify-center items-center p-20">
-        <LoaderCircle />
+        <LoadingSpinner />
       </div> 
     );
   }
