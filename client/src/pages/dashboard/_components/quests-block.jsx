@@ -39,7 +39,8 @@ export default function QuestsBlock(){
   
   const quests = data;
   const active = quests.filter(q => q.status === "ACTIVE");
-  const completed = quests.filter(q => q.status === "COMPLETED")
+  const completed = quests.filter(q => q.status === "COMPLETED");
+  
   return(
     <div className="pt-5">
       <Tabs defaultValue="active" className="">

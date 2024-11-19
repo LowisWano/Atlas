@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -19,6 +20,21 @@ import SelectDifficulty from "./select-difficulty"
 import SelectQuestType from "./select-quest-type"
 
 export default function AddQuestModal() {
+  const [date, setDate] = useState(null);
+
+  const addQuestHandler = (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target);
+    const data = {
+      title: formData.get('title'),
+      description: formData.get('description'),
+      questType: formData.get('questType'),
+      dueDate: date,
+      difficulty: formData.get('selectDifficulty'),
+    };
+    console.log(data);
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -34,12 +50,13 @@ export default function AddQuestModal() {
             Create a new quest by filling out the details below.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={addQuestHandler}>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <Label htmlFor="title">Title</Label>
               <Input
                 id="title"
+                name="title"
                 placeholder="Add a title"
               />
             </div>
@@ -47,6 +64,7 @@ export default function AddQuestModal() {
               <Label htmlFor="description">Description</Label>
               <Textarea
                 id="description"
+                name="description"
                 placeholder="Add a description"
               />
             </div>
@@ -58,7 +76,10 @@ export default function AddQuestModal() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="">
                 <Label>Due Date</Label>
-                  <DueDatePicker />
+                  <DueDatePicker 
+                    date={date} 
+                    setDate={setDate}
+                  />
                 </div>
                 <div className="">
                   <Label>Difficulty</Label>

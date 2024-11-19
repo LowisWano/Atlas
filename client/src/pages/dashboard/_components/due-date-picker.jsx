@@ -11,8 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export default function DueDatePicker() {
-  const [date, setDate] = useState(null)
+export default function DueDatePicker({ date, setDate }) {
 
   return (
     <Popover>

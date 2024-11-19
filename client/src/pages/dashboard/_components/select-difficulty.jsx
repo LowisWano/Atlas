@@ -9,7 +9,7 @@ import {
 
 export default function SelectDifficulty() {
   return (
-    <Select id="select-difficulty">
+    <Select id="selectDifficulty" name="selectDifficulty">
       <SelectTrigger className="w-full text-muted-foreground">
         <SelectValue placeholder="Select difficulty" />
       </SelectTrigger>

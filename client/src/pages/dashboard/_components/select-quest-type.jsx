@@ -9,15 +9,15 @@ import {
 
 export default function SelectQuestType() {
   return (
-    <Select id="quest-type">
+    <Select id="questType" name="questType">
       <SelectTrigger className="w-full text-muted-foreground">
         <SelectValue placeholder="Select quest type" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="apple">Normal Quest</SelectItem>
-          <SelectItem value="banana">Daily Quest</SelectItem>
-          <SelectItem value="blueberry">Main Quest</SelectItem>
+          <SelectItem value="NORMAL_QUEST">Normal Quest</SelectItem>
+          <SelectItem value="DAILY_QUEST">Daily Quest</SelectItem>
+          <SelectItem value="MAIN_QUEST">Main Quest</SelectItem>
         </SelectGroup>
       </SelectContent>
     </Select>
