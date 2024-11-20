@@ -19,24 +19,36 @@ import DueDatePicker from "./due-date-picker"
 import SelectDifficulty from "./select-difficulty"
 import SelectQuestType from "./select-quest-type"
 
-export default function AddQuestModal() {
-  const [date, setDate] = useState(null);
+import { useQuests } from "@/queries/useQuests"
+import { useUserStore } from "@/hooks/auth-hooks";
 
-  const addQuestHandler = (e) => {
+export default function AddQuestModal() {
+  const [open, setOpen] = useState(false);
+  const [date, setDate] = useState(null);
+  const { createQuestMutate } = useQuests();
+
+  const addQuestHandler = async (e) => {
     e.preventDefault()
-    const formData = new FormData(e.target);
-    const data = {
-      title: formData.get('title'),
-      description: formData.get('description'),
-      questType: formData.get('questType'),
-      dueDate: date,
-      difficulty: formData.get('selectDifficulty'),
-    };
-    console.log(data);
+    
+    try{
+      const formData = new FormData(e.target);
+      const newQuest = {
+        title: formData.get('title'),
+        description: formData.get('description'),
+        questType: formData.get('questType'),
+        dueDate: (new Date(date)).toISOString(),
+        difficulty: formData.get('selectDifficulty'),
+      };
+      await createQuestMutate(newQuest);
+      setOpen(false);
+    }catch(e){
+      console.log(e)
+    }
+    
   }
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button className="gap-2">
           <span className="hidden sm:inline">Add Quest</span>

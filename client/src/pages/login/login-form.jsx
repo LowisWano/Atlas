@@ -32,7 +32,7 @@ export function LoginForm() {
       });
       
       console.log(userToken)
-      setUser(userToken.user);
+      setUser(userToken);
       storeToken(userToken)
       
       // display notification login successful

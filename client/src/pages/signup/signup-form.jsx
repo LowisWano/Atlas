@@ -46,7 +46,7 @@ export default function SignupForm() {
         });
   
         storeToken(userToken);
-        setUser(userToken.user);
+        setUser(userToken);
         
         // display notification login successful
         console.log('login succesful!');

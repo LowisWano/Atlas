@@ -4,6 +4,7 @@ import QuestsBlock from "./_components/quests-block";
 
 export default function Dashboard() {
   const { user } = useUserStore()
+  console.log(user)
   return (
     <div>
       <H1>Greetings, Adventurer!</H1>

@@ -1,6 +1,9 @@
 import { create } from 'zustand'
-import { setToken } from "@/services/quests.service"
 
+/*
+  maybe have a token state and isAuthenticated state?
+
+*/
 export const useUserStore = create((set) => ({
   user: null,
   setUser: (userToken) => set({ user: userToken }),
@@ -9,5 +12,4 @@ export const useUserStore = create((set) => ({
 
 export const storeToken = (cachedUser) => {
   window.localStorage.setItem("token", JSON.stringify(cachedUser));
-  setToken(cachedUser.token);
 };
