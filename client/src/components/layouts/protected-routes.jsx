@@ -7,11 +7,15 @@ const ProtectedRoutes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const cachedUser = JSON.parse(localStorage.getItem("token"));
+    // const cachedUser = JSON.parse(localStorage.getItem("token"));
+    const cachedUser = {
+      user: "eli"
+    }
 
     if (cachedUser) {
       setUser(cachedUser);
     }
+
 
     // Once the check is complete, stop loading
     setLoading(false);
