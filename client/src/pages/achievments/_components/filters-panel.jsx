@@ -1,6 +1,6 @@
 import React from "react";
 import SearchInput from "./search-input";
-import DropdownFilter from "./search-input";
+import DropdownFilter from "./dropdown-filter";
 
 const FiltersPanel = ({
     searchQuery,
