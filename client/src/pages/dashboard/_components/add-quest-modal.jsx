@@ -21,11 +21,13 @@ import SelectQuestType from "./select-quest-type"
 
 import { useQuests } from "@/queries/useQuests"
 import { useUserStore } from "@/hooks/auth-hooks";
+import { useToast } from "@/hooks/use-toast"
 
 export default function AddQuestModal() {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(null);
   const { createQuestMutate } = useQuests();
+  const { toast } = useToast();
 
   const addQuestHandler = async (e) => {
     e.preventDefault()
@@ -41,10 +43,14 @@ export default function AddQuestModal() {
       };
       await createQuestMutate(newQuest);
       setOpen(false);
-    }catch(e){
-      console.log(e)
+    }catch(err){
+      toast({
+        variant: "destructive",
+        title: "Login Failed!",
+        description: err.response.data.error,
+      })
     }
-    
+    setDate(null)
   }
 
   return (
