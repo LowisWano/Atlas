@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SearchInput from "./search-input";
 import DropdownFilter from "./dropdown-filter";
 import AchievementList from "./achievement-list";
+import FiltersPanel from "./filters-panel";
 
 export default function AchievementsBlock() {
     const initialAchievements = [
@@ -52,7 +53,7 @@ export default function AchievementsBlock() {
     return (
         <div className="p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4">You have {achievements.length} achievements.</h2>
-            <SearchInput query={searchQuery} onSearch={setSearchQuery} />
+            {/* <SearchInput query={searchQuery} onSearch={setSearchQuery} />
             <div className="flex gap-4 mb-4">
                 <DropdownFilter
                     label="Status"
@@ -79,12 +80,24 @@ export default function AchievementsBlock() {
                     label="Sort Order"
                     value={sortOrder}
                     options={[
-                        { label: "Alphabetical Ascending", value: "ascending" },
+                        { label: "Alphabetical Ascending",  value: "ascending" },
                         { label: "Alphabetical Descending", value: "descending" },
                     ]}
                     onChange={setSortOrder}
                 />
-            </div>
+            </div> */}
+
+            <FiltersPanel
+                searchQuery={searchQuery}
+                onSearch={setSearchQuery}
+                statusFilter={statusFilter}
+                onStatusChange={setStatusFilter}
+                difficultyFilter={difficultyFilter}
+                onDifficultyChange={setDifficultyFilter}
+                sortOrder={sortOrder}
+                onSortOrderChange={setSortOrder}
+            />
+
             <AchievementList achievements={filterAchievements()} getDifficultyIcon={getDifficultyIcon} />
         </div>
     );
