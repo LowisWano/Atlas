@@ -135,6 +135,38 @@ const deleteQuest = async (id) => {
   }
 }
 
+const updateQuest = async (
+  questId, 
+  {
+    title,
+    description,
+    dueDate,
+    difficulty,
+    gold,
+    exp,
+  },
+) => {
+  try{
+    const result = await prisma.quest.update({
+      where: {
+        id: questId,
+      },
+      data: {
+        title,
+        description,
+        difficulty,
+        dueDate,
+        rewardGold: gold,
+        rewardExp: exp,
+      }
+    })
+    return result;
+  }catch(error){
+    console.error("error updating a quest: ", error);
+    throw new Error("An unexpected error occurred while updating a quest");
+  }
+}
+
 const findQuestById = async (id) => {
   try{
     const quest = await prisma.quest.findUnique({
@@ -155,5 +187,6 @@ module.exports = {
   createPlayerQuest,
   createRecurringQuest,
   deleteQuest,
-  findQuestById
+  findQuestById,
+  updateQuest
 };
