@@ -20,7 +20,6 @@ import SelectDifficulty from "./select-difficulty"
 import SelectQuestType from "./select-quest-type"
 
 import { useQuests } from "@/queries/useQuests"
-import { useUserStore } from "@/hooks/auth-hooks";
 import { useToast } from "@/hooks/use-toast"
 
 export default function AddQuestModal() {

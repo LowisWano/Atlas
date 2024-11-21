@@ -3,7 +3,7 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import { getUserQuests, createQuest } from '@/services/quests.service';
+import { getUserQuests, createQuest, deleteQuest } from '@/services/quests.service';
 import { useUserStore } from "@/hooks/auth-hooks";
 
 export function useQuests() {
@@ -32,15 +32,23 @@ export function useQuests() {
   });
 
   const createQuestMutate = async (questEntry) => {
-    createQuestMutation.mutate(questEntry)
+    createQuestMutation.mutate(questEntry);
   }
 
   const deleteQuestMutation = useMutation({
-    mutationFn: 
+    mutationFn: (questId) => deleteQuest(user.user.id, user.token, questId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['quests'] })
+    }
   })
+
+  const deleteQuestMutate = async (questId) => {
+    deleteQuestMutation.mutate(questId);
+  }
 
   return {
     getQuests,
-    createQuestMutate
+    createQuestMutate,
+    deleteQuestMutate,
   }
 }
