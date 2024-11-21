@@ -31,6 +31,14 @@ export default function Quest({ quest }){
     console.log(`Quest "${quest.title}" is now marked as ${updatedStatus}`);
   };
 
+  const deleteQuestHandler = async () => {
+    try{
+      // logic here
+    }catch(e){
+      console.log(e)
+    }
+  }
+
   return (
     <Card className="group hover:shadow-lg transition-shadow duration-300">
       <CardHeader className="flex items-center flex-row justify-between py-5 pl-2">
@@ -47,7 +55,7 @@ export default function Quest({ quest }){
                   <span>Edit</span>
                   <DropdownMenuShortcut><Edit className="h-4"/></DropdownMenuShortcut>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={deleteQuestHandler}>
                   <span>Delete</span>
                   <DropdownMenuShortcut><Trash className="h-4"/></DropdownMenuShortcut>
                 </DropdownMenuItem>

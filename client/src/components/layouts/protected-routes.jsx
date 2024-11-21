@@ -19,11 +19,9 @@ const ProtectedRoutes = () => {
         return;
       }else{
         const cachedUser = JSON.parse(cachedToken);
-        storeToken(cachedUser)
         setUser(cachedUser);
         setLoading(false);
         setIsAuthenticated(true);
-        console.log("authenticateed")
       }
     }
   }, [loading, setUser]);

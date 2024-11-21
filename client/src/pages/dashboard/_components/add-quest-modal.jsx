@@ -80,6 +80,7 @@ export default function AddQuestModal() {
                 id="title"
                 name="title"
                 placeholder="Add a title"
+                required
               />
             </div>
             <div className="flex flex-col gap-2">
@@ -88,6 +89,7 @@ export default function AddQuestModal() {
                 id="description"
                 name="description"
                 placeholder="Add a description"
+                required
               />
             </div>
             <div className="flex flex-col gap-2">

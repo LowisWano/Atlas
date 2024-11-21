@@ -2,7 +2,9 @@ const {
   getNormalQuests,
   getDailyQuests,
   createPlayerQuest,
-  createRecurringQuest
+  createRecurringQuest,
+  deleteQuest,
+  findQuestById
 } = require("../services/quests.service");
 require("express-async-errors");
 const { calculateRewards } = require("../utils/utils");
@@ -42,7 +44,23 @@ const createQuestController = async (req, res) => {
   res.json(quest);
 };
 
+const deleteQuestController = async (req, res) => {
+  const playerId = Number(req.params.id);
+  const questId = Number(req.params.questId)
+  
+  const quest = await findQuestById(questId);
+
+  if(!quest) return res.status(404).json({ error: "Quest not found." });
+
+  if (req.user.id != playerId || req.user.id != quest.playerId) return res.status(401).json({ error: "Access denied. Unauthorized user." });
+
+  const result = await deleteQuest(questId);
+
+  res.json(result);
+}
+
 module.exports = {
   getActiveQuestsController,
   createQuestController,
+  deleteQuestController
 };

@@ -35,6 +35,10 @@ export function useQuests() {
     createQuestMutation.mutate(questEntry)
   }
 
+  const deleteQuestMutation = useMutation({
+    mutationFn: 
+  })
+
   return {
     getQuests,
     createQuestMutate

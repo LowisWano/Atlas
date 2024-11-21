@@ -18,7 +18,7 @@
   "main": "app.js",
   "scripts": {
     "start": "NODE_ENV=production node src/index.js",
-    "dev": "NODE_ENV=development nodemon src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "NODE_ENV=test node --test",
     "start:test": "NODE_ENV=test node src/index.js"
   },
