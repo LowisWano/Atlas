@@ -18,6 +18,9 @@ const getActiveQuestsController = async (req, res) => {
 };
 
 const createQuestController = async (req, res) => {
+  const playerId = Number(req.params.id);
+  if(playerId != req.user.id) return res.status(401).json({ error: "Access denied. Unauthorized user." });
+
   const { title, description, questType, dueDate, difficulty } = req.body;
   const { gold, exp } = calculateRewards(questType, difficulty);
   const quest = await createPlayerQuest({
