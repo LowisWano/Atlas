@@ -2,8 +2,6 @@ import {
   useQuery,
   useMutation,
   useQueryClient,
-  QueryClient,
-  QueryClientProvider,
 } from '@tanstack/react-query'
 import { getUserQuests, createQuest } from '@/services/quests.service';
 import { useUserStore } from "@/hooks/auth-hooks";

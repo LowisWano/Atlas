@@ -7,13 +7,24 @@ import { storeToken } from "@/hooks/auth-hooks";
 const ProtectedRoutes = () => {
   const { setUser, user } = useUserStore();
   const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   useEffect(() => {
     if (loading) {
-      const cachedUser = JSON.parse(localStorage.getItem("token"));
-      storeToken(cachedUser)
-      setUser(cachedUser);
-      setLoading(false);
+      const cachedToken = localStorage.getItem("token");
+
+      if (!cachedToken) {
+        setLoading(false);
+        setIsAuthenticated(false);
+        return;
+      }else{
+        const cachedUser = JSON.parse(cachedToken);
+        storeToken(cachedUser)
+        setUser(cachedUser);
+        setLoading(false);
+        setIsAuthenticated(true);
+        console.log("authenticateed")
+      }
     }
   }, [loading, setUser]);
 
@@ -26,7 +37,7 @@ const ProtectedRoutes = () => {
   }
 
   // Once loading is complete, check user and render protected route or navigate to login
-  return user ? <Outlet /> : <Navigate to="/login" replace />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 export default ProtectedRoutes;

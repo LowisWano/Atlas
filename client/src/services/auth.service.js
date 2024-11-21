@@ -12,11 +12,6 @@ export const login = async (credentials) => {
 }
 
 export const signup = async(userDetails) => {
-  try{
-    console.log(userDetails)
-    const response = await axios.post(`${baseUrl}/signup`, userDetails);
-    return response.data;
-  }catch(error){
-    console.log(error)
-  }
+  const response = await axios.post(`${baseUrl}/signup`, userDetails);
+  return response.data;
 }

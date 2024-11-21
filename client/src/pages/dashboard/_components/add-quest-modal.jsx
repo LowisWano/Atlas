@@ -42,6 +42,10 @@ export default function AddQuestModal() {
         difficulty: formData.get('selectDifficulty'),
       };
       await createQuestMutate(newQuest);
+      toast({
+        title: "Quest Created!",
+        description: "Your new quest has been added successfully.",
+      })
       setOpen(false);
     }catch(err){
       toast({

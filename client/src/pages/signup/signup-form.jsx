@@ -34,27 +34,37 @@ export default function SignupForm() {
       })
     }else{
       try{
-        await signup({
+        const userAccount = await signup({
           name: field.name.value,
           username: field.username.value,
           password: field.password.value
         });
 
-        const userToken = await login({
-          username: field.username.value,
-          password: field.password.value
-        });
-  
-        storeToken(userToken);
-        setUser(userToken);
+        if(userAccount){
+          const userToken = await login({
+            username: field.username.value,
+            password: field.password.value
+          });
+    
+          storeToken(userToken);
+          setUser(userToken);
+          
+          toast({
+            title: "Login Success!",
+            description: `Welcome back, ${userToken.user.name}! You're now logged in.`,
+          })
+    
+          navigate('/');
+        }
         
-        // display notification login successful
-        console.log('login succesful!');
-  
-        // navigate to dashboard '/'
-        navigate('/');
       }catch(err){
-        console.log(err.response.data.error);
+        // returns an array of zod errors. figure out how to deal with this one
+        console.log(err?.response?.data?.error)
+        toast({
+          variant: "destructive",
+          title: "An unexpected error has occured!",
+          description: "Please check your details and try again.",
+        })
       }
       
     }
