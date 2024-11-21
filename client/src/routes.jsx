@@ -5,7 +5,7 @@ import Signup from './pages/signup/index.jsx'
 import ErrorPage from './components/layouts/error-page.jsx';
 import ProtectedRoutes from './components/layouts/protected-routes.jsx';
 import Calendar from './pages/calendar/index.jsx';
-import Achievements from './pages/achievments/index.jsx';
+import Achievements from './pages/achievements/index.jsx';
 
 const routes = [
   {
