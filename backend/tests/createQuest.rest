@@ -1,0 +1,11 @@
+POST http://localhost:3001/api/player/1/quests 
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTHVpcyBBbmRyZWkgT3Vhbm8iLCJpZCI6MywidXNlcm5hbWUiOiJ3aXN3aXNzIiwiaWF0IjoxNzMxMTQ0NTQyfQ.qpUPvVqha_C4aWerFyC-aG-eFUn6KjeTxXBKh-e7jCs
+
+{
+  "title": "FINISH WEBDEV",
+  "description": "Focus on graph theory and combinatorics",
+  "questType": "NORMAL_QUEST",
+  "dueDate": "2024-10-28T23:59:59.999Z",
+  "difficulty": "MEDIUM"
+}

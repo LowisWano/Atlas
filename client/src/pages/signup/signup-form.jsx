@@ -13,10 +13,13 @@ import { Label } from "@/components/ui/label"
 import { signup, login } from "@/services/auth.service"
 import { useUserStore } from "@/hooks/auth-hooks"
 import { useNavigate } from "react-router-dom"
+import { useToast } from "@/hooks/use-toast"
+import { storeToken } from "@/hooks/auth-hooks"
 
 export default function SignupForm() {
   const setUser = useUserStore(state=>state.setUser)
   const navigate = useNavigate()
+  const { toast } = useToast();
 
   const signupHandler = async (event) => {
     event.preventDefault();
@@ -24,25 +27,25 @@ export default function SignupForm() {
     
 
     if(field.password.value != field.confirm_password.value){
-      // replace this with alert
-      console.log("Passwords do not match. Please make sure both passwords are identical.");
+      toast({
+        variant: "destructive",
+        title: "Passwords do not match!",
+        description: "Please make sure both passwords are identical.",
+      })
     }else{
       try{
         await signup({
           name: field.name.value,
-          email: field.email.value,
+          username: field.username.value,
           password: field.password.value
         });
 
         const userToken = await login({
-          email: field.email.value,
+          username: field.username.value,
           password: field.password.value
         });
   
-        window.localStorage.setItem(
-          "token",
-          JSON.stringify(userToken),
-        );
+        storeToken(userToken);
         setUser(userToken);
         
         // display notification login successful
@@ -70,17 +73,17 @@ export default function SignupForm() {
                     <div className="grid gap-4">
                         <div className="grid gap-2">
                             <Label htmlFor="name">Name</Label>
-                            <Input id="name" name="name" placeholder="Max" required />
+                            <Input id="name" name="name" placeholder="John Doe" required />
                         </div>
                
                     </div>
                     <div className="grid gap-2">
-                        <Label htmlFor="email">Email</Label>
+                        <Label htmlFor="username">username</Label>
                         <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            placeholder="m@example.com"
+                            id="username"
+                            name="username"
+                            type="username"
+                            placeholder="johndoe123"
                             required
                         />
                     </div>

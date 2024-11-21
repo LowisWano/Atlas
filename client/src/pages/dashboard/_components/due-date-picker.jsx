@@ -11,8 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export default function DueDatePicker() {
-  const [date, setDate] = useState(null)
+export default function DueDatePicker({ date, setDate }) {
 
   return (
     <Popover>
@@ -20,12 +19,12 @@ export default function DueDatePicker() {
         <Button
           variant={"outline"}
           className={cn(
-            "w-full justify-start text-left font-normal",
+            "w-full justify-start text-left font-normal text-muted-foreground",
             !date && "text-muted-foreground"
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? format(date, "MM/dd/yyyy") : <span>Select date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent 

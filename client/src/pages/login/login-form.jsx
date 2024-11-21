@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom"
-
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -12,7 +11,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 import { login } from "@/services/auth.service"
-import { useUserStore } from "@/hooks/auth-hooks"
+import { useUserStore, storeToken } from "@/hooks/auth-hooks"
 import { useNavigate } from "react-router-dom"
 import { useToast } from "@/hooks/use-toast"
 
@@ -26,17 +25,16 @@ export function LoginForm() {
     const field = event.target;
 
     try{
+      // api post request to login endpoint
       const userToken = await login({
-        email: field.email.value,
+        username: field.username.value,
         password: field.password.value
       });
-
-      window.localStorage.setItem(
-        "token",
-        JSON.stringify(userToken),
-      );
+      
+      console.log(userToken)
       setUser(userToken);
-
+      storeToken(userToken)
+      
       // display notification login successful
       toast({
         title: "Login Success!",
@@ -46,7 +44,6 @@ export function LoginForm() {
       // navigate to dashboard '/'
       navigate('/');
     }catch(err){
-      console.log(err.response.data.error)
       toast({
         variant: "destructive",
         title: "Login Failed!",
@@ -61,19 +58,19 @@ export function LoginForm() {
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account
+          Enter your username below to login to your account
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={loginHandler}>
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="username">Username</Label>
               <Input
-                id="email"
-                type="email"
-                name='email'
-                placeholder="johndoe@gmail.com"
+                id="username"
+                type="text"
+                name='username'
+                placeholder="Username"
                 required
               />
             </div>
@@ -84,7 +81,7 @@ export function LoginForm() {
                   Forgot your password?
                 </Link>
               </div>
-              <Input id="password" name='password' type="password" autoComplete="on" required />
+              <Input id="password" name='password' placeholder="Password" type="password" autoComplete="on" required />
             </div>
             <Button type="submit" className="w-full">
               Login
