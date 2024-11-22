@@ -1,10 +1,27 @@
 import React, { useState } from "react";
-import SearchInput from "./search-input";
-import DropdownFilter from "./dropdown-filter";
 import AchievementList from "./achievement-list";
 import FiltersPanel from "./filters-panel";
 
 export default function AchievementsBlock() {
+    // const { getQuests } = useAchievements();
+    // const { isPending, error, data } = getQuests();
+
+    // if (isPending) {
+    //     return (
+    //         <LoadingSpinner />
+    //     );
+    // }
+
+    // if (error){
+    //     return (
+    //       <div className="flex justify-center items-center p-20">
+    //         Sorry, an error has occured. {error.message}
+    //       </div> 
+    //     );
+    // }
+
+    // const initialAchievements = data.achievements;
+
     const initialAchievements = [
         { id: 1, title: "Completed React Course", description: "Finished an online React course with a certificate.", difficulty: 1, status: 1, date: "2023-08-01" },
         { id: 2, title: "Launched Portfolio Website", description: "Developed and launched a personal portfolio site.", difficulty: 2, status: 0, date: "2024-01-15" },
@@ -53,39 +70,6 @@ export default function AchievementsBlock() {
     return (
         <div className="p-6 rounded-lg shadow-md">
             <h2 className="text-2xl font-bold mb-4">You have {achievements.length} achievements.</h2>
-            {/* <SearchInput query={searchQuery} onSearch={setSearchQuery} />
-            <div className="flex gap-4 mb-4">
-                <DropdownFilter
-                    label="Status"
-                    value={statusFilter}
-                    options={[
-                        { label: "All Status", value: "All" },
-                        { label: "Obtained", value: "Obtained" },
-                        { label: "Unobtained", value: "Unobtained" },
-                    ]}
-                    onChange={setStatusFilter}
-                />
-                <DropdownFilter
-                    label="Difficulty"
-                    value={difficultyFilter}
-                    options={[
-                        { label: "All Difficulties", value: "All" },
-                        { label: "Difficulty 1", value: "1" },
-                        { label: "Difficulty 2", value: "2" },
-                        { label: "Difficulty 3", value: "3" },
-                    ]}
-                    onChange={setDifficultyFilter}
-                />
-                <DropdownFilter
-                    label="Sort Order"
-                    value={sortOrder}
-                    options={[
-                        { label: "Alphabetical Ascending",  value: "ascending" },
-                        { label: "Alphabetical Descending", value: "descending" },
-                    ]}
-                    onChange={setSortOrder}
-                />
-            </div> */}
 
             <FiltersPanel
                 searchQuery={searchQuery}
