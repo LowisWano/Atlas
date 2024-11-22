@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,8 +8,124 @@ datasource db {
 }
 
 model User {
-  id       Int @id @default(autoincrement())
-  name     String
-  email    String
-  password_hash String
+  id           Int     @id @default(autoincrement())
+  name         String
+  username     String  @unique
+  passwordHash String
+  player       Player?
+}
+
+model Player {
+  id                 Int                 @id @default(autoincrement())
+  userId             Int                 @unique
+  user               User?               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level              Int                 @default(1)
+  experience         Int                 @default(0)
+  gold               Int                 @default(0)
+  adventurerRank     Rank                @default(COPPER)
+  rankPoints         Int                 @default(0)
+  streak             Int                 @default(0)
+  profilePic         String              @default("")
+  bio                String              @default("")
+  quests             Quest[]
+  playerAchievements PlayerAchievement[]
+  items              playerPurchases[]
+}
+
+model Quest {
+  id          Int             @id @default(autoincrement())
+  playerId    Int
+  player      Player          @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  questType   QuestType
+  difficulty  DifficultyType
+  status      StatusType      @default(ACTIVE)
+  createdAt   DateTime        @default(now())
+  dueDate     DateTime
+  rewardGold  Int
+  rewardExp   Int
+  reccurance  RecurringQuest?
+}
+
+model RecurringQuest {
+  id        Int           @id @default(autoincrement())
+  questId   Int           @unique
+  quest     Quest         @relation(fields: [questId], references: [id], onDelete: Cascade)
+  isActive  Boolean       @default(true)
+  runAt     DateTime
+}
+
+model Achievement {
+  id                 Int                 @id @default(autoincrement())
+  title              String
+  description        String
+  rewardGold         Int
+  rewardExp          Int
+  iconImg            String
+  playerAchievements PlayerAchievement[]
+}
+
+model PlayerAchievement {
+  id            Int         @id @default(autoincrement())
+  playerId      Int
+  player        Player      @relation(fields: [playerId], references: [id])
+  achievementId Int
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  createdAt     DateTime    @default(now())
+}
+
+model Item {
+  id              Int               @id @default(autoincrement())
+  itemName        String
+  itemImg         String
+  description     String
+  price           Int
+  rarity          RarityType
+  playerPurchases playerPurchases[]
+}
+
+model playerPurchases {
+  id          Int      @id @default(autoincrement())
+  playerId    Int
+  player      Player   @relation(fields: [playerId], references: [id])
+  itemId      Int
+  item        Item     @relation(fields: [itemId], references: [id])
+  purchasedAt DateTime @default(now())
+}
+
+enum RarityType {
+  COMMON
+  UNCOMMON
+  RARE
+  EPIC
+  LEGENDARY
+}
+
+enum StatusType {
+  ACTIVE
+  COMPLETED
+}
+
+enum DifficultyType {
+  EASY
+  MEDIUM
+  HARD
+  INSANE
+}
+
+enum QuestType {
+  NORMAL_QUEST
+  DAILY_QUEST
+  MAIN_QUEST
+}
+
+enum Rank {
+  COPPER
+  IRON
+  SILVER
+  GOLD
+  PLATINUM
+  MYTHRIL
+  ADAMANTITE
 }

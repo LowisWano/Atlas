@@ -1,77 +1,59 @@
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const prisma = require('../lib/prisma')
-const z = require("zod").z
-require('express-async-errors');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const prisma = require("../lib/prisma");
+require("express-async-errors");
+const { getUser, createUser } = require("../services/auth.service");
 
 const signup = async (req, res) => {
-  const { name, email, password } = req.body
-  // probably better to use zod for validating
-  if(!name){
-    res.status(400).json({error: 'Name is required'})
-  }
+  const { name, username, password } = req.body;
 
-  if(!email){
-    res.status(400).json({error: 'Email is required'})
-  }
-
-  if (!password){
-    res.status(400).json({error: 'Password is required'})
-  }
-
-  if(password.length < 3){
-    res.status(400).json({error: 'Password is too short'})
-  }
-
-  // const emailSchema = z.string().email({ message: "Invalid email address" });
-
-  let user = await prisma.user.findFirst({where: {email}})
-
-  if(user){
-    throw Error('User already exists.')
-  }
-
-  const passwordHash = await bcrypt.hash(password, 10)
+  let user = await getUser(username);
   
-  user = await prisma.user.create({
-    data: {
+  if (user) {
+    return res.status(400).json({ error: "Username is already taken." });
+  }else{
+    const passwordHash = await bcrypt.hash(password, 10);
+    const result = await createUser({
       name,
-      email,
-      password_hash: passwordHash
-    }
-  })
+      username,
+      passwordHash,
+    });
+  
+    return res.json(result);
+  }  
+};
 
-  return res.json(user)
-}
+const login = async (req, res) => {
+  const { username, password } = req.body;
 
-const login =  async (req, res) => {
-  const { email, password } = req.body
-
-  let user = await prisma.user.findFirst({where: {email}})
-  if(!user){
+  let user = await getUser(username);
+  if (!user) {
     return res.status(401).json({
-      error: 'User not found.'
-    })
+      error: "Verify your username or password and try again",
+    });
   }
 
-  const passwordIsCorrect =  await bcrypt.compare(password, user.password_hash)
-  if(!passwordIsCorrect){
+  const passwordIsCorrect = await bcrypt.compare(password, user.passwordHash);
+  if (!passwordIsCorrect) {
     return res.status(401).json({
-      error: 'Invalid password.'
-    })
+      error: "Verify your username or password and try again",
+    });
   }
 
-  const token = jwt.sign({
-    name: user.name,
-    id: user.id
-  }, process.env.JWT_SECRET)
+  const token = jwt.sign(
+    {
+      name: user.name,
+      id: user.id,
+      username: user.username
+    },
+    process.env.JWT_SECRET
+  );
 
-  return res
-    .status(200)
-    .send({ token, user })
-}
+  const { passwordHash, ...userWithoutPassword } = user;
+  return res.status(200).send({ token, user: userWithoutPassword });
+};
 
 module.exports = {
   signup,
-  login
-}
+  login,
+};
