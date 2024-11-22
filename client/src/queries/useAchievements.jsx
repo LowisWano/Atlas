@@ -7,7 +7,7 @@ export function useAchievements() {
   const queryClient = useQueryClient();
 
   const { isPending: isAchievementsPending, error: achievementsError, data: achievementsData } = useQuery({
-    queryKey: ["achievements"],
+    queryKey: ["achievement"],
     queryFn: () => getAchievementsList(user.token),
     refetchOnWindowFocus: false,
   });
@@ -21,7 +21,7 @@ export function useAchievements() {
   }
 
   const { isPending: isUserAchievementsPending, error: userAchievementsError, data: userAchievementsData } = useQuery({
-    queryKey: ["userAchievements", user.user.id],
+    queryKey: ["playerachievement", user.user.id],
     queryFn: () => getUserAchievementsList(user.user.id, user.token),
     refetchOnWindowFocus: false,
   });

@@ -11,6 +11,9 @@ const getAchievements = async () => {
       rewardExp: true,
       iconImg: true,
     },
+    orderBy: {
+      title: 'asc',
+    }
   });
   return achievements;
 };
