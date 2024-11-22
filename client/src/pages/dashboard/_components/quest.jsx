@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 
 import {
@@ -21,11 +22,20 @@ import { Badge } from "@/components/ui/badge";
 import { useQuests } from "@/queries/useQuests";
 import { useToast } from "@/hooks/use-toast";
 
+import EditQuestModal from "./edit-quest-modal";
+
 export default function Quest({ quest }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [checked, setChecked] = useState(quest.status === "completed");
   const { deleteQuestMutate } = useQuests();
   const { toast } = useToast();
+  const [open, setOpen] = useState(false)
+
+  const editModalOpener = (e) => {
+    e.preventDefault()
+    setDropdownOpen(false)
+    setOpen(true)
+  }
 
   const handleCheckToggle = (newValue) => {
     setChecked(newValue);
@@ -50,53 +60,61 @@ export default function Quest({ quest }) {
   };
 
   return (
-    <Card className="group hover:shadow-lg transition-shadow duration-300">
-      <CardHeader className="flex items-center flex-row justify-between py-5 pl-2">
-        <div className="flex gap-2">
-          <DropdownMenu open={isDropdownOpen} onOpenChange={setDropdownOpen}>
-            <DropdownMenuTrigger asChild>
-              <EllipsisVerticalIcon
-                className={`${
-                  isDropdownOpen ? "visible" : "invisible group-hover:visible"
-                } transition-opacity duration-300`}
-              />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-10">
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <span>Edit</span>
-                  <DropdownMenuShortcut>
-                    <Edit className="h-4" />
-                  </DropdownMenuShortcut>
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={deleteQuestHandler}>
-                  <span>Delete</span>
-                  <DropdownMenuShortcut>
-                    <Trash className="h-4" />
-                  </DropdownMenuShortcut>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <div className="flex flex-col gap-1">
-            <CardTitle>{quest.title}</CardTitle>
-            <CardDescription>{quest.description}</CardDescription>
-            <div className="space-x-1 pt-1">
-              <Badge variant="secondary" className="rounded-xl">
-                {quest.rewardGold} gold
-              </Badge>
-              <Badge variant="secondary" className="rounded-xl">
-                {quest.rewardExp} exp
-              </Badge>
+    <>
+      <Card className="group hover:shadow-lg transition-shadow duration-300">
+        <CardHeader className="flex items-center flex-row justify-between py-5 pl-2">
+          <div className="flex gap-2">
+            <DropdownMenu open={isDropdownOpen} onOpenChange={setDropdownOpen}>
+              <DropdownMenuTrigger asChild>
+                <EllipsisVerticalIcon
+                  className={`${
+                    isDropdownOpen ? "visible" : "invisible group-hover:visible"
+                  } transition-opacity duration-300`}
+                />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-10">
+                <DropdownMenuGroup>
+                  <DropdownMenuItem onClick={editModalOpener}>
+                    <span>Edit</span>
+                    <DropdownMenuShortcut>
+                      <Edit className="h-4" />
+                    </DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={deleteQuestHandler}>
+                    <span>Delete</span>
+                    <DropdownMenuShortcut>
+                      <Trash className="h-4" />
+                    </DropdownMenuShortcut>
+                  </DropdownMenuItem>
+                </DropdownMenuGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <div className="flex flex-col gap-1">
+              <CardTitle>{quest.title}</CardTitle>
+              <CardDescription>{quest.description}</CardDescription>
+              <div className="space-x-1 pt-1">
+                <Badge variant="secondary" className="rounded-xl">
+                  {quest.rewardGold} gold
+                </Badge>
+                <Badge variant="secondary" className="rounded-xl">
+                  {quest.rewardExp} exp
+                </Badge>
+              </div>
             </div>
           </div>
-        </div>
-        <Checkbox
-          checked={checked}
-          onCheckedChange={handleCheckToggle}
-          className="h-10 w-10"
-        />
-      </CardHeader>
-    </Card>
+          <Checkbox
+            checked={checked}
+            onCheckedChange={handleCheckToggle}
+            className="h-10 w-10"
+          />
+        </CardHeader>
+      </Card>
+      <EditQuestModal 
+        open={open} 
+        setOpen={setOpen} 
+        isDropdownOpen={isDropdownOpen} 
+        quest={quest}
+      />
+    </>
   );
 }

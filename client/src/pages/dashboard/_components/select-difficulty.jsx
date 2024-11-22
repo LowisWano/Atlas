@@ -7,9 +7,14 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export default function SelectDifficulty() {
+export default function SelectDifficulty({ defaultValue }) {
   return (
-    <Select id="selectDifficulty" name="selectDifficulty" required>
+    <Select 
+      id="selectDifficulty" 
+      name="selectDifficulty" 
+      required
+      defaultValue={defaultValue}
+    >
       <SelectTrigger className="w-full text-muted-foreground">
         <SelectValue placeholder="Select difficulty" />
       </SelectTrigger>
