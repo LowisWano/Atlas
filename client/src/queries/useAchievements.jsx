@@ -4,7 +4,6 @@ import { useUserStore } from "@/hooks/auth-hooks";
 
 export function useAchievements() {
   const { user } = useUserStore();
-  const queryClient = useQueryClient();
 
   const { isPending: isAchievementsPending, error: achievementsError, data: achievementsData } = useQuery({
     queryKey: ["achievement"],

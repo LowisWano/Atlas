@@ -8,16 +8,19 @@ export default function AchievementsBlock() {
     const { getAchievements } = useAchievements();
     const { isPending, error, data } = getAchievements();
 
+    const { getUserAchievements } = useAchievements();
+    const { isPending1, error1, data1 } = getUserAchievements();
+
     const [searchQuery, setSearchQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
     const [difficultyFilter, setDifficultyFilter] = useState("All");
     const [sortOrder, setSortOrder] = useState("ascending");
 
-    if (isPending) {
+    if (isPending || isPending1) {
         return <LoadingSpinner />;
     }
 
-    if (error) {
+    if (error || error1) {
         return (
             <div className="flex justify-center items-center p-20">
                 Sorry, an error has occurred. {error.message}
@@ -25,7 +28,10 @@ export default function AchievementsBlock() {
         );
     }
 
-    const achievements = data;
+    const checkedAchievements = data1 || [];
+    console.log(checkedAchievements);
+
+    const achievements = data || [];
     console.log("Fetched Achievements:", achievements);
 
     const filterAchievements = () => {
@@ -34,13 +40,13 @@ export default function AchievementsBlock() {
                 if (searchQuery && !achievement.title.toLowerCase().includes(searchQuery.toLowerCase())) {
                     return false;
                 }
-                if (statusFilter === "Obtained" && achievement.status !== 1) {
-                    return false;
-                }
-                if (statusFilter === "Unobtained" && achievement.status !== 0) {
-                    return false;
-                }
-                if (difficultyFilter !== "All" && achievement.difficulty !== parseInt(difficultyFilter)) {
+                // if (statusFilter === "Obtained" && achievement.status !== 1) {
+                //     return false;
+                // }
+                // if (statusFilter === "Unobtained" && achievement.status !== 0) {
+                //     return false;
+                // }
+                if (difficultyFilter !== "All" && achievement.iconImg !== (difficultyFilter)) {
                     return false;
                 }
                 return true;

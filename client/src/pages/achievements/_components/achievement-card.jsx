@@ -1,10 +1,8 @@
 import { CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 
-
-
 const AchievementCard = ({ achievement, isFirst, isLast }) => (
-    <div
+        <div
         className={`p-4 flex items-center border border-gray-700 
             ${isFirst ? 'rounded-t-lg' : ''} 
             ${isLast ? 'rounded-b-lg' : ''}`}
@@ -16,9 +14,14 @@ const AchievementCard = ({ achievement, isFirst, isLast }) => (
             <CardContent className="text-gray-600 p-1">{achievement.description}</CardContent>
             <CardFooter className="text-sm text-gray-400 p-1"><img src="sprites/GoldCoins-Sprites.png"/>{achievement.rewardGold} <img src="sprites/Experience-Sprites.png"/> {achievement.rewardExp} </CardFooter>
         </div>
-        {/* <div className="ml-auto">
-            <Checkbox id={`achievement-${achievement.id}`} checked={achievement.status === 1} className="w-10 h-10" readOnly />
-        </div> */}
+        <div className="ml-auto">
+            {/* <Checkbox
+            id={`achievement-${achievement.id}`}
+            checked={checkedAchievement}
+            className="w-10 h-10"
+            disabled
+            /> */}
+        </div>
     </div>
 );
 

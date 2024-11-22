@@ -31,9 +31,9 @@ const FiltersPanel = ({
                     value={difficultyFilter}
                     options={[
                         { label: "All Difficulties", value: "All" },
-                        { label: "Difficulty 1", value: "1" },
-                        { label: "Difficulty 2", value: "2" },
-                        { label: "Difficulty 3", value: "3" },
+                        { label: "Difficulty 1", value: "/sprites/Challenge1.png" },
+                        { label: "Difficulty 2", value: "/sprites/Challenge2.png" },
+                        { label: "Difficulty 3", value: "/sprites/Challenge3.png" },
                     ]}
                     onChange={onDifficultyChange}
                 />

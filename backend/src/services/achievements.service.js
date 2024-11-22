@@ -18,11 +18,9 @@ const getAchievements = async () => {
   return achievements;
 };
 
+
 const getPlayerAchievements = async (playerId) => {
   const playerAchievements = await prisma.playerAchievement.findMany({
-    where: {
-      playerId: playerId,
-    },
     include: {
       achievement: {
         select: {
@@ -35,7 +33,12 @@ const getPlayerAchievements = async (playerId) => {
         },
       },
     },
+    where: {
+      playerId: playerId,
+    },
   });
+
+  console.log("Query result:", playerAchievements);
 
   return playerAchievements.map((entry) => ({
     obtainedAt: entry.createdAt,

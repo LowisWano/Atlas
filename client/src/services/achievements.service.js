@@ -6,7 +6,7 @@ export const getAchievementsList = async (token) => {
   return response.data;
 };
 
-export const getUserAchievementsList = async (token) => {
+export const getUserAchievementsList = async (id, token) => {
   const response = await axios.get(`${baseUrl}/${id}/user-achievements`, { headers: { Authorization : `Bearer ${token}` } });
   return response.data;
 };
