@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getAchievementsList, getUserAchievements } from "@/services/achievements.service";
+import { getAchievementsList, getUserAchievementsList } from "@/services/achievements.service";
 import { useUserStore } from "@/hooks/auth-hooks";
 
 export function useAchievements() {
@@ -22,11 +22,11 @@ export function useAchievements() {
 
   const { isPending: isUserAchievementsPending, error: userAchievementsError, data: userAchievementsData } = useQuery({
     queryKey: ["userAchievements", user.user.id],
-    queryFn: () => getUserAchievements(user.user.id, user.token),
+    queryFn: () => getUserAchievementsList(user.user.id, user.token),
     refetchOnWindowFocus: false,
   });
 
-  function getUserAchievementsState() {
+  function getUserAchievements() {
     return {
       isPending: isUserAchievementsPending,
       error: userAchievementsError,
@@ -36,6 +36,6 @@ export function useAchievements() {
 
   return {
     getAchievements,
-    getUserAchievementsState,
+    getUserAchievements,
   };
 }

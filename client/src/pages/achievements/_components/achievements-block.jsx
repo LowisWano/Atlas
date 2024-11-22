@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import AchievementList from "./achievement-list";
 import FiltersPanel from "./filters-panel";
+import { useAchievements } from "@/queries/useAchievements";
 
 export default function AchievementsBlock() {
 
-    // const { getQuests } = useAchievements();
-    // const { isPending, error, data } = getQuests();
+    // const { getAchievementsList } = useAchievements();
+    // const { isPending, error, data } = getAchievementsList();
 
     // if (isPending) {
     //     return (
@@ -21,7 +22,7 @@ export default function AchievementsBlock() {
     //     );
     // }
 
-    // const initialAchievements = data.achievements;
+    // const Achievements = data;
     
     const initialAchievements = [
         { id: 1, title: "Completed React Course", description: "Finished an online React course with a certificate.", difficulty: 1, status: 1, date: "2023-08-01" },
