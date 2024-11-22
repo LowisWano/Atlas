@@ -3,7 +3,7 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query'
-import { getUserQuests, createQuest, deleteQuest } from '@/services/quests.service';
+import { getUserQuests, createQuest, deleteQuest, editQuest } from '@/services/quests.service';
 import { useUserStore } from "@/hooks/auth-hooks";
 
 export function useQuests() {
@@ -46,9 +46,26 @@ export function useQuests() {
     deleteQuestMutation.mutate(questId);
   }
 
+  const editQuestMutation = useMutation({
+    mutationFn: ({ questId, editedQuest }) => editQuest(user.user.id, user.token, questId, editedQuest),
+    onSuccess: (data, variables) => {
+      queryClient.setQueryData(['quests'], (oldData) => {
+        return oldData.map(quest => 
+          quest.id === variables.questId ? data : quest
+        );
+      });
+    }
+  })
+
+  const editQuestMutate = async (questId, editedQuest) => {
+    console.log(editedQuest)
+    editQuestMutation.mutate({ questId, editedQuest });
+  }
+
   return {
     getQuests,
     createQuestMutate,
     deleteQuestMutate,
+    editQuestMutate
   }
 }

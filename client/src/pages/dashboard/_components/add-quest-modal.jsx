@@ -41,6 +41,8 @@ export default function AddQuestModal() {
         difficulty: formData.get('selectDifficulty'),
       };
       await createQuestMutate(newQuest);
+
+      // pass this in sa react query onSuccess code to make sure it activates once the request is successful
       toast({
         title: "Quest Created!",
         description: "Your new quest has been added successfully.",
