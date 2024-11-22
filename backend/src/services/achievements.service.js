@@ -9,7 +9,7 @@ const getAchievements = async () => {
       description: true,
       rewardGold: true,
       rewardExp: true,
-      icon: true,
+      iconImg: true,
     },
   });
   return achievements;
@@ -28,7 +28,7 @@ const getPlayerAchievements = async (playerId) => {
           description: true,
           rewardGold: true,
           rewardExp: true,
-          icon: true,
+          iconImg: true,
         },
       },
     },
