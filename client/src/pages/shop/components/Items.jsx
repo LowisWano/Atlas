@@ -18,7 +18,7 @@ export default function Items({ items }) {
               <DialogCard item={item} />
             </TooltipTrigger>
             <TooltipContent className="bg-slate-100 text-slate-950 zoom-in-0">
-              <span className="text-s">{item.item_name}</span>
+              <span className="text-s">{item.itemName}</span>
             </TooltipContent>
           </Tooltip>
         ))}

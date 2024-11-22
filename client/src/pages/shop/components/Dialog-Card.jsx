@@ -18,12 +18,11 @@ export default function DialogCard({ item }) {
     <>
       <Dialog>
         <DialogTrigger asChild>
-          {/* Card content is here */}
           <Card className="w-36 m-2 transition-transform duration-300 hover:-translate-y-2 cursor-pointer">
             <CardContent className="p-5">
               <img
-                src={item.item_img}
-                alt={`Photo ${item.index}`}
+                src={item.itemImg}
+                alt={`Photo ${item.itemName}`}
                 className="w-full h-auto rounded-t-lg"
               />
             </CardContent>
@@ -37,11 +36,9 @@ export default function DialogCard({ item }) {
             </CardFooter>
           </Card>
         </DialogTrigger>
-        {/* Dialog or Modal content here */}
         <DialogContent>
           <DialogHeader>
             <DialogTitle className="flex">
-              {/* User Gold amount goes here */}
               <img src="/chinese-coin.png" alt="" className="h-5 mt-1 mb-1" />
               <div className="flex align-middle justify-center mx-1">
                 <P className="self-center">0</P>
@@ -52,8 +49,8 @@ export default function DialogCard({ item }) {
           <div>
             <div className="flex justify-center">
               <img
-                src={item.item_img}
-                alt={`Photo ${item.index}`}
+                src={item.itemImg}
+                alt={`Photo ${item.itemName}`}
                 className="w-full md:w-6/12 h-auto rounded-lg"
               />
             </div>

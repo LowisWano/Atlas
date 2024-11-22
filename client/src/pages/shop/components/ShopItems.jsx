@@ -15,7 +15,7 @@ export default function ShopItems() {
   const categories = ["ALL", "COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY"];
 
   const filteredItems = items.filter((item) => {
-    const matchesSearchQuery = item.item_name
+    const matchesSearchQuery = typeof item.itemName === 'string' && item.itemName
       .toLowerCase()
       .includes(searchQuery.toLowerCase());
     const matchesCategory =
