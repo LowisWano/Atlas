@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Atlas" src="./assets/banner.png"> </img>
+    <img alt="Atlas" src="./assets/banner.png" height="270px"> </img>
 </h1>
 
 <p align="center">
