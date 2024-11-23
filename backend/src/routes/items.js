@@ -1,14 +1,14 @@
+// items.js (routes)
 const itemsRouter = require("express").Router();
 const itemsController = require("../controllers/items.controller");
 const { tokenValidator } = require("../utils/middleware");
 
-// Define specific routes first
-itemsRouter.get("/search", tokenValidator, itemsController.searchItems);
-itemsRouter.get("/rarity/:rarity/category/:category", tokenValidator, itemsController.getItemsByRarityAndCategory);
+// Search and filter routes
+itemsRouter.post("/search", tokenValidator, itemsController.searchItems);
 itemsRouter.get("/rarity/:rarity", tokenValidator, itemsController.getItemsByRarity);
-itemsRouter.get("/category/:category", tokenValidator, itemsController.getItemsByCategory);
+itemsRouter.get("/player/:playerId", tokenValidator, itemsController.getPlayerItems);
 
-// Define generic routes last
+// Basic CRUD routes
 itemsRouter.get("/", tokenValidator, itemsController.getItems);
 itemsRouter.get("/:id", tokenValidator, itemsController.getItem);
 itemsRouter.post("/purchase", tokenValidator, itemsController.purchaseItem);
