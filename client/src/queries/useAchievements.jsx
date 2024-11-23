@@ -24,8 +24,10 @@ export function useAchievements() {
     queryFn: () => getUserAchievementsList(user.user.id, user.token),
     refetchOnWindowFocus: false,
   });
+  
 
   function getUserAchievements() {
+    console.log("User Achievements Data in getUserAchievements:", isUserAchievementsPending, userAchievementsError, userAchievementsData);
     return {
       isPending: isUserAchievementsPending,
       error: userAchievementsError,

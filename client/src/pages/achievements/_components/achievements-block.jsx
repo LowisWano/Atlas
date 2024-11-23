@@ -3,7 +3,6 @@ import AchievementList from "./achievement-list";
 import FiltersPanel from "./filters-panel";
 import { useAchievements } from "@/queries/useAchievements";
 import LoadingSpinner from "@/components/custom-ui/loading-spinner";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function AchievementsBlock() {
     const { getAchievements } = useAchievements();
@@ -17,8 +16,6 @@ export default function AchievementsBlock() {
     const [difficultyFilter, setDifficultyFilter] = useState("All");
     const [sortOrder, setSortOrder] = useState("ascending");
 
-    console.log("UserAchievements Status:", userisPending, usererror, userdata);
-
     if (isPending || userisPending) {
         return <LoadingSpinner />;
     }
@@ -31,14 +28,11 @@ export default function AchievementsBlock() {
         );
     }
 
-    const queryClient = useQueryClient();
-    console.log("Fetched UserAchievementsTanstack:", queryClient.getQueryData(["playerachievement"]));
+    const achievements = data || [];
+    console.log("Fetched Achievements in achievements-block:", achievements);
 
     const checkedAchievements = userdata || [];
-    console.log("Fetched UserAchievements:", checkedAchievements);
-
-    const achievements = data || [];
-    console.log("Fetched Achievements:", achievements);
+    console.log("Fetched UserAchievements in achievements-block:", checkedAchievements);
 
     const filterAchievements = () => {
         return achievements
