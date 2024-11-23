@@ -14,7 +14,11 @@ export default function SelectDifficulty({ defaultValue, handleChange }) {
       name="selectDifficulty" 
       required
       defaultValue={defaultValue}
-      onValueChange={(value) => handleChange(value)}
+      onValueChange={(value) =>  {
+        if (handleChange) {
+          handleChange(value);
+        }
+      }}
     >
       <SelectTrigger className="w-full text-muted-foreground">
         <SelectValue placeholder="Select difficulty" />
