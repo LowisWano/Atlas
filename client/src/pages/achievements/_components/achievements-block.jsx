@@ -3,24 +3,27 @@ import AchievementList from "./achievement-list";
 import FiltersPanel from "./filters-panel";
 import { useAchievements } from "@/queries/useAchievements";
 import LoadingSpinner from "@/components/custom-ui/loading-spinner";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function AchievementsBlock() {
     const { getAchievements } = useAchievements();
     const { isPending, error, data } = getAchievements();
 
     const { getUserAchievements } = useAchievements();
-    const { isPending1, error1, data1 } = getUserAchievements();
+    const { userisPending, usererror, userdata } = getUserAchievements();
 
     const [searchQuery, setSearchQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
     const [difficultyFilter, setDifficultyFilter] = useState("All");
     const [sortOrder, setSortOrder] = useState("ascending");
 
-    if (isPending || isPending1) {
+    console.log("UserAchievements Status:", userisPending, usererror, userdata);
+
+    if (isPending || userisPending) {
         return <LoadingSpinner />;
     }
 
-    if (error || error1) {
+    if (error || usererror) {
         return (
             <div className="flex justify-center items-center p-20">
                 Sorry, an error has occurred. {error.message}
@@ -28,8 +31,11 @@ export default function AchievementsBlock() {
         );
     }
 
-    const checkedAchievements = data1 || [];
-    console.log(checkedAchievements);
+    const queryClient = useQueryClient();
+    console.log("Fetched UserAchievementsTanstack:", queryClient.getQueryData(["playerachievement"]));
+
+    const checkedAchievements = userdata || [];
+    console.log("Fetched UserAchievements:", checkedAchievements);
 
     const achievements = data || [];
     console.log("Fetched Achievements:", achievements);

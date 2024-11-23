@@ -20,7 +20,7 @@ export function useAchievements() {
   }
 
   const { isPending: isUserAchievementsPending, error: userAchievementsError, data: userAchievementsData } = useQuery({
-    queryKey: ["playerachievement", user.user.id],
+    queryKey: ["playerachievement"],
     queryFn: () => getUserAchievementsList(user.user.id, user.token),
     refetchOnWindowFocus: false,
   });

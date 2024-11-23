@@ -8,7 +8,7 @@ const {
     const achievements = await getAchievements();
     res.json(achievements);
   };
-  
+   
   const getUserAchievementsController = async (req, res) => {
     const playerId = Number(req.params.id);
     const playerAchievements = await getPlayerAchievements(playerId);

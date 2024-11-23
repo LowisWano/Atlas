@@ -18,33 +18,19 @@ const getAchievements = async () => {
   return achievements;
 };
 
-
 const getPlayerAchievements = async (playerId) => {
   const playerAchievements = await prisma.playerAchievement.findMany({
-    include: {
-      achievement: {
-        select: {
-          id: true,
-          title: true,
-          description: true,
-          rewardGold: true,
-          rewardExp: true,
-          iconImg: true,
-        },
-      },
-    },
     where: {
       playerId: playerId,
     },
+    include: {
+      achievement: true,
+    },
   });
 
-  console.log("Query result:", playerAchievements);
-
-  return playerAchievements.map((entry) => ({
-    obtainedAt: entry.createdAt,
-    ...entry.achievement,
-  }));
+  return playerAchievements;
 };
+
 
 module.exports = {
   getAchievements,
