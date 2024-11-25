@@ -28,8 +28,8 @@ export function useQuests() {
 
   const createQuestMutation = useMutation({
     mutationFn: (newQuest) => createQuest(user.user.id, user.token, newQuest),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['quests'] });
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['quests'] });
       toast({
         title: "Quest Created!",
         description: "Your new quest has been added successfully.",
@@ -43,8 +43,8 @@ export function useQuests() {
 
   const deleteQuestMutation = useMutation({
     mutationFn: (quest) => deleteQuest(user.user.id, user.token, quest.id),
-    onSuccess: (data, quest) => {
-      queryClient.invalidateQueries({ queryKey: ['quests'] });
+    onSuccess: async (data, quest) => {
+      await queryClient.invalidateQueries({ queryKey: ['quests'] });
       toast({
         title: "Quest Deleted.",
         description: `${quest.title} has been deleted successfully.`,
