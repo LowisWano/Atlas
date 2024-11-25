@@ -10,9 +10,24 @@ const getItems = async () => {
   }
 };
 
+const getPlayerItems = async (playerId) => {
+  try {
+    return await prisma.playerPurchases.findMany({
+      where: { playerId: parseInt(playerId) },
+      include: {
+        item: true
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching player items:", error);
+    throw new Error("An unexpected error occurred while fetching player items.");
+  }
+};
+
 
 
 module.exports = {
   getItems,
-  
+  getPlayerItems,
+
 };
