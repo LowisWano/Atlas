@@ -1,6 +1,11 @@
 const jwt = require("jsonwebtoken");
 const z = require("zod").z;
 const { getUser } = require("../services/auth.service");
+const { 
+  PrismaClientKnownRequestError,
+  PrismaClientUnknownRequestError,
+  PrismaClientValidationError
+} = require('@prisma/client/runtime/library');
 
 const requestLogger = (request, response, next) => {
   console.log("Method:", request.method);
@@ -52,16 +57,34 @@ const unknownEndpoint = (request, response) => {
 };
 
 const errorHandler = (error, request, response, next) => {
-  console.log(error.message);
-
-  if (error.name === "JsonWebTokenError") {
-    response.status(401).json({ error: "token invalid" });
-  } else if (error instanceof z.ZodError) {
-    response.status(400).send({ error: error.issues });
-  }else {
-    response.status(500).send('Internal Server Error');
+  console.log('Error:', error.message);
+  
+  if (error instanceof PrismaClientKnownRequestError) {
+    console.log('Prisma Error Code:', error.code);
+    console.log('Prisma Error Details:', error);
+    return response.status(400).json({ error: error.message });
+  } 
+  
+  if (error instanceof PrismaClientUnknownRequestError) {
+    console.log('Unknown Prisma Error:', error);
+    return response.status(500).json({ error: 'Database Error' });
+  }
+  
+  if (error instanceof PrismaClientValidationError) {
+    console.log('Prisma Validation Error:', error);
+    return response.status(400).json({ error: 'Invalid Data' });
   }
 
+  if (error.name === "JsonWebTokenError") {
+    return response.status(401).json({ error: "token invalid" });
+  } 
+  
+  if (error instanceof z.ZodError) {
+    return response.status(400).json({ error: error.issues });
+  }
+  
+  console.log('Unhandled Error:', error);
+  response.status(500).send('Internal Server Error');
   next(error);
 };
 
