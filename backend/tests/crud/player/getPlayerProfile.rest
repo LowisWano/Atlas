@@ -1,2 +1,2 @@
-GET http://localhost:3001/api/player/3/active-quests
+GET http://localhost:3001/api/player/3/profile
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTHVpcyBBbmRyZWkgT3Vhbm8iLCJpZCI6MywidXNlcm5hbWUiOiJ3aXN3aXNzIiwiaWF0IjoxNzMxMTQ0NTQyfQ.qpUPvVqha_C4aWerFyC-aG-eFUn6KjeTxXBKh-e7jCs
