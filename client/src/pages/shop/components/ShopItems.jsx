@@ -1,25 +1,35 @@
+// ShopItems.jsx
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Items from "./Items";
-import { H1, H2, H3, H4, P, TypographyLead } from "@/components/Typography";
 import { Input } from "@/components/ui/input";
 import ItemRarity from "./ItemRarity";
-import ItemOwnership from "./itemOwnership";
-import { items } from "../data";
+import ItemOwnership from "./ItemOwnership";
+import LoadingSpinner from "@/components/custom-ui/loading-spinner";
+import { useItems } from "@/queries/useItems";
 
 export default function ShopItems() {
+  const { getItems } = useItems();
+  const { isPending, error, data } = getItems();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("ALL");
-  const [selectedOwnership, setSelectedOwnership] = useState("UNCLAIMED");
-  const ownership = ["CLAIMED", "UNCLAIMED"];
+  const [selectedOwnership, setSelectedOwnership] = useState("NOT_OWNED");
+  
   const categories = ["ALL", "COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY"];
+  const ownerships = ["NOT_OWNED", "CLAIMED"];
 
-  const filteredItems = items.filter((item) => {
-    const matchesSearchQuery = typeof item.itemName === 'string' && item.itemName
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "ALL" || item.rarity === selectedCategory;
+  if (isPending) return <LoadingSpinner />;
+  if (error) {
+    return (
+      <div className="flex justify-center items-center p-20">
+        Sorry, an error has occurred. {error.message}
+      </div>
+    );
+  }
+
+  const filteredItems = data?.filter((item) => {
+    const matchesSearchQuery = item.itemName.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === "ALL" || item.rarity === selectedCategory;
     return matchesSearchQuery && matchesCategory;
   });
 
@@ -42,13 +52,13 @@ export default function ShopItems() {
         </div>
         <div>
           <ItemOwnership
-            ownership={ownership}
+            categories={ownerships}
             setSelectedOwnership={setSelectedOwnership}
           />
         </div>
       </div>
       <div className="">
-        <Items items={filteredItems} />
+        <Items items={filteredItems || []} />
       </div>
     </>
   );
