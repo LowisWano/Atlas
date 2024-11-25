@@ -6,10 +6,10 @@ import {
   Home
 } from "lucide-react"
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import AtlasHome from "@/components/atlas-home"
+import { NavMain } from "@/components/sidebar/nav-main"
+import { NavProjects } from "@/components/sidebar/nav-projects"
+import { NavUser } from "@/components/sidebar/nav-user"
+import AtlasHome from "@/components/sidebar/atlas-home"
 import {
   Sidebar,
   SidebarContent,
@@ -18,7 +18,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
-
+import PlayerProfileBlock from "./player-profile-block"
 
 const data = {
   user: {
@@ -59,6 +59,7 @@ export function AppSidebar({
         <AtlasHome />
       </SidebarHeader>
       <SidebarContent>
+        <PlayerProfileBlock/>
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>

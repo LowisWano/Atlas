@@ -3,7 +3,7 @@ import Navbar from "./navbar"
 import { Outlet } from "react-router-dom"
 import { Toaster } from "../ui/toaster"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar } from "@/components/sidebar/app-sidebar"
 
 // eslint-disable-next-line react/prop-types
 export default function Layout({ children }) {
