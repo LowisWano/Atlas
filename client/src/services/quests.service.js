@@ -7,7 +7,7 @@ const baseUrl = "http://localhost:3001/api/player";
 */
 
 export const getUserQuests = async (playerId, token) => {
-  const response = await axios.get(`${baseUrl}/${playerId}/active-quests`, {
+  const response = await axios.get(`${baseUrl}/${playerId}/quests/active`, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
