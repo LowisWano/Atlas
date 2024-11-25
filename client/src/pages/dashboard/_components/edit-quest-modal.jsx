@@ -35,6 +35,13 @@ export default function EditQuestModal({ open, setOpen, isDropdownOpen, quest })
       [name]: value, 
     }));
   };
+
+  const handleDifficultyChange = (value) => {
+    setEditedQuest((prev) => ({
+      ...prev,
+      difficulty: value,
+    }));
+  };
   
   const editQuestHandler = async (e) => {
     e.preventDefault()
@@ -102,6 +109,7 @@ export default function EditQuestModal({ open, setOpen, isDropdownOpen, quest })
                   <Label>Difficulty</Label>
                   <SelectDifficulty
                     defaultValue={editedQuest.difficulty}
+                    handleChange={handleDifficultyChange}
                   />
                 </div>
               </div>

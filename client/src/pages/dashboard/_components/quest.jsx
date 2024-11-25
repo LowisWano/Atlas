@@ -45,11 +45,7 @@ export default function Quest({ quest }) {
 
   const deleteQuestHandler = async () => {
     try {
-      await deleteQuestMutate(quest.id);
-      toast({
-        title: "Quest Deleted.",
-        description: `${quest.title} has been deleted successfully.`,
-      });
+      await deleteQuestMutate(quest);
     } catch (err) {
       toast({
         variant: "destructive",

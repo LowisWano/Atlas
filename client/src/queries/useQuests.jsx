@@ -5,10 +5,12 @@ import {
 } from '@tanstack/react-query'
 import { getUserQuests, createQuest, deleteQuest, editQuest } from '@/services/quests.service';
 import { useUserStore } from "@/hooks/auth-hooks";
+import { useToast } from "@/hooks/use-toast"
 
 export function useQuests() {
   const { user } = useUserStore();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
+  const { toast } = useToast();
 
   const { isPending, error, data } = useQuery({
     queryKey: ['quests'],
@@ -27,7 +29,11 @@ export function useQuests() {
   const createQuestMutation = useMutation({
     mutationFn: (newQuest) => createQuest(user.user.id, user.token, newQuest),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['quests'] })
+      queryClient.invalidateQueries({ queryKey: ['quests'] });
+      toast({
+        title: "Quest Created!",
+        description: "Your new quest has been added successfully.",
+      });
     }
   });
 
@@ -36,14 +42,18 @@ export function useQuests() {
   }
 
   const deleteQuestMutation = useMutation({
-    mutationFn: (questId) => deleteQuest(user.user.id, user.token, questId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['quests'] })
+    mutationFn: (quest) => deleteQuest(user.user.id, user.token, quest.id),
+    onSuccess: (data, quest) => {
+      queryClient.invalidateQueries({ queryKey: ['quests'] });
+      toast({
+        title: "Quest Deleted.",
+        description: `${quest.title} has been deleted successfully.`,
+      });
     }
   })
-
-  const deleteQuestMutate = async (questId) => {
-    deleteQuestMutation.mutate(questId);
+  
+  const deleteQuestMutate = async (quest) => {
+    deleteQuestMutation.mutate(quest);
   }
 
   const editQuestMutation = useMutation({
@@ -58,7 +68,6 @@ export function useQuests() {
   })
 
   const editQuestMutate = async (questId, editedQuest) => {
-    console.log(editedQuest)
     editQuestMutation.mutate({ questId, editedQuest });
   }
 
