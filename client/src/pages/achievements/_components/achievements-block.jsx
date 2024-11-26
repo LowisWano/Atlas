@@ -1,35 +1,12 @@
 import React, { useState } from "react";
 import AchievementList from "./achievement-list";
 import FiltersPanel from "./filters-panel";
-import { useAchievements } from "@/queries/useAchievements";
-import LoadingSpinner from "@/components/custom-ui/loading-spinner";
 
-export default function AchievementsBlock() {
-    const { getAchievements } = useAchievements();
-    const { isPending, error, data } = getAchievements();
-
-    const { getUserAchievements } = useAchievements();
-    const user = getUserAchievements();
-
+export default function AchievementsBlock( {achievements , userAchievements}) {
     const [searchQuery, setSearchQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
     const [difficultyFilter, setDifficultyFilter] = useState("All");
     const [sortOrder, setSortOrder] = useState("ascending");
-
-    if (isPending || user.isPending) {
-        return <LoadingSpinner />;
-    }
-
-    if (error || user.error) {
-        return (
-            <div className="flex justify-center items-center p-20">
-                Sorry, an error has occurred. {error.message}
-            </div>
-        );
-    }
-
-    const achievements = data || [];
-    const checkedAchievements = user.data || [];
 
     const filterAchievements = () => {
         return achievements
@@ -43,9 +20,6 @@ export default function AchievementsBlock() {
                 // if (statusFilter === "Unobtained" && achievement.status !== 0) {
                 //     return false;
                 // }
-                if (difficultyFilter !== "All" && achievement.iconImg !== (difficultyFilter)) {
-                    return false;
-                }
                 return true;
             })
             .sort((a, b) => (sortOrder === "ascending" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)));
@@ -53,7 +27,6 @@ export default function AchievementsBlock() {
 
     return (
         <div className="p-6 rounded-lg shadow-md">
-            <h2 className="text-2xl font-bold mb-4">You have {achievements.length} achievements.</h2>
 
             <FiltersPanel
                 searchQuery={searchQuery}
@@ -66,7 +39,7 @@ export default function AchievementsBlock() {
                 onSortOrderChange={setSortOrder}
             />
 
-            <AchievementList achievements={filterAchievements()} />
+            <AchievementList achievements={filterAchievements()} userAchievements={userAchievements} />
         </div>
     );
 }

@@ -1,13 +1,13 @@
 import { Input } from "@/components/ui/input";
 
 const SearchInput = ({ query, onSearch }) => (
-    <div className="mb-4">
+    <div className="w-">
         <Input
             type="text"
-            placeholder="Search Achievements"
+            placeholder="Search..."
             value={query}
             onChange={(e) => onSearch(e.target.value)}
-            className="h-16 w-full p-2"
+            className="w-9/12 h-10"
         />
     </div>
 );

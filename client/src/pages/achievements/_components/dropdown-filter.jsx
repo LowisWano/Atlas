@@ -12,7 +12,7 @@ const DropdownFilter = ({ label, value, options, onChange }) => {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger className="p-2 border rounded cursor-pointer">
+            <DropdownMenuTrigger className="p-2 border rounded cursor-pointer h-10">
                 {selectedOption ? selectedOption.label : label}
             </DropdownMenuTrigger>
             <DropdownMenuContent>
