@@ -30,7 +30,8 @@ export default function ShopItems() {
   const filteredItems = data?.filter((item) => {
     const matchesSearchQuery = item.itemName.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === "ALL" || item.rarity === selectedCategory;
-    return matchesSearchQuery && matchesCategory;
+    const matchesOwnership = selectedOwnership === "CLAIMED" ? item.isOwned : !item.isOwned;
+    return matchesSearchQuery && matchesCategory && matchesOwnership;
   });
 
   return (
