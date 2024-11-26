@@ -27,7 +27,6 @@ export function useAchievements() {
   
 
   function getUserAchievements() {
-    console.log("User Achievements Data in getUserAchievements:", isUserAchievementsPending, userAchievementsError, userAchievementsData);
     return {
       isPending: isUserAchievementsPending,
       error: userAchievementsError,

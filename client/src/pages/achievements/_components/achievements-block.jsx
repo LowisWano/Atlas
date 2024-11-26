@@ -29,10 +29,7 @@ export default function AchievementsBlock() {
     }
 
     const achievements = data || [];
-    console.log("Fetched Achievements in achievements-block:", achievements);
-
     const checkedAchievements = user.data || [];
-    console.log("Fetched UserAchievements in achievements-block:", checkedAchievements);
 
     const filterAchievements = () => {
         return achievements
