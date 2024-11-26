@@ -27,7 +27,7 @@ import EditQuestModal from "./edit-quest-modal";
 export default function Quest({ quest }) {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const [checked, setChecked] = useState(quest.status === "COMPLETED");
-  const { deleteQuestMutate } = useQuests();
+  const { deleteQuestMutate, editQuestStatusMutate} = useQuests();
   const { toast } = useToast();
   const [open, setOpen] = useState(false)
 
@@ -37,10 +37,11 @@ export default function Quest({ quest }) {
     setOpen(true)
   }
 
-  const handleCheckToggle = (newValue) => {
+  const handleCheckToggle = async (newValue) => {
     setChecked(newValue);
     const updatedStatus = newValue ? "COMPLETED" : "ACTIVE";
     console.log(`Quest "${quest.title}" is now marked as ${updatedStatus}`);
+    await editQuestStatusMutate(quest.id, updatedStatus);
   };
 
   const deleteQuestHandler = async () => {

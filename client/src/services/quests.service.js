@@ -29,7 +29,6 @@ export const deleteQuest = async (playerId, token, questId) => {
 };
 
 export const editQuest = async (playerId, token, questId, editedQuest) => {
-  console.log(editedQuest)
   const response = await axios.put(
     `${baseUrl}/${playerId}/quests/${questId}`,
     editedQuest,
@@ -37,3 +36,12 @@ export const editQuest = async (playerId, token, questId, editedQuest) => {
   );
   return response.data;
 };
+
+export const updateStatusQuest = async (playerId, token, questId, status) => {
+  const response = await axios.put(
+    `${baseUrl}/${playerId}/quests/${questId}/status`,
+    { status },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data;
+}
