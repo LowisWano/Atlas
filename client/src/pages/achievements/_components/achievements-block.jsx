@@ -9,18 +9,18 @@ export default function AchievementsBlock() {
     const { isPending, error, data } = getAchievements();
 
     const { getUserAchievements } = useAchievements();
-    const { userisPending, usererror, userdata } = getUserAchievements();
+    const user = getUserAchievements();
 
     const [searchQuery, setSearchQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
     const [difficultyFilter, setDifficultyFilter] = useState("All");
     const [sortOrder, setSortOrder] = useState("ascending");
 
-    if (isPending || userisPending) {
+    if (isPending || user.isPending) {
         return <LoadingSpinner />;
     }
 
-    if (error || usererror) {
+    if (error || user.error) {
         return (
             <div className="flex justify-center items-center p-20">
                 Sorry, an error has occurred. {error.message}
@@ -31,7 +31,7 @@ export default function AchievementsBlock() {
     const achievements = data || [];
     console.log("Fetched Achievements in achievements-block:", achievements);
 
-    const checkedAchievements = userdata || [];
+    const checkedAchievements = user.data || [];
     console.log("Fetched UserAchievements in achievements-block:", checkedAchievements);
 
     const filterAchievements = () => {
