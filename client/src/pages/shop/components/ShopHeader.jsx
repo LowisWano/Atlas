@@ -5,15 +5,15 @@ export default function ShopHeader() {
     <div>
       <div>
         <div>
-          <H1>Welcome Adventurer!</H1>
+          <H1>Adventure's Shop</H1>
         </div>
         <div>
-          <blockquote className="italic text-muted-foreground">
-            You’ve entered the Quest Shop! Grab yourself some rare and unique
-            items. The higher the rarity, the more impressive it will be to show
-            off to others. Collect the finest gear and let everyone see the
-            fruits of your hard work!
-          </blockquote>
+        <blockquote className="hidden md:block italic text-base text-muted-foreground mt-2">
+        You've entered the Quest Shop! Grab yourself some rare and unique
+        items. The higher the rarity, the more impressive it will be to show
+        off to others. Collect the finest gear and let everyone see the
+        fruits of your hard work!
+      </blockquote>
         </div>
       </div>
     </div>
