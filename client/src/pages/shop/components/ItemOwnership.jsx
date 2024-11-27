@@ -19,7 +19,7 @@ export default function ItemOwnership({ categories, setSelectedOwnership }) {
         <SelectGroup>
           {categories.map((status) => (
             <SelectItem key={status} value={status}>
-              {status === "NOT_OWNED" ? "Unclaimed" : "Claimed"}
+              {status === "NOT_OWNED" ? "Not Owned" : "Owned"}
             </SelectItem>
           ))}
         </SelectGroup>
