@@ -28,15 +28,15 @@ export default function DialogCard({
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Card className="w-36 m-2 transition-transform duration-300 hover:-translate-y-2 cursor-pointer">
-            <CardContent className="p-5">
+          <Card className="w-[50px] h-[70px] md:w-36 md:h-[170px] m-1 md:m-2 transition-transform duration-300 hover:-translate-y-2 cursor-pointer">
+            <CardContent className="p-1 md:p-5 h-full md:h-auto">
               <img
                 src={item.itemImg}
                 alt={`Photo ${item.itemName}`}
-                className="w-full h-auto rounded-t-lg"
+                className="w-full h-full object-contain rounded-lg md:rounded-t-lg"
               />
             </CardContent>
-            <CardFooter className="flex justify-center pt-0 pb-0 rounded-b-xl transition-colors duration-300 bg-purple-700 hover:bg-purple-600 text-white">
+            <CardFooter className="hidden md:flex justify-center pt-0 pb-0 rounded-b-xl transition-colors duration-300 bg-zinc-900 dark:bg-purple-700 hover:bg-gray-300 dark:hover:bg-purple-600 text-white dark:text-white">
               <div className="flex justify-center items-center">
                 {isOwned ? (
                   <p className="self-center py-1">Owned</p>
@@ -56,10 +56,10 @@ export default function DialogCard({
             </CardFooter>
           </Card>
         </DialogTrigger>
-        <DialogContent>
+        <DialogContent className="w-[90vw] max-w-md md:w-full p-4 md:p-6">
           <DialogHeader>
-            <DialogTitle className="flex">
-              <img src="/chinese-coin.png" alt="" className="h-5 mt-1 mb-1" />
+            <DialogTitle className="flex items-center text-base md:text-lg">
+              <img src="/chinese-coin.png" alt="" className="h-4 md:h-5" />
               <div className="flex align-middle justify-center mx-1">
                 <P className="self-center">{playerGold}</P>
               </div>
@@ -71,25 +71,35 @@ export default function DialogCard({
               <img
                 src={item.itemImg}
                 alt={`Photo ${item.itemName}`}
-                className="w-full md:w-6/12 h-auto rounded-lg"
+                className="w-full max-w-[200px] md:max-w-[250px] h-auto rounded-lg"
               />
             </div>
-            <div className="flex flex-col gap-4 items-center mt-4">
-              <p className="text-justify">{item.description}</p>
+            <div className="flex flex-col gap-3 md:gap-4 items-center mt-3 md:mt-4">
+              <p className="text-sm md:text-base text-justify">
+                {item.description}
+              </p>
               {!isOwned && !canAfford && (
-                <p className="font-bold text-red-500">
+                <p className="text-sm md:text-base font-bold text-red-500">
                   You don't have enough gold to purchase this item!
                 </p>
               )}
             </div>
           </div>
           <hr className="border-t border-gray-300" />
-          <div className="flex justify-center gap-2">
+          <div className="flex justify-center gap-2 pt-2">
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button
+                variant="outline"
+                className="text-sm md:text-base px-3 md:px-4"
+              >
+                Cancel
+              </Button>
             </DialogClose>
             {isOwned ? (
-              <Button disabled className="ml-2 bg-green-600">
+              <Button
+                disabled
+                className="ml-2 bg-green-600 text-sm md:text-base"
+              >
                 Owned
               </Button>
             ) : (
@@ -97,13 +107,17 @@ export default function DialogCard({
                 onClick={() => onPurchase(item.id)}
                 disabled={!canAfford || isPurchasing}
                 className={cn(
-                  "ml-2",
+                  "ml-2 text-sm md:text-base",
                   !canAfford
                     ? "bg-red-500 hover:bg-red-600"
-                    : "bg-purple-700 hover:bg-purple-600"
+                    : "bg-zinc-900 dark:bg-purple-700 hover:bg-gray-300 dark:hover:bg-purple-600 text-white dark:text-white"
                 )}
               >
-                <img src="/chinese-coin.png" alt="" className="h-5 mr-2" />
+                <img
+                  src="/chinese-coin.png"
+                  alt=""
+                  className="h-4 md:h-5 mr-2"
+                />
                 {item.price}
               </Button>
             )}
