@@ -9,6 +9,12 @@ import {
 } from "@/components/ui/select";
 
 export default function ItemRarity({ categories, setSelectedCategory }) {
+  // Transform category text while maintaining original value
+  const displayCategory = (category) => {
+    if (category === "ALL") return category;
+    return category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+  };
+
   return (
     <Select onValueChange={setSelectedCategory}>
       <SelectTrigger className="w-full md:w-[180px]">
@@ -21,7 +27,7 @@ export default function ItemRarity({ categories, setSelectedCategory }) {
           </SelectItem>
           {categories.map((category) => (
             <SelectItem key={category} value={category}>
-              {category}
+              {displayCategory(category)}
             </SelectItem>
           ))}
         </SelectGroup>
