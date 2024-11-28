@@ -83,21 +83,44 @@ const createPlayerQuest = async ({
 };
 
 const createRecurringQuest = async ({
-  questId, 
+  playerId,
+  title,
+  description,
+  questType,
+  dueDate,
+  difficulty,
+  gold,
+  exp,
   runAt,
 }) => {
-  const recurringQuest = await prisma.recurringQuest.create({
+  const quest = await prisma.quest.create({
     data: {
-      quest: {
+      title,
+      description,
+      questType,
+      difficulty,
+      dueDate,
+      rewardGold: gold,
+      rewardExp: exp,
+      player: {
         connect: {
-          id: questId,
+          id: playerId,
         },
       },
-      runAt
-    }
-  })
+      reccurance: {
+        create: {
+          runAt: runAt,
+          isActive: true,
+        }
+      }
+    },
+    include: {
+      player: true,
+      reccurance: true,
+    },
+  });
 
-  return recurringQuest;
+  return quest;
 }
 
 const deleteQuest = async (id) => { 

@@ -33,27 +33,36 @@ const createQuestController = async (req, res, next) => {
 
     const { title, description, questType, dueDate, difficulty } = req.body;
     const { gold, exp } = calculateRewards(questType, difficulty);
-    const quest = await createPlayerQuest({
-      playerId: req.user.id,
-      title,
-      description,
-      questType,
-      dueDate,
-      difficulty,
-      gold,
-      exp,
-    });
 
-    if (questType === "DAILY_QUEST") {
-      const { frequency, runAt } = req.body;
-      // add validation if values exist
-      const recurringQuest = await createRecurringQuest({
-        questId: quest.id,
-        frequency,
+    let quest;
+    if(questType == "NORMAL_QUEST"){
+      quest = await createPlayerQuest({
+        playerId: req.user.id,
+        title,
+        description,
+        questType,
+        dueDate,
+        difficulty,
+        gold,
+        exp,
+      });
+    }else if(questType === "DAILY_QUEST"){
+      const { runAt } = req.body;
+      quest = await createRecurringQuest({
+        playerId: req.user.id,
+        title,
+        description,
+        questType,
+        dueDate,
+        difficulty,
+        gold,
+        exp,
         runAt,
       });
+    }else{
+      return res.status(400).json({ error: "Invalid data." });
     }
-
+    
     res.json(quest);
   } catch (error) {
     next(error);
