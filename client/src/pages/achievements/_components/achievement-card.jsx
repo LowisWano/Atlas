@@ -12,7 +12,7 @@ const AchievementCard = ({ achievement, isFirst, isLast, userAchievements }) => 
                 ${isLast ? 'rounded-b-lg' : ''}`}
         >
             <div className="mr-4">
-                <img src={achievement.iconImg} alt={achievement.title} className="w-16 h-16 object-cover" />
+                <img src={achievement.iconImg} alt={achievement.title} className="hidden md:block w-16 h-16 object-cover" />
             </div>
             <div className="flex-1">
                 <CardHeader className="text-xl font-semibold p-1">{achievement.title}</CardHeader>

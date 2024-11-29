@@ -6,14 +6,15 @@ import {
     DropdownMenuRadioItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { ChevronDown } from 'lucide-react';
 
 const DropdownFilter = ({ label, value, options, onChange }) => {
     const selectedOption = options.find((option) => option.value === value);
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger className="p-2 border rounded cursor-pointer h-10">
-                {selectedOption ? selectedOption.label : label}
+            <DropdownMenuTrigger className="p-2 border rounded cursor-pointer h-10 flex text-sm">
+                {selectedOption ? selectedOption.label : label} <ChevronDown/>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
                 <DropdownMenuLabel>{label}</DropdownMenuLabel>

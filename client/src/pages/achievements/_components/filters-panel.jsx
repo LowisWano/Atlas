@@ -7,13 +7,9 @@ const FiltersPanel = ({
     onSearch,
     statusFilter,
     onStatusChange,
-    difficultyFilter,
-    onDifficultyChange,
-    sortOrder,
-    onSortOrderChange,
 }) => {
     return (
-        <div className="mb-4 flex w-full border border-red-600">
+        <div className="mb-4 space-y-1 md:space-x-2 md:flex md:space-y-0">
             <SearchInput query={searchQuery} onSearch={onSearch} />
             <DropdownFilter
                 label="Status"

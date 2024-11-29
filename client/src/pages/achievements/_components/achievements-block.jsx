@@ -1,12 +1,33 @@
 import React, { useState } from "react";
 import AchievementList from "./achievement-list";
 import FiltersPanel from "./filters-panel";
+import { useAchievements } from "@/queries/useAchievements";
+import LoadingSpinner from "@/components/custom-ui/loading-spinner";
 
-export default function AchievementsBlock( {achievements , userAchievements}) {
+export default function AchievementsBlock() {
     const [searchQuery, setSearchQuery] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
-    const [difficultyFilter, setDifficultyFilter] = useState("All");
-    const [sortOrder, setSortOrder] = useState("ascending");
+
+    const { getAchievements } = useAchievements();
+    const { isPending, error, data } = getAchievements();
+
+    const { getUserAchievements } = useAchievements();
+    const userA = getUserAchievements();
+
+    if (isPending || userA.isPending) {
+        return <LoadingSpinner />;
+    }
+
+    if (error || userA.error) {
+        return (
+            <div className="flex justify-center items-center p-20">
+                Sorry, an error has occurred. {error.message}
+            </div>
+        );
+    }
+
+    const achievements = data || [];
+    const userAchievements = userA.data || [];
 
     const filterAchievements = () => {
         return achievements
@@ -14,15 +35,14 @@ export default function AchievementsBlock( {achievements , userAchievements}) {
                 if (searchQuery && !achievement.title.toLowerCase().includes(searchQuery.toLowerCase())) {
                     return false;
                 }
-                // if (statusFilter === "Obtained" && achievement.status !== 1) {
-                //     return false;
-                // }
-                // if (statusFilter === "Unobtained" && achievement.status !== 0) {
-                //     return false;
-                // }
+                if (statusFilter === "Obtained" && !userAchievements.some(ua => ua.achievementId === achievement.id)) {
+                    return false;
+                }
+                if (statusFilter === "Unobtained" && userAchievements.some(ua => ua.achievementId === achievement.id)) {
+                    return false;
+                }
                 return true;
             })
-            .sort((a, b) => (sortOrder === "ascending" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title)));
     };
 
     return (
@@ -33,10 +53,6 @@ export default function AchievementsBlock( {achievements , userAchievements}) {
                 onSearch={setSearchQuery}
                 statusFilter={statusFilter}
                 onStatusChange={setStatusFilter}
-                difficultyFilter={difficultyFilter}
-                onDifficultyChange={setDifficultyFilter}
-                sortOrder={sortOrder}
-                onSortOrderChange={setSortOrder}
             />
 
             <AchievementList achievements={filterAchievements()} userAchievements={userAchievements} />
