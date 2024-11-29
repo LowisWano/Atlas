@@ -24,30 +24,17 @@ const getNormalQuests = async (playerId) => {
 const getDailyQuests = async (playerId) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const endOfToday = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-  const player = await prisma.player.findUnique({
-    include: {
-      quests: {
-        where: {
-          status: "ACTIVE",
-          questType: "DAILY_QUEST",
-          reccurance: {
-            runAt: {
-              gte: today,
-              lt: endOfToday,
-            },
-          },
-        },
-        include: {
-          reccurance: true
-        }
-      },
-    },
+
+  return prisma.quest.findMany({
     where: {
-      id: playerId,
-    },
+      playerId,
+      questType: 'DAILY_QUEST',
+      status: 'ACTIVE',
+      createdAt: {
+        gte: today
+      }
+    }
   });
-  return player.quests;
 };
 
 const createPlayerQuest = async ({
@@ -82,46 +69,33 @@ const createPlayerQuest = async ({
   return quest;
 };
 
-const createRecurringQuest = async ({
-  playerId,
-  title,
-  description,
-  questType,
-  dueDate,
-  difficulty,
-  gold,
-  exp,
-  runAt,
-}) => {
-  const quest = await prisma.quest.create({
-    data: {
-      title,
-      description,
-      questType,
-      difficulty,
-      dueDate,
-      rewardGold: gold,
-      rewardExp: exp,
-      player: {
-        connect: {
-          id: playerId,
-        },
-      },
-      reccurance: {
-        create: {
-          runAt: runAt,
-          isActive: true,
-        }
+const createRecurringQuest = async (questData) => {
+  const result = await prisma.$transaction(async (tx) => {
+    const quest = await tx.quest.create({
+      data: {
+        playerId: questData.playerId,
+        title: questData.title,
+        description: questData.description,
+        questType: questData.questType,
+        difficulty: questData.difficulty,
+        dueDate: questData.dueDate,
+        rewardGold: questData.gold,
+        rewardExp: questData.exp
       }
-    },
-    include: {
-      player: true,
-      reccurance: true,
-    },
+    });
+
+    await tx.recurringQuest.create({
+      data: {
+        questId: quest.id,
+        runAt: questData.runAt || new Date()
+      }
+    });
+
+    return quest;
   });
 
-  return quest;
-}
+  return result;
+};
 
 const deleteQuest = async (id) => { 
   const result = await prisma.quest.delete({

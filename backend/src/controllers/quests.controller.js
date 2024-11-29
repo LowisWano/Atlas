@@ -47,20 +47,28 @@ const createQuestController = async (req, res, next) => {
         exp,
       });
     }else if(questType === "DAILY_QUEST"){
-      const { runAt } = req.body;
+      const endOfDay = new Date();
+      endOfDay.setHours(23, 59, 59, 999);
+      
+      const nextDay = new Date();
+      nextDay.setDate(nextDay.getDate() + 1);
+      nextDay.setHours(0, 0, 0, 0);
+
+      const { runAt = nextDay } = req.body;
+      
       quest = await createRecurringQuest({
         playerId: req.user.id,
         title,
         description,
         questType,
-        dueDate,
+        dueDate: dueDate || endOfDay,
         difficulty,
         gold,
         exp,
         runAt,
       });
     }else{
-      return res.status(400).json({ error: "Invalid data." });
+      return res.status(400).json({ error: "Invalid quest type." });
     }
     
     res.json(quest);
