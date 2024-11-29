@@ -1,5 +1,5 @@
 const {
-  getNormalQuests,
+  getQuests,
   getDailyQuests,
   createPlayerQuest,
   createRecurringQuest,
@@ -14,7 +14,7 @@ const { calculateRewards } = require("../utils/utils");
 const getActiveQuestsController = async (req, res, next) => {
   try {
     const playerId = req.user.id;
-    const normalQuests = await getNormalQuests(playerId);
+    const normalQuests = await getQuests(playerId);
     const dailyQuests = await getDailyQuests(playerId);
     const activeQuests = normalQuests.concat(dailyQuests);
     res.json(activeQuests);
@@ -35,7 +35,7 @@ const createQuestController = async (req, res, next) => {
     const { gold, exp } = calculateRewards(questType, difficulty);
 
     let quest;
-    if(questType == "NORMAL_QUEST"){
+    if(questType == "NORMAL_QUEST" || questType == "MAIN_QUEST"){
       quest = await createPlayerQuest({
         playerId: req.user.id,
         title,
