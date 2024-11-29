@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* div,span,header,footer{
+/* div, span, header, footer, p, a, ul, ol, li, section, article, aside, nav, main, figure, figcaption, h1, h2, h3, h4, h5, h6, table, tr, td, th, form, input, button, textarea, select, option {
   border: 1px solid red;
 } */
 
