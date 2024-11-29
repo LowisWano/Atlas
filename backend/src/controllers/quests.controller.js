@@ -54,14 +54,14 @@ const createQuestController = async (req, res, next) => {
       nextDay.setDate(nextDay.getDate() + 1);
       nextDay.setHours(0, 0, 0, 0);
 
-      const { runAt = nextDay } = req.body;
+      const runAt = nextDay;
       
       quest = await createRecurringQuest({
         playerId: req.user.id,
         title,
         description,
         questType,
-        dueDate: dueDate || endOfDay,
+        dueDate: endOfDay,
         difficulty,
         gold,
         exp,

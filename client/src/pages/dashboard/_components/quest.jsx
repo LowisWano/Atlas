@@ -40,7 +40,6 @@ export default function Quest({ quest }) {
   const handleCheckToggle = async (newValue) => {
     setChecked(newValue);
     const updatedStatus = newValue ? "COMPLETED" : "ACTIVE";
-    console.log(`Quest "${quest.title}" is now marked as ${updatedStatus}`);
     await editQuestStatusMutate(quest.id, updatedStatus);
   };
 
