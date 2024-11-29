@@ -3,7 +3,7 @@ import AchievementCard from "./achievement-card";
 
 const AchievementList = ({ achievements , userAchievements }) => {
     return (
-    <Card style={{ border: 'none' }} className="flex flex-col gap-1 shadow-md">
+    <Card style={{ border: 'none' }} className="flex flex-col gap-1">
         {achievements.map((achievement, index) => (
             <AchievementCard
                 key={achievement.id}

@@ -30,7 +30,10 @@ export default function AchievementsBlock(){
             <div className="text-2xl md:text-5xl font-bold">Achievements</div>
             <div className="flex flex-col">
                 <span className="md:text-5xl font-bold text-2xl ml-4 text-center">{completionPercentage}%</span>
-                <span className="md:text-sm text-xs ml-2 text-center text-muted-foreground">Completed ({checkedAchievements.length} / {achievements.length})</span>
+                <div className="flex flex-col md:flex-row">
+                    <span className="md:text-sm text-xs  ml-2 text-center text-muted-foreground">Completed</span>
+                    <span className="md:text-sm text-xs  ml-2 text-center text-muted-foreground">({checkedAchievements.length} / {achievements.length})</span>
+                </div>
             </div>
         </div>
         <blockquote className="text-sm md:text-base mb-3 mt-3">Explore the journey of dedication, hard work, and perseverance that has led to these remarkable accomplishments.</blockquote>

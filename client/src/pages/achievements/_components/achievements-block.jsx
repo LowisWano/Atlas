@@ -46,7 +46,7 @@ export default function AchievementsBlock() {
     };
 
     return (
-        <div className="p-6 rounded-lg shadow-md">
+        <div className="rounded-lg shadow-md">
 
             <FiltersPanel
                 searchQuery={searchQuery}

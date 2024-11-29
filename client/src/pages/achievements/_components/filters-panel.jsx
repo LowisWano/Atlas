@@ -10,7 +10,9 @@ const FiltersPanel = ({
 }) => {
     return (
         <div className="mb-4 space-y-1 md:space-x-2 md:flex md:space-y-0">
+            <p className="block md:hidden text-base">Search</p>
             <SearchInput query={searchQuery} onSearch={onSearch} />
+            <p className="block md:hidden text-base">Completion</p>
             <DropdownFilter
                 label="Status"
                 value={statusFilter}
