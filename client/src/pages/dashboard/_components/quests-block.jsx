@@ -18,18 +18,16 @@ import {
 import AddQuestModal from "./add-quest-modal";
 import { useQuests } from "@/queries/useQuests";
 
-export default function QuestsBlock(){
-  
-  const { getQuests } = useQuests();
-  const { isPending, error, data } = getQuests();
-
-  if (isPending){
+export default function QuestsBlock({ questsData, selectedCategory }){
+  if (questsData.isPending){
     return (
-      <LoadingSpinner/>
+      <div className="flex justify-center items-center w-full">
+        <LoadingSpinner/>
+      </div>
     );
   }
 
-  if (error){
+  if (questsData.error){
     return (
       <div className="flex justify-center items-center p-20">
         Sorry, an error has occured. {error.message}
@@ -37,9 +35,10 @@ export default function QuestsBlock(){
     );
   }
   
-  const quests = data;
+  const quests = questsData.data.filter(quest => quest.questType === selectedCategory);
   const active = quests.filter(q => q.status === "ACTIVE");
   const completed = quests.filter(q => q.status === "COMPLETED");
+  console.log(quests);
   
   return(
     <div className="pt-5 flex-1">
@@ -54,7 +53,7 @@ export default function QuestsBlock(){
             <AddQuestModal/>
           </div>
           <div className="flex flex-col md:flex-row justify-between gap-4 flex-1 md:grow-0">
-            <TabsList className="grid w-full md:w-1/4 grid-cols-2 mb-3">
+            <TabsList className="grid w-full md:w-[260px] grid-cols-2 mb-3">
                 <TabsTrigger value="active">Active</TabsTrigger>
                 <TabsTrigger value="completed">Completed</TabsTrigger>
             </TabsList>

@@ -6,7 +6,9 @@ const getQuests = async (playerId) => {
     include: {
       quests: {
         where: {
-          questType: 'NORMAL_QUEST'
+          NOT: {
+            questType: 'DAILY_QUEST'
+          }
         },
         include: {
           reccurance: true
@@ -29,7 +31,6 @@ const getDailyQuests = async (playerId) => {
     where: {
       playerId,
       questType: 'DAILY_QUEST',
-      status: 'ACTIVE',
       createdAt: {
         gte: today
       }
