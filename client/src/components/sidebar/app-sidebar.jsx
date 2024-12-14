@@ -3,7 +3,8 @@ import {
   Calendar,
   Store,
   Award,
-  Home
+  Home,
+  LogOut
 } from "lucide-react"
 
 import { NavMain } from "@/components/sidebar/nav-main"
