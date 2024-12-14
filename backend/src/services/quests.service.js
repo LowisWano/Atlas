@@ -5,6 +5,9 @@ const getQuests = async (playerId) => {
   const player = await prisma.player.findUnique({
     include: {
       quests: {
+        where: {
+          questType: 'NORMAL_QUEST'
+        },
         include: {
           reccurance: true
         }
