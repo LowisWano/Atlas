@@ -4,12 +4,19 @@ import { Progress } from "@/components/ui/progress"
 import { useItems } from "@/queries/useItems";
 import { SquarePen } from 'lucide-react';
 
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 export default function ProfileTop(){
     const { getPlayerData } = usePlayer();
     const { playerInfo, userInfo, isLoading, error } = getPlayerData();
 
-    const { getItems } = useItems();
-    const itemsData = getItems();
+    const { getPlayerItems } = useItems();
+    const itemsData = getPlayerItems();
     
     if (isLoading) {
         return <LoadingSpinner />;
@@ -25,12 +32,13 @@ export default function ProfileTop(){
 
     const playerData = playerInfo;
     const userData = userInfo;
+    const playerItems = itemsData.data || [];
 
     console.log("Fetched PlayerData: ", playerData);
     console.log("Fetched UserData: ", userData);
-    console.log("Fetched itemsData: ", itemsData);
+    console.log("Fetched itemsData: ", playerItems);
 
-    const expProgress = (playerData?.experience + 270 || 0) / (playerData?.level * 1000) * 100;
+    const expProgress = (playerData?.experience || 0) / (playerData?.level * 1000) * 100;
 
     return (
         <div className="flex flex-row justify-center gap-5">
@@ -40,7 +48,22 @@ export default function ProfileTop(){
                 <div className="flex flex-col gap-3 ">
                     <span className="inline-flex text-label tracking-wider text-4xl gap-3">
                         <strong>{userData?.name || "Unknown"}</strong> 
-                        <div className="h-7 w-7 rounded-full flex justify-center items-center bg-slate-600 cursor-pointer"><SquarePen className="h-4 w-4"/></div>
+
+                        <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+
+                            <div className="h-7 w-7 rounded-full flex justify-center items-center bg-slate-600 cursor-pointer">
+                                <SquarePen className="h-4 w-4"/>
+                            </div>
+
+                            </TooltipTrigger>
+                            <TooltipContent>
+                            <p>Edit Profile</p>
+                            </TooltipContent>
+                        </Tooltip>
+                        </TooltipProvider>
+
                     </span>
                     <blockquote className="hidden md:block italic text-base text-muted-foreground mt-2">
                         Coolest dude in the world!
@@ -83,7 +106,7 @@ export default function ProfileTop(){
                                 Total Net Worth:
                             </span>   
                             <div className="inline-flex gap-2 relative">
-                                <img src="chinese-coin.png" className="h-3"/> <span className="absolute -inset-y-1 left-5 text-sm"> {playerData?.gold?.toLocaleString() || 0} </span>
+                                <img src="chinese-coin.png" className="h-3"/> <span className="absolute -inset-y-1 left-5 text-sm"> {((playerData.gold) + playerItems.reduce((total, item) => total + item.item.price, 0)).toLocaleString() || 0} </span>
                             </div>
                         </div>
                     </div>
@@ -93,10 +116,10 @@ export default function ProfileTop(){
                         <div className="flex flex-col gap-2">
                             <div className="flex flex-col">
                                 <span className="text-label tracking-wider text-base text-gray-500">
-                                    Unique: 0
+                                    Unique: {playerItems.filter(item => (item.item.rarity === 'EPIC' || item.rarity === 'LEGENDARY')).length}
                                 </span>   
                                 <span className="text-label tracking-wider text-sm text-gray-500">
-                                    Total: 0
+                                    Total: {playerItems.length}
                                 </span>   
                             </div>
                             
@@ -104,7 +127,8 @@ export default function ProfileTop(){
                                 Value:
                             </span>   
                             <div className="inline-flex gap-2 relative">
-                                <img src="chinese-coin.png" className="h-3"/> <span className="absolute -inset-y-1 left-5 text-sm"> {playerData?.gold?.toLocaleString() || 0} </span>
+                                <img src="chinese-coin.png" className="h-3"/> <span className="absolute -inset-y-1 left-5 text-sm"> {playerItems.reduce((total, item) => total + item.item.price, 0).toLocaleString() || 0} {/* Sum all prices */}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -113,7 +137,7 @@ export default function ProfileTop(){
 
             </div>
 
-            <div className="flex justify-center items-center cursor-pointer" onClick={""}>
+            <div className="flex justify-center items-center cursor-pointer">
                 <div className="h-64">
                     <img
                         src={playerInfo?.profilePic || "https://github.com/shadcn.png"}
