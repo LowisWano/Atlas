@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export default function DueDatePicker({ date, setDate }) {
+export default function DueDatePicker({ date, setDate, disabled }) {
 
   return (
     <Popover>
@@ -22,6 +22,7 @@ export default function DueDatePicker({ date, setDate }) {
             "w-full justify-start text-left font-normal text-muted-foreground",
             !date && "text-muted-foreground"
           )}
+          disabled={disabled}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? format(date, "MM/dd/yyyy") : <span>Select date</span>}

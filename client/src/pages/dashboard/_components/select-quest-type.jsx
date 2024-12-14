@@ -7,9 +7,17 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export default function SelectQuestType() {
+export default function SelectQuestType({ questType, setQuestType, defaultValue, disabled }) {
   return (
-    <Select id="questType" name="questType">
+    <Select 
+      id="questType" 
+      name="questType" 
+      required
+      value={questType || ''}
+      onValueChange={(value) => setQuestType(value)}
+      defaultValue={defaultValue}
+      disabled={disabled}
+    >
       <SelectTrigger className="w-full text-muted-foreground">
         <SelectValue placeholder="Select quest type" />
       </SelectTrigger>

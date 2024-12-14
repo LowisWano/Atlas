@@ -18,7 +18,7 @@ model User {
 model Player {
   id                 Int                 @id @default(autoincrement())
   userId             Int                 @unique
-  user               User?               @relation(fields: [userId], references: [id])
+  user               User?               @relation(fields: [userId], references: [id], onDelete: Cascade)
   level              Int                 @default(1)
   experience         Int                 @default(0)
   gold               Int                 @default(0)
@@ -35,7 +35,7 @@ model Player {
 model Quest {
   id          Int             @id @default(autoincrement())
   playerId    Int
-  player      Player          @relation(fields: [playerId], references: [id])
+  player      Player          @relation(fields: [playerId], references: [id], onDelete: Cascade)
   title       String
   description String
   questType   QuestType
@@ -51,7 +51,7 @@ model Quest {
 model RecurringQuest {
   id        Int           @id @default(autoincrement())
   questId   Int           @unique
-  quest     Quest         @relation(fields: [questId], references: [id])
+  quest     Quest         @relation(fields: [questId], references: [id], onDelete: Cascade)
   isActive  Boolean       @default(true)
   runAt     DateTime
 }
