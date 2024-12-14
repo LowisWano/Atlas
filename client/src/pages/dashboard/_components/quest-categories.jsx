@@ -28,12 +28,12 @@ export default function QuestCategories({ quests, selectedCategory, onCategorySe
   ]
 
   return (
-    <div className="pt-5 w-1/4">
-      <div className="flex flex-col gap-4">
+    <div className="pt-5 w-full lg:min-w-[250px] lg:max-w-[300px]">
+      <div className="flex flex-col gap-4 w-full">
         {categories.map((c) => (
           <Card 
             key={c.type}
-            className={`cursor-pointer hover:bg-secondary/80 transition-colors
+            className={`w-full cursor-pointer hover:bg-secondary/80 transition-colors
               ${selectedCategory === c.type ? 'bg-secondary' : ''}`}
             onClick={() => onCategorySelect(c.type)}
           >

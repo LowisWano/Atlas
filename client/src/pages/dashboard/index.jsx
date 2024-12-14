@@ -13,36 +13,34 @@ export default function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState('NORMAL_QUEST');
   
   return (
-    <div>
-      <div className="flex justify-between">
-        <div className="flex flex-col justify-center">
+    <div className="p-4 md:p-1">
+      <div className="flex flex-col-reverse sm:flex-row sm:justify-between mb-6">
+        <div className="flex flex-col justify-center text-center sm:text-left mt-4 sm:mt-0">
           <H1>Greetings, Adventurer!</H1>
           <P>Ready to embark on today&apos;s quests?</P>
         </div>
-        <img src="/hero-sprite.png" alt="hero" className="h-32 mx-4"/>
+        <img 
+          src="/hero-sprite.png" 
+          alt="hero" 
+          className="h-24 sm:h-32 mx-auto sm:mx-4 object-contain"
+        />
       </div>
       
-
-      <div className="flex w-full gap-7">
+      <div className="flex flex-col lg:flex-row w-full gap-4 lg:gap-7">
         <QuestCategories 
           quests={data} 
           selectedCategory={selectedCategory}
           onCategorySelect={setSelectedCategory}
         />
         <QuestsBlock 
-          questsData={
-            { 
-              isPending, 
-              error, 
-              data, 
-            }
-          }
+          questsData={{ 
+            isPending, 
+            error, 
+            data, 
+          }}
           selectedCategory={selectedCategory} 
         />
       </div>
-        
-   
-      
     </div>
   )
 }
