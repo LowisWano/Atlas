@@ -16,16 +16,16 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar"
 
 import PlayerProfileBlock from "./player-profile-block"
+import { useUserStore } from "@/hooks/auth-hooks"
+import { useNavigate, useLocation } from "react-router-dom"
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Home",
@@ -50,22 +50,46 @@ const data = {
   ]
 }
 
-export function AppSidebar({
-  ...props
-}) {
+export function AppSidebar({...props}) {
+  const { user, logoutUser }= useUserStore();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const logoutHandler = () => {
+    window.localStorage.removeItem("token");
+    logoutUser();
+    navigate('/login');
+  }
+
+  // Check if the current path is login or signup
+  if (location.pathname === '/login' || location.pathname === '/signup') {
+    return null;
+  }
+
   return (
-    (<Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
         <AtlasHome />
       </SidebarHeader>
       <SidebarContent>
-        <PlayerProfileBlock/>
+        {user && <PlayerProfileBlock />}
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {user ? (
+          <NavUser />
+        ) : (
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton size="lg" className="flex h-14" onClick={logoutHandler}>
+                <LogOut className="size-4" />
+                <span className="ml-2 text-base">Log out</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        )}
       </SidebarFooter>
       <SidebarRail />
-    </Sidebar>)
+    </Sidebar>
   );
 }
