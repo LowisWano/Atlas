@@ -10,7 +10,7 @@ const rootRouter = express.Router();
 rootRouter.use("/auth", authRouter);
 rootRouter.use("/hello", helloRouter);
 rootRouter.use("/player", playerRouter);
-rootRouter.use("/player", questsRouter);
-rootRouter.use("/quests", achievementsRouter);
+rootRouter.use("/quests", questsRouter);
+rootRouter.use("/achievements", achievementsRouter);
 
 module.exports = rootRouter;

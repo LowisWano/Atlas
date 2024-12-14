@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/api/quests";
+const baseUrl = "http://localhost:3001/api/achievements";
 
 export const getAchievementsList = async (token) => {
   const response = await axios.get(`${baseUrl}/list`, { headers: { Authorization : `Bearer ${token}` } });
