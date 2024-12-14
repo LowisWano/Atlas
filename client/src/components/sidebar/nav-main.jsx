@@ -17,6 +17,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
+import { Link } from "react-router-dom"
 
 export function NavMain({
   items
@@ -31,6 +32,7 @@ export function NavMain({
             asChild
             defaultOpen={item.isActive}
             className="group/collapsible">
+              <Link to = {item.url}>
             <SidebarMenuItem className="mb-4">
               <SidebarMenuButton tooltip={item.title}>
                 <span>
@@ -40,6 +42,7 @@ export function NavMain({
                 <span>{item.title}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
+              </Link>
           </Collapsible>
         ))}
       </SidebarMenu>
