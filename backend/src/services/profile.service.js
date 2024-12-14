@@ -11,6 +11,20 @@ const getPlayerProfile =  async (playerId) => {
   return player;
 }
 
+const getPlayerPurchase = async(playerId) => {
+  const purchases = await prisma.playerPurchases.findMany({
+    where: {
+      playerId: Number(playerId) // Changed from id to playerId
+    },
+    include: {
+      item: true // Include item details
+    }
+  });
+  if (!purchases) throw new Error("An unexpected error occurred while fetching player purchases");
+  return purchases;
+}
+
 module.exports = {
   getPlayerProfile,
+  getPlayerPurchase,
 }
