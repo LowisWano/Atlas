@@ -25,6 +25,7 @@ import { useToast } from "@/hooks/use-toast"
 export default function AddQuestModal() {
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(null);
+  const [questType, setQuestType] = useState(null);
   const { createQuestMutate } = useQuests();
   const { toast } = useToast();
 
@@ -89,7 +90,10 @@ export default function AddQuestModal() {
             </div>
             <div className="flex flex-col gap-2">
               <Label>Quest Type</Label>
-              <SelectQuestType/>
+              <SelectQuestType
+                questType={questType}
+                setQuestType={setQuestType}
+              />
             </div>
             <div className="flex flex-col gap-2">
               <div className="grid grid-cols-2 gap-4">
@@ -98,6 +102,7 @@ export default function AddQuestModal() {
                   <DueDatePicker 
                     date={date} 
                     setDate={setDate}
+                    disabled={questType === "DAILY_QUEST" ? true : false}
                   />
                 </div>
                 <div className="">

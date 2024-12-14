@@ -7,12 +7,14 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export default function SelectQuestType({ defaultValue, disabled }) {
+export default function SelectQuestType({ questType, setQuestType, defaultValue, disabled }) {
   return (
     <Select 
       id="questType" 
       name="questType" 
-      required 
+      required
+      value={questType || ''}
+      onValueChange={(value) => setQuestType(value)}
       defaultValue={defaultValue}
       disabled={disabled}
     >
