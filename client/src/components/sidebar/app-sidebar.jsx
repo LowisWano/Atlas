@@ -1,4 +1,3 @@
-import * as React from "react"
 import {
   Calendar,
   Store,
@@ -8,7 +7,6 @@ import {
 } from "lucide-react"
 
 import { NavMain } from "@/components/sidebar/nav-main"
-import { NavProjects } from "@/components/sidebar/nav-projects"
 import { NavUser } from "@/components/sidebar/nav-user"
 import AtlasHome from "@/components/sidebar/atlas-home"
 import {

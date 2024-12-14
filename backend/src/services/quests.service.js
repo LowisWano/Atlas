@@ -5,6 +5,11 @@ const getQuests = async (playerId) => {
   const player = await prisma.player.findUnique({
     include: {
       quests: {
+        where: {
+          NOT: {
+            questType: 'DAILY_QUEST'
+          }
+        },
         include: {
           reccurance: true
         }
@@ -26,7 +31,6 @@ const getDailyQuests = async (playerId) => {
     where: {
       playerId,
       questType: 'DAILY_QUEST',
-      status: 'ACTIVE',
       createdAt: {
         gte: today
       }
