@@ -7,7 +7,7 @@ export default function Shop() {
   const { user } = useUserStore()
   console.log(user)
   return (
-    <div className="p-0 md:p-10">
+    <div className="md:p-0 p-5">
       <ShopHeader />
       <ShopItems />
     </div>

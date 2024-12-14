@@ -22,7 +22,7 @@ export default function CalendarPage() {
   ]
 
   return(
-    <div className='h-[600px]'>
+    <div className='h-[600px] p-2'>
       <Calendar
         localizer={localizer}
         events={events}
