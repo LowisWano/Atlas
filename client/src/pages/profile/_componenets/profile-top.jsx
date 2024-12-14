@@ -3,6 +3,12 @@ import LoadingSpinner from "@/components/custom-ui/loading-spinner";
 import { Progress } from "@/components/ui/progress"
 import { useItems } from "@/queries/useItems";
 
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar"
+
 export default function ProfileTop(){
     const { getPlayerData } = usePlayer();
     const { playerInfo, userInfo, isLoading, error } = getPlayerData();
@@ -32,82 +38,89 @@ export default function ProfileTop(){
     const expProgress = (playerData?.experience + 270 || 0) / (playerData?.level * 1000) * 100;
 
     return (
-        <div className="flex flex-col gap-5 border border-red-500 w-7/12">
-            <div className="flex flex-col gap-2">
-                <span className="text-label tracking-wider text-5xl">
-                    <strong>{userData?.name || "Unknown"}</strong>
-                </span>
+        <div className="flex flex-row border border-red-500">
+            
+            <div className="flex flex-col border border-red-500 w-7/12 gap-3">
+
+                <div className="flex flex-col gap-3 border border-red-500">
+                    <span className="text-label tracking-wider text-5xl">
+                        <strong>{userData?.name || "Unknown"}</strong>
+                    </span>
+                    <span className="text-label tracking-wider text-xl text-gray-500">
+                        Coolest dude in the world!
+                    </span>
+                </div>
+
+                <div className="flex flex-row border border-red-500">
+                    <div className="flex flex-col gap-2 border border-red-500 w-6/12">
+                        <span className="text-3xl font-bold">Level</span>
+                        <span className="text-label tracking-wider text-xl text-gray-500">
+                            Level: {playerData?.level || 1}
+                        </span>
+                        <div className="inline-flex relative object-center">
+                            <Progress value={expProgress} className="h-[12px] w-9/12"/> 
+                            <div className="absolute -inset-y-1.5 right-1">
+                                {playerData?.experience} / {playerData?.level * 1000}
+                            </div>
+                        </div>
+                        <span className="text-label tracking-wider text-xl text-gray-500">
+                            Rank: {playerData?.adventurerRank || 1}
+                        </span>
+                        <div className="inline-flex relative object-center">
+                            <Progress value={expProgress} className="h-[12px] w-9/12"/> 
+                            <div className="absolute -inset-y-1 right-1">
+                                {playerData?.experience} / {playerData?.level * 1000}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2 border border-red-500 w-3/12">
+                        <h2 className="text-3xl font-bold">Wealth</h2>
+                        <div className="flex flex-col gap-2">
+                            <span className="text-label tracking-wider text-lg text-gray-500">
+                                Wallet:
+                            </span>   
+                            <div className="inline-flex">
+                                <img src="chinese-coin.png" className="h-5"/> {playerData?.gold?.toLocaleString() || 0}
+                            </div>
+                            <span className="text-label tracking-wider text-lg text-gray-500">
+                                Total Net Worth:
+                            </span>   
+                            <div className="inline-flex">
+                                <img src="chinese-coin.png" className="h-5"/> {playerData?.gold?.toLocaleString() || 0}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col gap-2 border border-red-500 w-3/12">
+                        <h2 className="text-3xl font-bold">Items</h2>
+                        <div className="flex flex-col gap-2">
+                            <div className="flex flex-col">
+                                <span className="text-label tracking-wider text-base text-gray-500">
+                                    Unique:
+                                </span>   
+                                <span className="text-label tracking-wider text-base text-gray-500">
+                                    Total:
+                                </span>   
+                            </div>
+                            
+                            <span className="text-label tracking-wider text-lg text-gray-500">
+                                Valiue:
+                            </span>   
+                            <div className="inline-flex">
+                                <img src="chinese-coin.png" className="h-5"/> {playerData?.gold?.toLocaleString() || 0}
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
             </div>
+
             <div>
-                <span className="text-label tracking-wider text-xl text-gray-500">
-                    Coolest dude in the world!
-                </span>
+              <img src={playerInfo?.profilePic || "https://github.com/shadcn.png"} alt="avatar" className="rounded-xl obje"/>
             </div>
 
-            <div className="flex flex-row border border-red-500">
-
-                <div className="flex flex-col gap-2 w-3/5 border border-red-500">
-                    <span className="text-3xl font-bold">Level</span>
-                    <span className="text-label tracking-wider text-xl text-gray-500">
-                        Level: {playerData?.adventurerRank || 1}
-                    </span>
-                    <div className="inline-flex relative object-center">
-                        <Progress value={expProgress} className="h-[12px] w-9/12"/> 
-                        <div className="absolute -inset-y-1.5 right-1">
-                            {playerData?.experience} / {playerData?.level * 1000}
-                        </div>
-                    </div>
-                    <span className="text-label tracking-wider text-xl text-gray-500">
-                        Rank: {playerData?.rank || 1}
-                    </span>
-                    <div className="inline-flex relative object-center">
-                        <Progress value={expProgress} className="h-[12px] w-9/12"/> 
-                        <div className="absolute -inset-y-1 right-1">
-                            {playerData?.experience} / {playerData?.level * 1000}
-                        </div>
-                    </div>
-                </div>
-
-                <div className="flex flex-col gap-2 w-2/5 border border-red-500">
-                    <h2 className="text-3xl font-bold">Wealth</h2>
-                    <div className="flex flex-col gap-2">
-                        <span className="text-label tracking-wider text-lg text-gray-500">
-                            Wallet:
-                        </span>   
-                        <div className="inline-flex">
-                            <img src="chinese-coin.png" className="h-5"/> {playerData?.gold?.toLocaleString() || 0}
-                        </div>
-                        <span className="text-label tracking-wider text-lg text-gray-500">
-                            Total Net Worth:
-                        </span>   
-                        <div className="inline-flex">
-                            <img src="chinese-coin.png" className="h-5"/> {playerData?.gold?.toLocaleString() || 0}
-                        </div>
-                    </div>
-                </div>
-
-                <div className="flex flex-col gap-2 w-2/5 border border-red-500">
-                    <h2 className="text-3xl font-bold">Items</h2>
-                    <div className="flex flex-col gap-2">
-                        <div className="flex flex-col">
-                            <span className="text-label tracking-wider text-base text-gray-500">
-                                Unique:
-                            </span>   
-                            <span className="text-label tracking-wider text-base text-gray-500">
-                                Total:
-                            </span>   
-                        </div>
-                        
-                        <span className="text-label tracking-wider text-lg text-gray-500">
-                            Valiue:
-                        </span>   
-                        <div className="inline-flex">
-                            <img src="chinese-coin.png" className="h-5"/> {playerData?.gold?.toLocaleString() || 0}
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
     );
 }
