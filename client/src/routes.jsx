@@ -6,6 +6,7 @@ import ErrorPage from './components/layouts/error-page.jsx';
 import ProtectedRoutes from './components/layouts/protected-routes.jsx';
 import Calendar from './pages/calendar/index.jsx';
 import Shop from './pages/shop/index.jsx';
+import Achievements from './pages/achievements/index.jsx';
 
 const routes = [
   {
@@ -27,6 +28,10 @@ const routes = [
           {
             path: "shop",
             element: <Shop />,
+          },
+          {
+            path: "achievements",
+            element: <Achievements />
           }
           // Add more protected routes here
         ],
