@@ -7,11 +7,18 @@ export function H1(props) {
   )
 }
 
-export function P(props) {
+export function H2(props) {
   return (
-    <p className="leading-7 [&:not(:first-child)]:mt-6">
+    <h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
       {props.children}
-    </p>
+    </h2>
+  )
+}
+export function H3(props) {
+  return (
+    <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+      {props.children}
+    </h3>
   )
 }
 
@@ -24,3 +31,19 @@ export function H4(props) {
 }
 
 
+export function P(props) {
+  return (
+    <p className="leading-7 [&:not(:first-child)]:mt-6">
+      {props.children}
+    </p>
+  )
+}
+
+
+export function TypographyLead(props) {
+  return (
+    <p className="text-xl text-muted-foreground">
+      {props.children}
+    </p>
+  )
+}

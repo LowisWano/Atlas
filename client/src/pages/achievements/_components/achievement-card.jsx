@@ -1,5 +1,6 @@
 import { CardHeader, CardContent, CardFooter } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 
 const AchievementCard = ({ achievement, isFirst, isLast, userAchievements }) => {
     const checkedAchievement = userAchievements.some(userAchievement => userAchievement.achievementId === achievement.id);
@@ -20,13 +21,19 @@ const AchievementCard = ({ achievement, isFirst, isLast, userAchievements }) => 
                     id={`achievement-${achievement.id}`}
                     checked={checkedAchievement}
                     className="w-4 h-4 md:hidden"
-                    disabled
+                    disableds
                 />
                 </div>
                 <CardContent className="text-sm md:text-base text-gray-600 p-1">{achievement.description}</CardContent>
                 <CardFooter className="text-sm text-gray-400 p-1">
-                    <img src="sprites/GoldCoins-Sprites.png" className="h-6 md:h-10" />{achievement.rewardGold}
-                    <img src="sprites/Experience-Sprites.png" className="h-6 md:h-10" /> {achievement.rewardExp}
+                <div className="space-x-1 pt-1">
+                    <Badge variant="secondary" className="rounded-xl">
+                        <img src="chinese-coin.png" className="w-3" />{achievement.rewardGold}
+                    </Badge>
+                    <Badge variant="secondary" className="rounded-xl">
+                        <img src="levelup.png" className="w-3" /> {achievement.rewardExp}
+                    </Badge>
+                </div>
                 </CardFooter>
             </div>
             <div className="ml-auto hidden md:block">
