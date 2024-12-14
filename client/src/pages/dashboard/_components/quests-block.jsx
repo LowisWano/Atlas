@@ -42,7 +42,7 @@ export default function QuestsBlock(){
   const completed = quests.filter(q => q.status === "COMPLETED");
   
   return(
-    <div className="pt-5">
+    <div className="pt-5 flex-1">
       <Tabs defaultValue="active" className="">
         <Card>
           <CardHeader className="pb-1">
