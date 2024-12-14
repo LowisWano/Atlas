@@ -1,81 +1,42 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const prisma = require("../lib/prisma");
-const z = require("zod").z;
 require("express-async-errors");
-const { Rank } = require("../constants");
+const { getUser, createUser } = require("../services/auth.service");
 
 const signup = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, username, password } = req.body;
 
-  if (!name) {
-    return res.status(400).json({ error: "Name is required" });
-  }
-
-  if (!email) {
-    return res.status(400).json({ error: "Email is required" });
-  }
-
-  if (!password) {
-    return res.status(400).json({ error: "Password is required" });
-  }
-
-  if (password.length < 3) {
-    return res.status(400).json({ error: "Password is too short" });
-  }
-
-  let user = await prisma.user.findFirst({ where: { email } });
-
+  let user = await getUser(username);
+  
   if (user) {
-    return res.status(400).json({ error: "User already exists." });
-  }
-
-  const passwordHash = await bcrypt.hash(password, 10);
-
-  try {
-    const result = await prisma.$transaction(async (prisma) => {
-      user = await prisma.user.create({
-        data: {
-          name,
-          email,
-          passwordHash: passwordHash,
-          player: {
-            create: {
-              level: 1,
-              experience: 0,
-              gold: 0,
-              adventurerRank: "COPPER",
-            },
-          },
-        },
-        include: {
-          player: true,
-        },
-      });
-
-      return user;
+    return res.status(400).json({ error: "Username is already taken." });
+  }else{
+    const passwordHash = await bcrypt.hash(password, 10);
+    const result = await createUser({
+      name,
+      username,
+      passwordHash,
     });
-
+  
     return res.json(result);
-  } catch (error) {
-    return res.status(500).json({ error: "Internal server error" });
-  }
+  }  
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  let user = await prisma.user.findFirst({ where: { email } });
+  let user = await getUser(username);
   if (!user) {
     return res.status(401).json({
-      error: "User not found.",
+      error: "Verify your username or password and try again",
     });
   }
 
   const passwordIsCorrect = await bcrypt.compare(password, user.passwordHash);
   if (!passwordIsCorrect) {
     return res.status(401).json({
-      error: "Invalid password.",
+      error: "Verify your username or password and try again",
     });
   }
 
@@ -83,11 +44,13 @@ const login = async (req, res) => {
     {
       name: user.name,
       id: user.id,
+      username: user.username
     },
     process.env.JWT_SECRET
   );
 
-  return res.status(200).send({ token, user });
+  const { passwordHash, ...userWithoutPassword } = user;
+  return res.status(200).send({ token, user: userWithoutPassword });
 };
 
 module.exports = {

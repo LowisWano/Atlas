@@ -1,13 +1,10 @@
 const prisma = require("../lib/prisma");
+require("express-async-errors");
 
-const fetchActiveQuests = async (playerId) => {
-  const activeQuests = await prisma.player.findUnique({
+const getQuests = async (playerId) => {
+  const player = await prisma.player.findUnique({
     include: {
       quests: {
-        where: {
-          status: "ACTIVE",
-          questType: "NORMAL_QUEST"
-        },
         include: {
           reccurance: true
         }
@@ -17,39 +14,27 @@ const fetchActiveQuests = async (playerId) => {
       id: playerId,
     },
   });
-  return activeQuests.quests;
+  console.log("quests: ", player.quests)
+  return player.quests;
 };
 
-const fetchScheduledQuests = async (playerId) => {
+const getDailyQuests = async (playerId) => {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  const endOfToday = new Date(today.getTime() + 24 * 60 * 60 * 1000);
-  const scheduledQuests = await prisma.player.findUnique({
-    include: {
-      quests: {
-        where: {
-          status: "ACTIVE",
-          questType: "DAILY_QUEST",
-          reccurance: {
-            runAt: {
-              gte: today,
-              lt: endOfToday,
-            },
-          },
-        },
-        include: {
-          reccurance: true
-        }
-      },
-    },
+
+  return prisma.quest.findMany({
     where: {
-      id: playerId,
-    },
+      playerId,
+      questType: 'DAILY_QUEST',
+      status: 'ACTIVE',
+      createdAt: {
+        gte: today
+      }
+    }
   });
-  return scheduledQuests.quests;
 };
 
-const savePlayerQuest = async ({
+const createPlayerQuest = async ({
   playerId,
   title,
   description,
@@ -81,29 +66,104 @@ const savePlayerQuest = async ({
   return quest;
 };
 
-const saveRecurringQuest = async ({
+const createRecurringQuest = async (questData) => {
+  const result = await prisma.$transaction(async (tx) => {
+    const quest = await tx.quest.create({
+      data: {
+        playerId: questData.playerId,
+        title: questData.title,
+        description: questData.description,
+        questType: questData.questType,
+        difficulty: questData.difficulty,
+        dueDate: questData.dueDate,
+        rewardGold: questData.gold,
+        rewardExp: questData.exp
+      }
+    });
+
+    await tx.recurringQuest.create({
+      data: {
+        questId: quest.id,
+        runAt: questData.runAt || new Date()
+      }
+    });
+
+    return quest;
+  });
+
+  return result;
+};
+
+const deleteQuest = async (id) => { 
+  const result = await prisma.quest.delete({
+    where: {
+      id: id
+    }
+  })
+  return result;
+}
+
+const updateQuest = async (
   questId, 
-  frequency, 
-  runAt,
-}) => {
-  const recurringQuest = await prisma.recurringQuest.create({
+  {
+    title,
+    description,
+    dueDate,
+    difficulty,
+    gold,
+    exp,
+  },
+) => {
+  const result = await prisma.quest.update({
+    where: {
+      id: questId,
+    },
     data: {
-      quest: {
-        connect: {
-          id: questId,
-        },
-      },
-      frequency,
-      runAt
+      title,
+      description,
+      difficulty,
+      dueDate,
+      rewardGold: gold,
+      rewardExp: exp,
+    }
+  })
+  return result;
+}
+
+const updateQuestStatus = async (questId, status) => {
+  const result = await prisma.quest.update({
+    where: {
+      id: questId,
+    },
+    data: {
+      status: status,
     }
   })
 
-  return recurringQuest;
+  return result;
+}
+
+const findQuestById = async (id) => {
+  try{
+    const quest = await prisma.quest.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    return quest;
+  }catch(error){
+    console.error("error fetching quest: ", error);
+    throw new Error("An unexpected error occurred while fetching a quest");
+  }
 }
 
 module.exports = {
-  fetchActiveQuests,
-  fetchScheduledQuests,
-  savePlayerQuest,
-  saveRecurringQuest
+  getQuests,
+  getDailyQuests,
+  createPlayerQuest,
+  createRecurringQuest,
+  deleteQuest,
+  findQuestById,
+  updateQuest,
+  updateQuestStatus,
 };

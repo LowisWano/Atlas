@@ -1,8 +1,3 @@
-# Atlas
-
-- A medieval RPG style task management app that gamifies your goals and tasks. 
-- Earn exp, gold, and rank points as you accomplish tasks to level up your character and increase your rank!
-
 # Contributing
 
 ## Setup

@@ -3,14 +3,23 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
 
-export default function SelectDifficulty() {
+export default function SelectDifficulty({ defaultValue, handleChange }) {
   return (
-    <Select>
+    <Select 
+      id="selectDifficulty" 
+      name="selectDifficulty" 
+      required
+      defaultValue={defaultValue}
+      onValueChange={(value) =>  {
+        if (handleChange) {
+          handleChange(value);
+        }
+      }}
+    >
       <SelectTrigger className="w-full text-muted-foreground">
         <SelectValue placeholder="Select difficulty" />
       </SelectTrigger>

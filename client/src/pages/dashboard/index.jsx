@@ -6,7 +6,7 @@ export default function Dashboard() {
   const { user } = useUserStore()
   console.log(user)
   return (
-    <div className="p-10">
+    <div>
       <H1>Greetings, Adventurer!</H1>
       <P>Ready to embark on today&apos;s quests?</P>
       <QuestsBlock/>

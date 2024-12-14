@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <Layout>
-        <main>
+        <main className="p-10">
           {/* Child routes (like Login) will be rendered here */}
           <Outlet />
         </main>

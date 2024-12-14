@@ -8,28 +8,34 @@ datasource db {
 }
 
 model User {
-  id           Int    @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
   name         String
-  email        String
+  username     String  @unique
   passwordHash String
-  player       Player @relation(fields: [playerId], references: [id])
-  playerId     Int    @unique
+  player       Player?
 }
 
 model Player {
   id                 Int                 @id @default(autoincrement())
-  user               User?
-  level              Int
-  experience         Int
-  gold               Int
-  adventurerRank     Rank
+  userId             Int                 @unique
+  user               User?               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  level              Int                 @default(1)
+  experience         Int                 @default(0)
+  gold               Int                 @default(0)
+  adventurerRank     Rank                @default(COPPER)
+  rankPoints         Int                 @default(0)
+  streak             Int                 @default(0)
+  profilePic         String              @default("")
+  bio                String              @default("")
   quests             Quest[]
-  PlayerAchievements PlayerAchievement[]
+  playerAchievements PlayerAchievement[]
   items              playerPurchases[]
 }
 
 model Quest {
   id          Int             @id @default(autoincrement())
+  playerId    Int
+  player      Player          @relation(fields: [playerId], references: [id], onDelete: Cascade)
   title       String
   description String
   questType   QuestType
@@ -39,18 +45,14 @@ model Quest {
   dueDate     DateTime
   rewardGold  Int
   rewardExp   Int
-  priority    Int             @default(100)
-  playerId    Int
-  player      Player          @relation(fields: [playerId], references: [id])
   reccurance  RecurringQuest?
 }
 
 model RecurringQuest {
   id        Int           @id @default(autoincrement())
   questId   Int           @unique
-  quest     Quest         @relation(fields: [questId], references: [id])
+  quest     Quest         @relation(fields: [questId], references: [id], onDelete: Cascade)
   isActive  Boolean       @default(true)
-  frequency FrequencyType
   runAt     DateTime
 }
 
@@ -61,7 +63,7 @@ model Achievement {
   rewardGold         Int
   rewardExp          Int
   iconImg            String
-  PlayerAchievements PlayerAchievement[]
+  playerAchievements PlayerAchievement[]
 }
 
 model PlayerAchievement {
@@ -98,12 +100,6 @@ enum RarityType {
   RARE
   EPIC
   LEGENDARY
-}
-
-enum FrequencyType {
-  DAILY
-  WEEKLY
-  MONTHLY
 }
 
 enum StatusType {
