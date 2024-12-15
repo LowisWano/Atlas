@@ -19,7 +19,6 @@ import { usePlayer } from "@/queries/usePlayer";
 import LoadingSpinner from "@/components/custom-ui/loading-spinner";
 
 export default function Stats() {
-    const [activeTab, setActiveTab] = useState('showcase');
     const { getPlayerData } = usePlayer();
     const { playerInfo, userInfo, isLoading, error } = getPlayerData();
     const { getPlayerItems } = useItems();
@@ -30,16 +29,12 @@ export default function Stats() {
         }
     
     if (error || itemsData.error){
-    return (
-        <div className="flex justify-center items-center p-20">
-            Sorry, an error has occurred. {error.message}
-        </div>
-    );
+        return (
+            <div className="flex justify-center items-center p-20">
+                Sorry, an error has occurred. {error.message}
+            </div>
+        );
     }
-
-    const handleTabChange = (tab) => {
-    setActiveTab(tab);
-    };
 
     const playerData = playerInfo;
     const userData = userInfo;
