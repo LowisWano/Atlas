@@ -4,6 +4,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 import { getUserQuests, createQuest, deleteQuest, editQuest, updateStatusQuest } from '@/services/quests.service';
+import { checkFirstQuestAchievement, checkFirstMainQuestAchievement, checkFirstDailyQuestAchievement, check5000GoldAchievement } from '@/services/achievements.service';
 import { useUserStore } from "@/hooks/auth-hooks";
 import { useToast } from "@/hooks/use-toast"
 
@@ -79,6 +80,12 @@ export function useQuests() {
           quest.id === variables.questId ? data : quest
         );
       });
+      if (variables.status === 'COMPLETED') {
+        checkFirstQuestAchievement(user.user.id, user.token);
+        checkFirstDailyQuestAchievement(user.user.id, user.token);
+        checkFirstMainQuestAchievement(user.user.id, user.token);
+        check5000GoldAchievement(user.user.id, user.token);
+      }
       queryClient.invalidateQueries({ queryKey: ['playerInfo'] });
     }
   })

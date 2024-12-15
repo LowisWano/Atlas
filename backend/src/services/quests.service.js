@@ -38,6 +38,18 @@ const getDailyQuests = async (playerId) => {
   });
 };
 
+const getCompletedQuests = async (playerId) => {
+  return prisma.quest.findMany({
+    where: {
+      playerId,
+      status: 'COMPLETED',
+    },
+    orderBy: {
+      createdAt: 'asc',
+    },
+  });
+};
+
 const createPlayerQuest = async ({
   playerId,
   title,
@@ -215,11 +227,12 @@ const findQuestById = async (id) => {
 module.exports = {
   getQuests,
   getDailyQuests,
+  getCompletedQuests,
   createPlayerQuest,
   createRecurringQuest,
   deleteQuest,
   findQuestById,
   updateQuest,
   updateQuestStatus,
-  earnPlayerRewards
+  earnPlayerRewards,
 };
