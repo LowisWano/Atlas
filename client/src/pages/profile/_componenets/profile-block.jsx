@@ -3,7 +3,7 @@ import ProfileBottom from './profile-bottom';
 
 export default function ProfileBlock() {
     return (
-        <div>
+        <div className='space-y-4'>
             <ProfileTop />
             <ProfileBottom />
         </div>

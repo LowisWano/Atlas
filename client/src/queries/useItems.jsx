@@ -82,7 +82,7 @@ export function useItems() {
   };
 
   const { isPending: isUserItemsPending, error: userItemsError, data: userItemsData } = useQuery({
-    queryKey: ["playerachievement"],
+    queryKey: ["playerItems"],
     queryFn: () => getUserPurchases(user.user.id, user.token),
     refetchOnWindowFocus: false,
   });
