@@ -34,7 +34,6 @@ export function NavMain({
             className="group/collapsible">
               <Link to = {item.url}>
             <SidebarMenuItem className="mb-4">
-              <Link to={item.url}>
               <SidebarMenuButton tooltip={item.title}>
                   <span>
                     {item.icon && <item.icon />}
@@ -42,7 +41,6 @@ export function NavMain({
                     {/* {item.icon && <item.icon />} */}
                   <span>{item.title}</span>
               </SidebarMenuButton>
-              </Link>
             </SidebarMenuItem>
               </Link>
           </Collapsible>

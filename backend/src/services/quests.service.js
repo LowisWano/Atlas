@@ -162,16 +162,25 @@ const earnPlayerRewards = async (playerId, gold, exp, questStatus) => {
     const rankPointsMod = questStatus === 'COMPLETED' ? -1 : 1;
 
     const newGold = Math.max(0, player.gold + goldMod);
-    const newExp = Math.max(0, player.experience + expMod);
-    const newRankPoints = Math.max(0, player.rankPoints + rankPointsMod);
+    let newExp = Math.max(0, player.experience + expMod);
+    let currentLevel = player.level;
 
+    // Check for level up
+    const nextLevelThreshold = currentLevel * 1000;
+    while (newExp >= nextLevelThreshold) {
+      currentLevel += 1;
+      newExp -= nextLevelThreshold;
+    }
+
+    const newRankPoints = Math.max(0, player.rankPoints + rankPointsMod);
     let newRank = player.adventurerRank;
-    if (newRankPoints >= 100) newRank = 'ADAMANTITE';
-    else if (newRankPoints >= 80) newRank = 'MYTHRIL';
-    else if (newRankPoints >= 60) newRank = 'PLATINUM';
-    else if (newRankPoints >= 40) newRank = 'GOLD';
-    else if (newRankPoints >= 20) newRank = 'SILVER';
-    else if (newRankPoints >= 10) newRank = 'IRON';
+
+    if (newRankPoints >= 1000) newRank = 'ADAMANTITE';
+    else if (newRankPoints >= 800) newRank = 'MYTHRIL';
+    else if (newRankPoints >= 600) newRank = 'PLATINUM';
+    else if (newRankPoints >= 400) newRank = 'GOLD';
+    else if (newRankPoints >= 200) newRank = 'SILVER';
+    else if (newRankPoints >= 100) newRank = 'IRON';
     else newRank = 'COPPER';
 
     return await tx.player.update({
@@ -179,6 +188,7 @@ const earnPlayerRewards = async (playerId, gold, exp, questStatus) => {
       data: {
         gold: newGold,
         experience: newExp,
+        level: currentLevel,
         rankPoints: newRankPoints,
         adventurerRank: newRank
       }

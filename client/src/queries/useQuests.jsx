@@ -79,6 +79,7 @@ export function useQuests() {
           quest.id === variables.questId ? data : quest
         );
       });
+      queryClient.invalidateQueries({ queryKey: ['playerInfo'] });
     }
   })
 
