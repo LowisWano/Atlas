@@ -17,7 +17,7 @@ export const getUserInfo = async (playerId, token) => {
 };
 
 export const updatePlayer = async (playerId, token, updatePlayerInfo) => {
-  const response = await axios.put(`${baseUrl}/${playerId}/profile/streak`, updatePlayerInfo, {
+  const response = await axios.put(`${baseUrl}/${playerId}/profile/update`, updatePlayerInfo, {
     headers: { Authorization: `Bearer ${token}` },
   });
   return response.data;
