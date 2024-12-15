@@ -147,6 +147,47 @@ const updateQuestStatus = async (questId, status) => {
   return result;
 }
 
+const earnPlayerRewards = async (playerId, gold, exp, questStatus) => {
+  const result = await prisma.$transaction(async (tx) => {
+    const player = await tx.player.findUnique({
+      where: { id: playerId }
+    });
+
+    if (!player) {
+      throw new Error('Player not found');
+    }
+
+    const goldMod = questStatus === 'COMPLETED' ? -gold : gold;
+    const expMod = questStatus === 'COMPLETED' ? -exp : exp;
+    const rankPointsMod = questStatus === 'COMPLETED' ? -1 : 1;
+
+    const newGold = Math.max(0, player.gold + goldMod);
+    const newExp = Math.max(0, player.experience + expMod);
+    const newRankPoints = Math.max(0, player.rankPoints + rankPointsMod);
+
+    let newRank = player.adventurerRank;
+    if (newRankPoints >= 100) newRank = 'ADAMANTITE';
+    else if (newRankPoints >= 80) newRank = 'MYTHRIL';
+    else if (newRankPoints >= 60) newRank = 'PLATINUM';
+    else if (newRankPoints >= 40) newRank = 'GOLD';
+    else if (newRankPoints >= 20) newRank = 'SILVER';
+    else if (newRankPoints >= 10) newRank = 'IRON';
+    else newRank = 'COPPER';
+
+    return await tx.player.update({
+      where: { id: playerId },
+      data: {
+        gold: newGold,
+        experience: newExp,
+        rankPoints: newRankPoints,
+        adventurerRank: newRank
+      }
+    });
+  });
+
+  return result;
+};
+
 const findQuestById = async (id) => {
   try{
     const quest = await prisma.quest.findUnique({
@@ -170,4 +211,5 @@ module.exports = {
   findQuestById,
   updateQuest,
   updateQuestStatus,
+  earnPlayerRewards
 };
