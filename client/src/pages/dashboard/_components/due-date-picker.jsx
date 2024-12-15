@@ -12,8 +12,11 @@ import {
 } from "@/components/ui/popover"
 
 export default function DueDatePicker({ date, setDate, disabled }) {
-  const [selectedTime, setSelectedTime] = useState('12:00');
-
+  const initialTime = date ? 
+    format(date, 'HH:mm') :
+    '12:00';
+  const [selectedTime, setSelectedTime] = useState(initialTime);
+  console.log(date)
   const handleDateTimeChange = (newDate, newTime) => {
     if (newDate) {
       const [hours, minutes] = newTime.split(':');

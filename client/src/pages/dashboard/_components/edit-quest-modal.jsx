@@ -24,7 +24,7 @@ import { useToast } from "@/hooks/use-toast"
 
 export default function EditQuestModal({ open, setOpen, isDropdownOpen, quest }) {
   const [editedQuest, setEditedQuest] = useState(quest);
-  const [date, setDate] = useState(quest.dueDate);
+  const [date, setDate] = useState(new Date(quest.dueDate));
   const { editQuestMutate } = useQuests();
   const { toast } = useToast();
 
@@ -33,6 +33,14 @@ export default function EditQuestModal({ open, setOpen, isDropdownOpen, quest })
     setEditedQuest((prev) => ({
       ...prev,
       [name]: value, 
+    }));
+  };
+
+  const handleDateChange = (newDate) => {
+    setDate(newDate); // Update local date state
+    setEditedQuest(prev => ({
+      ...prev,
+      dueDate: newDate.toISOString() // Convert to ISO string for API
     }));
   };
 
@@ -102,7 +110,7 @@ export default function EditQuestModal({ open, setOpen, isDropdownOpen, quest })
                 <Label>Due Date</Label>
                   <DueDatePicker 
                     date={date} 
-                    setDate={setDate}
+                    setDate={handleDateChange}
                   />
                 </div>
                 <div className="">
