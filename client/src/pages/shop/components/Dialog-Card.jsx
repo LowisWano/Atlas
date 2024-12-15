@@ -1,5 +1,6 @@
 // DialogCard.jsx
 import * as React from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { H1, H2, H3, H4, P } from "@/components/Typography";
@@ -23,10 +24,10 @@ export default function DialogCard({
 }) {
   const isOwned = item.isOwned;
   const canAfford = item.canAfford;
-
+  const [open,setOpen] = useState(false);
   return (
     <>
-      <Dialog>
+      <Dialog open = {open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Card className="w-[50px] h-[70px] md:w-36 md:h-[170px] m-1 transition-transform duration-300 hover:-translate-y-2 cursor-pointer">
             <CardContent className="p-1 md:p-5 h-full md:h-auto">
@@ -104,7 +105,7 @@ export default function DialogCard({
               </Button>
             ) : (
               <Button
-                onClick={() => onPurchase(item.id)}
+                onClick={() => {onPurchase(item.id);setOpen(false);}}
                 disabled={!canAfford || isPurchasing}
                 className={cn(
                   "ml-2 text-sm md:text-base",
