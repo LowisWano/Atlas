@@ -8,6 +8,7 @@ const {
   updateQuest,
   updateQuestStatus,
   getCompletedQuests,
+  earnPlayerRewards,
 } = require("../services/quests.service");
 require("express-async-errors");
 const { calculateRewards } = require("../utils/utils");
@@ -163,6 +164,8 @@ const updateStatusQuestController = async (req, res, next) => {
     if (!result) {
       throw new Error("Failed to update quest status");
     }
+
+    await earnPlayerRewards(playerId, quest.rewardGold, quest.rewardExp, quest.status);
 
     res.json(result);
   } catch (error) {

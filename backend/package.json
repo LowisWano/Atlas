@@ -18,10 +18,10 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "NODE_ENV=production node src/index.js",
+    "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "NODE_ENV=test node --test",
-    "start:test": "NODE_ENV=test node src/index.js"
+    "test": "node --test",
+    "start:test": "node src/index.js"
   },
   "keywords": [],
   "author": "",

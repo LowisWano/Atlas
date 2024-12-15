@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import "react-big-calendar/lib/css/react-big-calendar.css"
 import routes from "./routes";
 import {
   QueryClient,
