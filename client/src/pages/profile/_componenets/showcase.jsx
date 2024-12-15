@@ -56,7 +56,7 @@ export default function Showcase() {
     const recentItems = playerItems.sort((a, b) => new Date(b.purchasedAt) - new Date(a.purchasedAt)).slice(0, 2)
 
     return (
-        <div className="flex justify-center gap-20">
+        <div className="flex flex-row justify-center gap-20">
             <Card>
                 <CardHeader className="font-bold">
                     Item Showcase
