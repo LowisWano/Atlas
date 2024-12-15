@@ -4,7 +4,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query'
 import { getUserQuests, createQuest, deleteQuest, editQuest, updateStatusQuest } from '@/services/quests.service';
-import { checkFirstQuestAchievement } from '@/services/achievements.service';
+import { checkFirstQuestAchievement, checkFirstMainQuestAchievement } from '@/services/achievements.service';
 import { useUserStore } from "@/hooks/auth-hooks";
 import { useToast } from "@/hooks/use-toast"
 
@@ -81,7 +81,9 @@ export function useQuests() {
         );
       });
       // Check for first quest achievement only if the status is set to COMPLETED
+      console.log(variables)
       if (variables.status === 'COMPLETED') {
+        checkFirstMainQuestAchievement(user.user.id, user.token);
         checkFirstQuestAchievement(user.user.id, user.token);
       }
     }
