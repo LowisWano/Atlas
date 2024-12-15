@@ -173,36 +173,6 @@ const findQuestById = async (id) => {
   }
 }
 
-const checkAndCreateFirstQuestAchievement = async (playerId) => {
-  const completedNormalQuest = await prisma.quest.findFirst({
-    where: {
-      playerId: playerId,
-      questType: 'NORMAL_QUEST',
-      status: 'COMPLETED',
-    },
-    orderBy: {
-      createdAt: 'asc',
-    },
-  });
-
-  if (completedNormalQuest) {
-    const achievement = await prisma.achievement.findFirst({
-      where: {
-        title: 'First Normal Quest Completed',
-      },
-    });
-
-    if (achievement) {
-      await prisma.playerAchievement.create({
-        data: {
-          playerId: playerId,
-          achievementId: achievement.id,
-        },
-      });
-    }
-  }
-};
-
 module.exports = {
   getQuests,
   getDailyQuests,
@@ -213,5 +183,4 @@ module.exports = {
   findQuestById,
   updateQuest,
   updateQuestStatus,
-  checkAndCreateFirstQuestAchievement,
 };
