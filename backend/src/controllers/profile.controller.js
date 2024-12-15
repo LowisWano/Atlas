@@ -35,7 +35,8 @@ const updatePlayerInfoController = async (req, res, next) =>{
 
     const { profilePic, bio, streak} = req.body;
     const result = await updatePlayerInfo(playerId, {profilePic, bio, streak});
-    
+
+    res.json(result);
   } catch (error) {
     next(error);
   }

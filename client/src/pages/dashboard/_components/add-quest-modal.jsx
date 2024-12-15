@@ -26,7 +26,7 @@ import { usePlayer } from "@/queries/usePlayer";
 export default function AddQuestModal() {
     const [open, setOpen] = useState(false);
     const [date, setDate] = useState(null);
-    const [questType, setQuestType] = useState(null);
+    const [questType, setQuestType] = useState("NORMAL_QUEST");
     const { createQuestMutate, getQuests } = useQuests();
     const { getPlayerData, updatePlayerMutate } = usePlayer();
     const { playerInfo } = getPlayerData();
@@ -134,6 +134,7 @@ export default function AddQuestModal() {
                             <SelectQuestType
                                 questType={questType}
                                 setQuestType={setQuestType}
+                                defaultValue="NORMAL_QUEST"
                             />
                         </div>
                         <div className="flex flex-col gap-2">

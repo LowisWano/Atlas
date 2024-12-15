@@ -32,7 +32,7 @@ const updatePlayerInfo = async (
     streak
   },
 ) => {
-  const result = await prisma.quest.update({
+  const result = await prisma.player.update({
     where: {
       id: playerId,
     },
