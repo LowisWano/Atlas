@@ -223,10 +223,73 @@ const checkAndCreateFirstDailyQuestAchievement = async (playerId) => {
   }
 };
 
+const checkAndCreateFirstPurchaseAchievement = async (playerId) => {
+  // Check if the player already has the "First Purchase" achievement
+  const existingAchievement = await prisma.playerAchievement.findFirst({
+    where: {
+      playerId: playerId,
+      achievement: {
+        id: 5, // Assuming the ID for "First Purchase" achievement is 5
+      },
+    },
+  });
+
+  if (existingAchievement) {
+    // Achievement already exists, no need to create a new one
+    return;
+  }
+
+  // Find the first purchase
+  const firstPurchase = await prisma.playerPurchases.findFirst({
+    where: {
+      playerId: playerId,
+    },
+    orderBy: {
+      purchasedAt: 'asc',
+    },
+  });
+
+  if (firstPurchase) {
+    const achievement = await prisma.achievement.findFirst({
+      where: {
+        id: 5, 
+      },
+    });
+
+    if (achievement) {
+      await prisma.$transaction(async (tx) => {
+        // Create the player achievement
+        await tx.playerAchievement.create({
+          data: {
+            playerId: playerId,
+            achievementId: achievement.id,
+          },
+        });
+
+        // Update the player's gold and rank points
+        await tx.player.update({
+          where: {
+            id: playerId,
+          },
+          data: {
+            gold: {
+              increment: achievement.rewardGold,
+            },
+            rankPoints: {
+              increment: achievement.rewardExp,
+            },
+          },
+        });
+      });
+    }
+  }
+};
+
 module.exports = {
   getAchievements,
   getPlayerAchievements,
   checkAndCreateFirstQuestAchievement,
   checkAndCreateFirstMainQuestAchievement,
   checkAndCreateFirstDailyQuestAchievement,
+  checkAndCreateFirstPurchaseAchievement,
 };
