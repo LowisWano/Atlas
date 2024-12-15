@@ -34,10 +34,6 @@ export default function ProfileTop(){
     const userData = userInfo;
     const playerItems = itemsData.data;
 
-    console.log("Fetched PlayerData: ", playerData);
-    console.log("Fetched UserData: ", userData);
-    console.log("Fetched itemsData: ", playerItems);
-
     const expProgress = (playerData?.experience || 0) / (playerData?.level * 1000) * 100;
 
     return (

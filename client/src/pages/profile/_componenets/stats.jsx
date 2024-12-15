@@ -16,13 +16,18 @@ import {
 
 import { useItems } from "@/queries/useItems";
 import { usePlayer } from "@/queries/usePlayer";
+import { useAchievements } from "@/queries/useAchievements";
 import LoadingSpinner from "@/components/custom-ui/loading-spinner";
 
 export default function Stats() {
     const { getPlayerData } = usePlayer();
     const { playerInfo, userInfo, isLoading, error } = getPlayerData();
+    
     const { getPlayerItems } = useItems();
     const itemsData = getPlayerItems();
+
+    const { getUserAchievements } = useAchievements();
+    const achievementsData = getUserAchievements();
 
     if (isLoading || itemsData.isPending){
             return <LoadingSpinner />;

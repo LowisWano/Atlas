@@ -40,9 +40,6 @@ export default function Showcase() {
     const playerItems = itemsData.data;
     const playerAchievements = achievementsData.data;
 
-    console.log("Fetched playerItems: ", playerItems);
-    console.log("Fetched playerAchievements: ", playerAchievements);
-
     const sortItemsByRarity = (items) => {
         const rarityOrder = ['LEGENDARY', 'EPIC', 'RARE', 'UNCOMMON', 'COMMON'];
         return items.sort((a, b) => rarityOrder.indexOf(a.item.rarity) - rarityOrder.indexOf(b.item.rarity));
