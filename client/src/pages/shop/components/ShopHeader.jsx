@@ -5,7 +5,7 @@ export default function ShopHeader() {
     <div>
       <div>
         <div>
-          <H1>Adventurer's Shop</H1>
+          <H1>Adventure's Shop</H1>
         </div>
         <div>
         <blockquote className="hidden md:block italic text-base text-muted-foreground mt-2">

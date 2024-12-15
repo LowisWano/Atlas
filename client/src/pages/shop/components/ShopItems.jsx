@@ -105,8 +105,8 @@ export default function ShopItems() {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row md:justify-between gap-4 mt-12 mb-5">
-        <div className="w-full md:w-auto">
+      <div className="flex flex-col md:flex-row justify-start gap-5 mt-12 mb-5">
+        <div>
           <Input
             className="w-full md:w-64"
             placeholder="Search"
@@ -114,11 +114,13 @@ export default function ShopItems() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
+        <div>
           <ItemRarity
             categories={categories}
             setSelectedCategory={setSelectedCategory}
           />
+        </div>
+        <div>
           <ItemOwnership
             categories={ownerships}
             setSelectedOwnership={setSelectedOwnership}

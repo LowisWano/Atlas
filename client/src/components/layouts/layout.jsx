@@ -15,12 +15,12 @@ export default function Layout({ children }) {
         <SidebarProvider>
           {/* <Navbar /> */}
           <AppSidebar />
-          
           <main className="w-full">
-            { user ? <SidebarTrigger /> : null }
-            <div className="md:p-10">
-              {children ? children : <Outlet />}
-            </div>
+            {
+              user ? <SidebarTrigger /> : null 
+            }
+            
+            {children ? children : <Outlet />}
           </main>
           <Toaster />
         </SidebarProvider>

@@ -9,47 +9,6 @@
   }
 } */
 
-.rbc-day-bg.rbc-today, .rbc-day-bg.rbc-off-range-bg {
-  @apply bg-secondary/80;
-}
-
-.rbc-toolbar button:active, .rbc-toolbar button.rbc-active {
-  background-color: #1F2937 !important;
-}
-
-.rbc-today{
-  background-color: #131820 !important;
-}
-
-.rbc-toolbar button{
-  color: white !important;
-  border: 1px solid #1F2937 !important;
-}
-
-.rbc-day-bg + .rbc-day-bg, .rbc-header + .rbc-header, .rbc-time-content > * + * > * , .rbc-agenda-view table.rbc-agenda-table tbody > tr > td + td, .rbc-time-header-content{
-  border-left: 1px solid #1F2937 !important;
-}
-
-.rbc-month-row + .rbc-month-row, .rbc-day-slot .rbc-time-slot, .rbc-time-content {
-  border-top: 1px solid #1F2937 !important;
-}
-
-.rbc-month-view, .rbc-time-view, .rbc-agenda-view table.rbc-agenda-table{
-  border: 1px solid #1F2937 !important;
-}
-
-.rbc-header, .rbc-timeslot-group{
-  border-bottom: 1px solid #1F2937 !important;
-}
-
-.rbc-event, .rbc-day-slot .rbc-background-event{
-  background-color: #6D28D9 !important;
-}
-
-.rbc-time-header.rbc-overflowing {
-  border-right: 1px solid #1F2937 !important;
-}
-
 @layer components {
   .text-label {
     @apply text-xs font-medium leading-none;

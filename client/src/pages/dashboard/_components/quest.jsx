@@ -93,7 +93,7 @@ export default function Quest({ quest }) {
                   {quest.rewardGold} <span className="ml-1"><img src="/gold.png" alt="gold" className="w-3" /></span>
                 </Badge>
                 <Badge variant="secondary" className="rounded-xl">
-                  {quest.rewardExp} <span className="ml-1"><img src="/levelup.png" alt="exp" className="w-3" /></span>
+                  {quest.rewardExp} <span className="ml-1"><img src="/levelup.png" alt="gold" className="w-3" /></span>
                 </Badge>
               </div>
             </div>

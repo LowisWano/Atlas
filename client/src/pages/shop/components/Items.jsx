@@ -15,7 +15,7 @@ export default function Items({ items }) {
 
   return (
     <TooltipProvider>
-      <div className="flex flex-wrap gap-1 md:justify-start justify-center">
+      <div className="flex flex-wrap justify-center gap-2">
         {items.map((item, index) => (
           <Tooltip key={index}>
             <TooltipTrigger>

@@ -28,7 +28,7 @@ export default function DialogCard({
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Card className="w-[50px] h-[70px] md:w-36 md:h-[170px] m-1 transition-transform duration-300 hover:-translate-y-2 cursor-pointer">
+          <Card className="w-[50px] h-[70px] md:w-36 md:h-[170px] m-1 md:m-2 transition-transform duration-300 hover:-translate-y-2 cursor-pointer">
             <CardContent className="p-1 md:p-5 h-full md:h-auto">
               <img
                 src={item.itemImg}
