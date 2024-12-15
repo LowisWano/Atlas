@@ -3,6 +3,7 @@ const quests = require("../controllers/quests.controller");
 const { tokenValidator } = require("../utils/middleware");
 
 questsRouter.get("/active", tokenValidator, quests.getActiveQuestsController);
+questsRouter.get("/complete", tokenValidator, quests.getCompleteQuestsController);
 questsRouter.post("/", tokenValidator, quests.createQuestController);
 questsRouter.delete("/:questId", tokenValidator, quests.deleteQuestController);
 questsRouter.put("/:questId", tokenValidator, quests.updateQuestController);
