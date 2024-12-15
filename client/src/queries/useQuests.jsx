@@ -81,12 +81,14 @@ export function useQuests() {
         );
       });
       // Check for first quest achievement only if the status is set to COMPLETED
+      
       if (variables.status === 'COMPLETED') {
         checkFirstQuestAchievement(user.user.id, user.token);
         checkFirstDailyQuestAchievement(user.user.id, user.token);
         checkFirstMainQuestAchievement(user.user.id, user.token);
         check5000GoldAchievement(user.user.id, user.token);
       }
+      queryClient.invalidateQueries({ queryKey: ['playerInfo'] });
     }
   })
 
