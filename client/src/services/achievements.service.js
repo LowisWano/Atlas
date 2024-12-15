@@ -22,3 +22,15 @@ export const checkFirstQuestAchievement = async (id, token) => {
     console.error("Error checking first quest achievement:", error);
   }
 };
+
+export const checkFirstMainQuestAchievement = async (id, token) => {
+  try {
+    await axios.post(`${baseUrl}/${id}/check-first-main-quest`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  } catch (error) {
+    console.error("Error checking first main quest achievement:", error);
+  }
+};
