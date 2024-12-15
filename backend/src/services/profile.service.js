@@ -48,4 +48,5 @@ const updatePlayerInfo = async (
 module.exports = {
   getPlayerProfile,
   getPlayerPurchase,
+  updatePlayerInfo,
 }

@@ -44,4 +44,5 @@ const updatePlayerInfoController = async (req, res, next) =>{
 module.exports = {
   getPlayerProfileController,
   getPlayerPurchases,
+  updatePlayerInfoController,
 }
