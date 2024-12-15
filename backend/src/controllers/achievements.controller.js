@@ -4,6 +4,7 @@ const {
   checkAndCreateFirstQuestAchievement,
   checkAndCreateFirstMainQuestAchievement,
   checkAndCreateFirstDailyQuestAchievement,
+  checkAndCreateFirstPurchaseAchievement,
 } = require("../services/achievements.service");
 require("express-async-errors");
 
@@ -36,10 +37,17 @@ const checkFirstDailyQuestAchievementController = async (req, res) => {
   res.status(200).send("Achievement check completed");
 };
 
+const checkFirstPurchaseAchievementController = async (req, res) => {
+  const playerId = Number(req.params.id);
+  await checkAndCreateFirstPurchaseAchievement(playerId);
+  res.status(200).send("Achievement check completed");
+};
+
 module.exports = {
   getAchievementsListController,
   getUserAchievementsController,
   checkFirstQuestAchievementController,
   checkFirstMainQuestAchievementController,
   checkFirstDailyQuestAchievementController,
+  checkFirstPurchaseAchievementController,
 };
