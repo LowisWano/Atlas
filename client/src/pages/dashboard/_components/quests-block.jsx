@@ -75,7 +75,7 @@ export default function QuestsBlock({ questsData, selectedCategory }){
                   <div className="text-gray-500 flex items-center justify-center flex-col gap-1 h-72">
                     <SquareCheck className="h-14 w-14 mb-1" />
                     <p className="text-lg">These are your Quests</p>
-                    <p>Quests need to be completed once. Earn exp and gold as you complete them.</p>
+                    <p className="text-center">Quests need to be completed once. Earn exp and gold as you complete them.</p>
                   </div>
                 : active.filter(q => q.status === "ACTIVE").map((q) => <Quest key={q.id} quest={q} />)
               }
@@ -88,7 +88,7 @@ export default function QuestsBlock({ questsData, selectedCategory }){
                   <div className="text-gray-500 flex items-center justify-center flex-col gap-1 h-72">
                     <SquareCheck className="h-14 w-14 mb-1" />
                     <p className="text-lg">These are your Quests</p>
-                    <p>Quests need to be completed once. Earn exp and gold as you complete them.</p>
+                    <p className="text-center">Quests need to be completed once. Earn exp and gold as you complete them.</p>
                   </div>
                 : completed.map((q) => <Quest key={q.id} quest={q} />)
               }

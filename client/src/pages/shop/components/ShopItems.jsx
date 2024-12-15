@@ -14,12 +14,12 @@ export default function ShopItems() {
   const { purchases } = getPlayerData();
   
   // Debug logs for initial data
-  console.log("Initial Data:", {
-    allItems,
-    purchases,
-    isPending,
-    error
-  });
+  // console.log("Initial Data:", {
+  //   allItems,
+  //   purchases,
+  //   isPending,
+  //   error
+  // });
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("ALL");
@@ -37,7 +37,7 @@ export default function ShopItems() {
 
   const { claimedItems, unclaimedItems, filteredItems } = useMemo(() => {
     if (!allItems || !purchases) {
-      console.log("No items or purchases available");
+      // console.log("No items or purchases available");
       return {
         claimedItems: [],
         unclaimedItems: [],
@@ -46,16 +46,16 @@ export default function ShopItems() {
     }
 
     const purchasedItemIds = purchases.map(purchase => purchase.itemId);
-    console.log("Purchased Item IDs:", purchasedItemIds);
+    // console.log("Purchased Item IDs:", purchasedItemIds);
 
     const claimed = allItems.filter(item => purchasedItemIds.includes(item.id));
     const unclaimed = allItems.filter(item => !purchasedItemIds.includes(item.id));
     
-    console.log("Filtered Arrays:", {
-      claimed,
-      unclaimed,
-      purchasedItemIds
-    });
+    // console.log("Filtered Arrays:", {
+    //   claimed,
+    //   unclaimed,
+    //   purchasedItemIds
+    // });
 
     const itemsToFilter = selectedOwnership === "CLAIMED" ? claimed : unclaimed;
     // console.log("Selected Items to Filter:", {
@@ -105,8 +105,8 @@ export default function ShopItems() {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-start gap-5 mt-12 mb-5">
-        <div>
+      <div className="flex flex-col md:flex-row md:justify-between gap-4 mt-12 mb-5">
+        <div className="w-full md:w-auto">
           <Input
             className="w-full md:w-64"
             placeholder="Search"
@@ -114,13 +114,11 @@ export default function ShopItems() {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <div>
+        <div className="flex flex-col md:flex-row gap-4 w-full md:w-auto">
           <ItemRarity
             categories={categories}
             setSelectedCategory={setSelectedCategory}
           />
-        </div>
-        <div>
           <ItemOwnership
             categories={ownerships}
             setSelectedOwnership={setSelectedOwnership}

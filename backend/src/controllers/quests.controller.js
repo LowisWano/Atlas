@@ -7,6 +7,8 @@ const {
   findQuestById,
   updateQuest,
   updateQuestStatus,
+  getCompletedQuests,
+  earnPlayerRewards,
 } = require("../services/quests.service");
 require("express-async-errors");
 const { calculateRewards } = require("../utils/utils");
@@ -18,6 +20,16 @@ const getActiveQuestsController = async (req, res, next) => {
     const dailyQuests = await getDailyQuests(playerId);
     const activeQuests = normalQuests.concat(dailyQuests);
     res.json(activeQuests);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const getCompleteQuestsController = async (req, res, next) => {
+  try {
+    const playerId = req.user.id;
+    const completedQuests = await getCompletedQuests(playerId);
+    res.json(completedQuests);
   } catch (error) {
     next(error);
   }
@@ -46,7 +58,7 @@ const createQuestController = async (req, res, next) => {
         gold,
         exp,
       });
-    }else if(questType === "DAILY_QUEST"){
+    } else if(questType === "DAILY_QUEST"){
       const endOfDay = new Date();
       endOfDay.setHours(23, 59, 59, 999);
       
@@ -67,7 +79,7 @@ const createQuestController = async (req, res, next) => {
         exp,
         runAt,
       });
-    }else{
+    } else {
       return res.status(400).json({ error: "Invalid quest type." });
     }
     
@@ -152,6 +164,7 @@ const updateStatusQuestController = async (req, res, next) => {
     if (!result) {
       throw new Error("Failed to update quest status");
     }
+    await earnPlayerRewards(playerId, quest.rewardGold, quest.rewardExp, quest.status);
 
     res.json(result);
   } catch (error) {
@@ -159,8 +172,10 @@ const updateStatusQuestController = async (req, res, next) => {
   }
 };
 
+
 module.exports = {
   getActiveQuestsController,
+  getCompleteQuestsController,
   createQuestController,
   deleteQuestController,
   updateQuestController,

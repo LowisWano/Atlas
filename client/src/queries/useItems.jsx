@@ -5,6 +5,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { getUserItems, getUserPurchases, getPlayerInfo, purchaseItem } from '@/services/items.service';
+import { checkFirstPurchaseAchievement } from '@/services/achievements.service';
 import { useUserStore } from "@/hooks/auth-hooks";
 import { useToast } from "@/hooks/use-toast";
 
@@ -37,13 +38,15 @@ export function useItems() {
   // Purchase mutation
   const purchaseMutation = useMutation({
     mutationFn: (itemId) => purchaseItem(user.user.id, itemId, user.token),
-    onSuccess: () => {
-      queryClient.invalidateQueries(['playerPurchases']);
-      queryClient.invalidateQueries(['playerInfo']);
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['playerPurchases']);
+      await queryClient.invalidateQueries(['playerInfo']);
       toast({
         title: "Success",
         description: "Item purchased successfully!",
       });
+      // Check for first purchase achievement
+      await checkFirstPurchaseAchievement(user.user.id, user.token);
     },
     onError: (error) => {
       toast({

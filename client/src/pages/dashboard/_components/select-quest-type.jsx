@@ -13,7 +13,7 @@ export default function SelectQuestType({ questType, setQuestType, defaultValue,
       id="questType" 
       name="questType" 
       required
-      value={questType || ''}
+      value={questType}
       onValueChange={(value) => setQuestType(value)}
       defaultValue={defaultValue}
       disabled={disabled}

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-
+import { format } from "date-fns"
 import {
   Card,
   CardDescription,
@@ -88,12 +88,13 @@ export default function Quest({ quest }) {
             <div className="flex flex-col gap-1">
               <CardTitle>{quest.title}</CardTitle>
               <CardDescription>{quest.description}</CardDescription>
+              <CardDescription>{format(quest.dueDate, "MM/dd/yyyy hh:mm a")}</CardDescription>
               <div className="space-x-1 pt-1">
                 <Badge variant="secondary" className="rounded-xl">
                   {quest.rewardGold} <span className="ml-1"><img src="/gold.png" alt="gold" className="w-3" /></span>
                 </Badge>
                 <Badge variant="secondary" className="rounded-xl">
-                  {quest.rewardExp} <span className="ml-1"><img src="/levelup.png" alt="gold" className="w-3" /></span>
+                  {quest.rewardExp} <span className="ml-1"><img src="/levelup.png" alt="exp" className="w-3" /></span>
                 </Badge>
               </div>
             </div>
