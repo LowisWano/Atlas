@@ -15,3 +15,10 @@ export const getUserInfo = async (playerId, token) => {
   });
   return response.data;
 };
+
+export const updatePlayer = async (playerId, token, updatePlayerInfo) => {
+  const response = await axios.put(`${baseUrl}/${playerId}/profile/streak`, updatePlayerInfo, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};

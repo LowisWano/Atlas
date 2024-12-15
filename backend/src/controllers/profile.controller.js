@@ -1,6 +1,7 @@
 const {
   getPlayerProfile,
   getPlayerPurchase,
+  updatePlayerInfo,
 } = require("../services/profile.service")
 require("express-async-errors");
 
@@ -24,6 +25,20 @@ const getPlayerPurchases = async (req,res) =>{
   if (!player) return res.status(404).json({ error: "Player not found." });
 
   res.json(player)
+}
+
+const updatePlayerInfoController = async (req, res, next) =>{
+  try {
+    const playerId = Number(req.params.id);
+    if (playerId!= req.user.id)
+      return res.status(401).json({ error: "Access denied. Unauthorized user." });
+
+    const { profilePic, bio, streak} = req.body;
+    const result = await updatePlayerInfo(playerId, {profilePic, bio, streak});
+    
+  } catch (error) {
+    next(error);
+  }
 }
 
 module.exports = {

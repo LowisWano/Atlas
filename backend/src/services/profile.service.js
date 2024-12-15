@@ -24,6 +24,27 @@ const getPlayerPurchase = async(playerId) => {
   return purchases;
 }
 
+const updatePlayerInfo = async (
+  playerId, 
+  {
+    profilePic,
+    bio,
+    streak
+  },
+) => {
+  const result = await prisma.quest.update({
+    where: {
+      id: playerId,
+    },
+    data: {
+      profilePic,
+      bio,
+      streak
+    }
+  })
+  return result;
+}
+
 module.exports = {
   getPlayerProfile,
   getPlayerPurchase,

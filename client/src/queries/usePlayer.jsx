@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getPlayerInfo, getUserInfo } from '@/services/player.service';
+import { getPlayerInfo, getUserInfo , updatePlayer } from '@/services/player.service';
 import { useUserStore } from "@/hooks/auth-hooks";
 import { useToast } from "@/hooks/use-toast";
 
