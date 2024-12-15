@@ -18,11 +18,11 @@ export default function ProfileTop(){
     const { getPlayerItems } = useItems();
     const itemsData = getPlayerItems();
     
-    if (isLoading) {
+    if (isLoading || itemsData.isPending){
         return <LoadingSpinner />;
     }
 
-    if (error) {
+    if (error || itemsData.error){
         return (
             <div className="flex justify-center items-center p-20">
                 Sorry, an error has occurred. {error.message}
@@ -32,7 +32,7 @@ export default function ProfileTop(){
 
     const playerData = playerInfo;
     const userData = userInfo;
-    const playerItems = itemsData.data || [];
+    const playerItems = itemsData.data;
 
     console.log("Fetched PlayerData: ", playerData);
     console.log("Fetched UserData: ", userData);
