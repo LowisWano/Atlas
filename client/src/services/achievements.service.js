@@ -10,3 +10,15 @@ export const getUserAchievementsList = async (id, token) => {
   const response = await axios.get(`${baseUrl}/${id}/user-achievements`, { headers: { Authorization : `Bearer ${token}` } });
   return response.data;
 };
+
+export const checkFirstQuestAchievement = async (id, token) => {
+  try {
+    await axios.post(`${baseUrl}/${id}/check-first-quest`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  } catch (error) {
+    console.error("Error checking first quest achievement:", error);
+  }
+};
