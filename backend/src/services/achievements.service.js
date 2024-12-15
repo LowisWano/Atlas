@@ -285,6 +285,62 @@ const checkAndCreateFirstPurchaseAchievement = async (playerId) => {
   }
 };
 
+const checkAndCreate5000GoldAchievement = async (playerId) => {
+  // Check if the player already has the "5000 Gold Coins" achievement
+  const existingAchievement = await prisma.playerAchievement.findFirst({
+    where: {
+      playerId: playerId,
+      achievement: {
+        id: 2,
+      },
+    },
+  });
+
+  if (existingAchievement) {
+    // Achievement already exists, no need to create a new one
+    return;
+  }
+
+  // Check if the player has accumulated 5000 gold
+  const player = await prisma.player.findUnique({
+    where: {
+      id: playerId,
+    },
+  });
+
+  if (player && player.gold >= 5000) {
+    const achievement = await prisma.achievement.findFirst({
+      where: {
+        id: 2,
+      },
+    });
+
+    if (achievement) {
+      await prisma.$transaction(async (tx) => {
+        // Create the player achievement
+        await tx.playerAchievement.create({
+          data: {
+            playerId: playerId,
+            achievementId: achievement.id,
+          },
+        });
+
+        // Update the player's rank points
+        await tx.player.update({
+          where: {
+            id: playerId,
+          },
+          data: {
+            rankPoints: {
+              increment: achievement.rewardExp,
+            },
+          },
+        });
+      });
+    }
+  }
+};
+
 module.exports = {
   getAchievements,
   getPlayerAchievements,
@@ -292,4 +348,5 @@ module.exports = {
   checkAndCreateFirstMainQuestAchievement,
   checkAndCreateFirstDailyQuestAchievement,
   checkAndCreateFirstPurchaseAchievement,
+  checkAndCreate5000GoldAchievement,
 };
