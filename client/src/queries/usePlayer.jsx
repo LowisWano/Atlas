@@ -39,6 +39,7 @@ export function usePlayer() {
   });
 
   const updatePlayerMutate = async (playerData) => {
+    console.log("Update Player Streak");
     updatePlayerMutation.mutate(playerData);
   };
 
