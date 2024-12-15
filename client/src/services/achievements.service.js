@@ -34,3 +34,15 @@ export const checkFirstMainQuestAchievement = async (id, token) => {
     console.error("Error checking first main quest achievement:", error);
   }
 };
+
+export const checkFirstDailyQuestAchievement = async (id, token) => {
+  try {
+    await axios.post(`${baseUrl}/${id}/check-first-daily-quest`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  } catch (error) {
+    console.error("Error checking first daily quest achievement:", error);
+  }
+};
