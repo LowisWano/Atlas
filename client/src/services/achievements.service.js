@@ -58,3 +58,15 @@ export const checkFirstPurchaseAchievement = async (id, token) => {
     console.error("Error checking first purchase achievement:", error);
   }
 };
+
+export const check5000GoldAchievement = async (id, token) => {
+  try {
+    await axios.post(`${baseUrl}/${id}/check-5000-gold`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  } catch (error) {
+    console.error("Error checking 5000 gold achievement:", error);
+  }
+};
