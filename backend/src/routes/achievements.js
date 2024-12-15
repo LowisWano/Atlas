@@ -6,5 +6,6 @@ achievementsRouter.get("/list", tokenValidator, achievements.getAchievementsList
 achievementsRouter.get("/:id/user-achievements", tokenValidator, achievements.getUserAchievementsController);
 achievementsRouter.post("/:id/check-first-quest", tokenValidator, achievements.checkFirstQuestAchievementController);
 achievementsRouter.post("/:id/check-first-main-quest", tokenValidator, achievements.checkFirstMainQuestAchievementController);
+achievementsRouter.post("/:id/check-first-daily-quest", tokenValidator, achievements.checkFirstDailyQuestAchievementController);
 
 module.exports = achievementsRouter;
