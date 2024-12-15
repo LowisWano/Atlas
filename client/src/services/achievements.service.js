@@ -46,3 +46,15 @@ export const checkFirstDailyQuestAchievement = async (id, token) => {
     console.error("Error checking first daily quest achievement:", error);
   }
 };
+
+export const checkFirstPurchaseAchievement = async (id, token) => {
+  try {
+    await axios.post(`${baseUrl}/${id}/check-first-purchase`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  } catch (error) {
+    console.error("Error checking first purchase achievement:", error);
+  }
+};
