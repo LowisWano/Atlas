@@ -83,9 +83,9 @@ export function useQuests() {
       // Check for first quest achievement only if the status is set to COMPLETED
       console.log(variables)
       if (variables.status === 'COMPLETED') {
-        checkFirstMainQuestAchievement(user.user.id, user.token);
-        checkFirstDailyQuestAchievement(user.user.id, user.token);
         checkFirstQuestAchievement(user.user.id, user.token);
+        checkFirstDailyQuestAchievement(user.user.id, user.token);
+        checkFirstMainQuestAchievement(user.user.id, user.token);
       }
     }
   })
