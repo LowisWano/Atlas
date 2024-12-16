@@ -58,8 +58,6 @@ export default function SignupForm() {
         }
         
       }catch(err){
-        // returns an array of zod errors. figure out how to deal with this one
-        console.log(err?.response?.data?.error)
         toast({
           variant: "destructive",
           title: "An unexpected error has occured!",

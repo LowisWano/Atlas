@@ -3,7 +3,7 @@ import ProfileBlock from "./_componenets/profile-block";
 
 export default function Achievements(){
     const { user } = useUserStore()
-    console.log(user)
+ 
     return (
     <div>
         <ProfileBlock />

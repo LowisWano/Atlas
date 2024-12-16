@@ -31,7 +31,6 @@ export function LoginForm() {
         password: field.password.value
       });
       
-      console.log(userToken)
       setUser(userToken);
       storeToken(userToken)
       

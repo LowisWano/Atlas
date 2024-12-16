@@ -12,32 +12,15 @@ export default function ShopItems() {
   const { getItems, getPlayerData } = useItems();
   const { isPending, error, data: allItems } = getItems();
   const { purchases } = getPlayerData();
-  
-  // Debug logs for initial data
-  // console.log("Initial Data:", {
-  //   allItems,
-  //   purchases,
-  //   isPending,
-  //   error
-  // });
-
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("ALL");
   const [selectedOwnership, setSelectedOwnership] = useState("NOT_OWNED");
-
-  // Debug log for state changes
-  // console.log("Current State:", {
-  //   searchQuery,
-  //   selectedCategory,
-  //   selectedOwnership
-  // });
 
   const categories = ["ALL", "COMMON", "UNCOMMON", "RARE", "EPIC", "LEGENDARY"];
   const ownerships = ["NOT_OWNED", "CLAIMED"];
 
   const { claimedItems, unclaimedItems, filteredItems } = useMemo(() => {
     if (!allItems || !purchases) {
-      // console.log("No items or purchases available");
       return {
         claimedItems: [],
         unclaimedItems: [],
@@ -46,42 +29,19 @@ export default function ShopItems() {
     }
 
     const purchasedItemIds = purchases.map(purchase => purchase.itemId);
-    // console.log("Purchased Item IDs:", purchasedItemIds);
 
     const claimed = allItems.filter(item => purchasedItemIds.includes(item.id));
     const unclaimed = allItems.filter(item => !purchasedItemIds.includes(item.id));
     
-    // console.log("Filtered Arrays:", {
-    //   claimed,
-    //   unclaimed,
-    //   purchasedItemIds
-    // });
 
     const itemsToFilter = selectedOwnership === "CLAIMED" ? claimed : unclaimed;
-    // console.log("Selected Items to Filter:", {
-    //   selectedOwnership,
-    //   itemsToFilter
-    // });
 
     const filtered = itemsToFilter.filter((item) => {
       const matchesSearchQuery = item.itemName.toLowerCase().includes(searchQuery.toLowerCase());
       const matchesCategory = selectedCategory === "ALL" || item.rarity === selectedCategory;
       
-      // console.log("Item Filter Check:", {
-      //   item: item.itemName,
-      //   matchesSearchQuery,
-      //   matchesCategory,
-      //   selectedCategory,
-      //   itemRarity: item.rarity
-      // });
-      
       return matchesSearchQuery && matchesCategory;
     });
-
-    // console.log("Final Filtered Results:", {
-    //   filteredCount: filtered.length,
-    //   filtered
-    // });
 
     return {
       claimedItems: claimed,

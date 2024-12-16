@@ -58,7 +58,6 @@ export default function PlayerProfileBlock() {
       </SidebarGroup>
     );
   }
-  console.log(playerInfo)
   
   const { progress, actualExp, neededExp } = calculateExpProgress(playerInfo.level, playerInfo.experience);
   

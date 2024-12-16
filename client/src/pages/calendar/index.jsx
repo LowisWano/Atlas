@@ -37,7 +37,7 @@ export default function CalendarPage() {
     status: quest.status,
     questType: quest.questType
   }));
-  console.log(events)
+
   return(
     <div>
       <div className='flex justify-end'>

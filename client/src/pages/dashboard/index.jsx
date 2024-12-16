@@ -6,8 +6,6 @@ import QuestCategories from "./_components/quest-categories";
 import { useQuests } from "@/queries/useQuests"
 
 export default function Dashboard() {
-  // const { user } = useUserStore()
-  // console.log(user)
   const { getQuests } = useQuests();
   const { isPending, error, data } = getQuests();
   const [selectedCategory, setSelectedCategory] = useState('NORMAL_QUEST');

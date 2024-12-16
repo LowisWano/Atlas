@@ -16,7 +16,7 @@ export default function DueDatePicker({ date, setDate, disabled }) {
     format(date, 'HH:mm') :
     '12:00';
   const [selectedTime, setSelectedTime] = useState(initialTime);
-  console.log(date)
+ 
   const handleDateTimeChange = (newDate, newTime) => {
     if (newDate) {
       const [hours, minutes] = newTime.split(':');

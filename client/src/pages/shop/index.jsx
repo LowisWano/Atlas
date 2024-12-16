@@ -5,7 +5,6 @@ import { H1, P } from "@/components/Typography";
 
 export default function Shop() {
   const { user } = useUserStore()
-  console.log(user)
   return (
     <div className="md:p-0 p-5">
       <ShopHeader />
