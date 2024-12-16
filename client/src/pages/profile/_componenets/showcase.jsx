@@ -25,14 +25,14 @@ export default function Showcase() {
     const { getUserAchievements } = useAchievements();
     const achievementsData = getUserAchievements();
 
-    if (itemsData.isPending || achievementsData.isPending){
-            return <LoadingSpinner />;
-        }
-    
-    if (itemsData.error || achievementsData.error){
+    if (itemsData.isPending || achievementsData.isPending) {
+        return <LoadingSpinner />;
+    }
+
+    if (itemsData.error || achievementsData.error) {
         return (
             <div className="flex justify-center items-center p-20">
-                Sorry, an error has occurred. {error.message}
+                Sorry, an error has occurred.
             </div>
         );
     }
@@ -53,21 +53,24 @@ export default function Showcase() {
     const topItems = sortItemsByRarity(playerItems).slice(0, 4);
     const topAchievements = sortAchievementsByDifficulty(playerAchievements).slice(0, 2);
 
-    const recentItems = playerItems.sort((a, b) => new Date(b.purchasedAt) - new Date(a.purchasedAt)).slice(0, 2)
+    const recentItems = playerItems
+        .sort((a, b) => new Date(b.purchasedAt) - new Date(a.purchasedAt))
+        .slice(0, 2);
 
     return (
-        <div className="flex flex-row justify-center gap-20">
-            <Card>
-                <CardHeader className="font-bold">
+        <div className="flex flex-col md:flex-row justify-center gap-y-8 md:gap-x-20 p-5">
+            {/* Item Showcase Card */}
+            <Card className="w-full md:w-1/3">
+                <CardHeader className="font-bold text-center">
                     Item Showcase
                 </CardHeader>
                 <CardContent>
                     <TooltipProvider>
-                        <div className="flex flex-row gap-8">
-                            {topItems.map((item) => (     
+                        <div className="flex justify-center gap-4 flex-wrap">
+                            {topItems.map((item) => (
                                 <Tooltip key={item.id}>
                                     <TooltipTrigger>
-                                        <img src={item.item.itemImg} className="w-14 h-14"/>
+                                        <img src={item.item.itemImg} className="w-14 h-14 mx-auto" />
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         {item.item.itemName}
@@ -79,17 +82,18 @@ export default function Showcase() {
                 </CardContent>
             </Card>
 
-            <Card>
-                <CardHeader className="font-bold">
+            {/* Recently Obtained Card */}
+            <Card className="w-full md:w-1/3">
+                <CardHeader className="font-bold text-center">
                     Recently Obtained
                 </CardHeader>
                 <CardContent>
                     <TooltipProvider>
-                        <div className="flex flex-row gap-8">
+                        <div className="flex justify-center gap-4 flex-wrap">
                             {recentItems.map((item) => (
                                 <Tooltip key={item.id}>
                                     <TooltipTrigger>
-                                        <img src={item.item.itemImg} className="w-14 h-14"/>
+                                        <img src={item.item.itemImg} className="w-14 h-14 mx-auto" />
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         {item.item.itemName}
@@ -101,17 +105,18 @@ export default function Showcase() {
                 </CardContent>
             </Card>
 
-            <Card>
-                <CardHeader className="font-bold">
+            {/* Top Achievements Card */}
+            <Card className="w-full md:w-1/3">
+                <CardHeader className="font-bold text-center">
                     Top Achievements
                 </CardHeader>
                 <CardContent>
                     <TooltipProvider>
-                        <div className="flex flex-row gap-8">
+                        <div className="flex justify-center gap-4 flex-wrap">
                             {topAchievements.map((achievement) => (
                                 <Tooltip key={achievement.id}>
                                     <TooltipTrigger>
-                                        <img src={achievement.achievement.iconImg} className="w-14 h-14"/>
+                                        <img src={achievement.achievement.iconImg} className="w-14 h-14 mx-auto" />
                                     </TooltipTrigger>
                                     <TooltipContent>
                                         {achievement.achievement.title}

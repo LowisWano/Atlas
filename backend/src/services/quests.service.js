@@ -210,6 +210,18 @@ const updateQuestStatus = async (questId, status) => {
       ) {
           newStreak = 1;
       }
+  } else if (status === "ACTIVE") {
+      if (
+        completedQuestsToday.length == 0
+      ) {
+        newStreak -= 1;
+      }
+
+      if (
+        completedQuestsYesterday.length == 0
+      ) {
+        newStreak = 1;
+      }
   }
 
   if (

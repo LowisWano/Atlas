@@ -7,28 +7,26 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { FileInput } from "@/components/ui/file-input";
+// import { FileInput } from "@/components/ui/file-input";
 
-export default function EditProfileModal({ open, setOpen, userId }) {
-  const { getPlayerData, updatePlayerMutate } = usePlayer();
-  const { playerInfo, userInfo, isLoading, error } = getPlayerData();
+export default function EditProfileModal({ open, setOpen, playerData, userData }) {
+  const { updatePlayerMutate } = usePlayer();
   const { toast } = useToast();
 
-  const [editedUser, setEditedUser] = useState({ name: "", bio: "", profilePic: "" });
-  const [bio, setBio] = useState("");
+  const [editedUser, setEditedUser] = useState(userData);
+  const [bio, setBio] = useState(playerData?.bio || "");
   const [profilePic, setProfilePic] = useState("");
 
+  // Sync the user data when userData or playerData changes
   useEffect(() => {
-    if (userInfo) {
+    if (userData) {
       setEditedUser({
-        name: userInfo.name || "",
-        bio: userInfo.bio || "",
-        profilePic: userInfo.profilePic || "",
+        name: userData.name || "",
       });
-      setBio(userInfo.bio || "");
-      setProfilePic(userInfo.profilePic || "");
+      setBio(playerData?.bio || "");
+      setProfilePic(playerData?.profilePic || "");
     }
-  }, [userInfo]);
+  }, [userData, playerData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -44,23 +42,23 @@ export default function EditProfileModal({ open, setOpen, userId }) {
 
   const handleProfilePicChange = async (file) => {
     if (!file) return;
-  
+
     const formData = new FormData();
     formData.append("profilePic", file);
-  
+
     try {
       const response = await fetch("/upload", {
         method: "POST",
         body: formData,
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to upload image");
       }
-  
+
       const data = await response.json();
       const uploadedFilePath = data.filePath;
-  
+
       setProfilePic(uploadedFilePath);
     } catch (error) {
       console.error("Error uploading image:", error);
@@ -76,10 +74,10 @@ export default function EditProfileModal({ open, setOpen, userId }) {
     e.preventDefault();
     try {
       await updatePlayerMutate({
-        id: userId,
+        id: userData.id,
         name: editedUser.name,
         bio,
-        profilePic,
+        profilePic: profilePic || playerData?.profilePic,
       });
       setOpen(false); // Close the modal after successful update
     } catch (err) {
@@ -91,15 +89,6 @@ export default function EditProfileModal({ open, setOpen, userId }) {
     }
   };
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) {
-    return (
-      <div>
-        <p>Failed to load user data: {error.message}</p>
-      </div>
-    );
-  }
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[500px]">
@@ -108,6 +97,7 @@ export default function EditProfileModal({ open, setOpen, userId }) {
         </DialogHeader>
         <form onSubmit={updateProfileHandler}>
           <div className="flex flex-col gap-4">
+            {/* Name Input */}
             <div className="flex flex-col gap-2">
               <Label htmlFor="name">Name</Label>
               <Input
@@ -119,6 +109,8 @@ export default function EditProfileModal({ open, setOpen, userId }) {
                 required
               />
             </div>
+            
+            {/* Bio Input */}
             <div className="flex flex-col gap-2">
               <Label htmlFor="bio">Bio</Label>
               <Textarea
@@ -129,19 +121,27 @@ export default function EditProfileModal({ open, setOpen, userId }) {
                 onChange={handleBioChange}
               />
             </div>
-            <div className="flex flex-col gap-2">
+
+            {/* Profile Picture Preview and Upload */}
+            {/* <div className="flex flex-col gap-2">
               <Label htmlFor="profilePic">Profile Picture</Label>
-              <FileInput
-                id="profilePic"
-                name="profilePic"
-                onChange={(e) => handleProfilePicChange(e.target.files[0])}
+              {profilePic && <img src={profilePic} alt="Profile Preview" className="w-32 h-32 rounded-full" />}
+              <Button
+                type="button"
+                onClick={() => document.getElementById('profilePicUpload').click()}
+              >
+                Upload Profile Picture
+              </Button>
+              <input
+                id="profilePicUpload"
+                type="file"
+                className="hidden"
                 accept="image/*"
+                onChange={(e) => handleProfilePicChange(e.target.files[0])}
               />
-              <div className="mt-2">
-                {profilePic && <img src={profilePic} alt="Profile Preview" className="w-32 h-32 rounded-full" />}
-              </div>
-            </div>
+            </div> */}
           </div>
+          
           <DialogFooter className="mt-4">
             <Button type="submit">Save changes</Button>
           </DialogFooter>
