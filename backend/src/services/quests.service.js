@@ -167,6 +167,11 @@ const updateQuestStatus = async (questId, status) => {
       throw new Error("Player not found");
   }
 
+  const updatedQuest = await prisma.quest.update({
+    where: { id: questId },
+    data: { status: status },
+});
+
   // Fetch completed quests for today and yesterday
   const completedQuestsToday = await prisma.quest.findMany({
       where: {
@@ -193,11 +198,17 @@ const updateQuestStatus = async (questId, status) => {
 
   if (status === "COMPLETED") {
       if (
-          completedQuestsToday.length === 0 &&
-          completedQuestsYesterday.length > 1
+          completedQuestsToday.length == 1 &&
+          completedQuestsYesterday.length >= 0
       ) {
-          // First quest completed today and more than 1 quest completed yesterday
           newStreak += 1;
+      }
+      
+      if (
+        completedQuestsToday.length == 0 &&
+        completedQuestsYesterday.length > 0
+      ) {
+          newStreak = 1;
       }
   }
 
@@ -207,19 +218,9 @@ const updateQuestStatus = async (questId, status) => {
   ) {
       // No first quest completed today and no quests completed yesterday
       newStreak = 0;
-  } else if (
-      completedQuestsToday.length === 0 &&
-      completedQuestsYesterday.length > 1
-  ) {
-      // No quest completed today but more than 1 quest completed yesterday
-      newStreak = 1;
-  }
+  } 
 
   // Update quest status and player's streak
-  const updatedQuest = await prisma.quest.update({
-      where: { id: questId },
-      data: { status: status },
-  });
 
   await prisma.player.update({
       where: { id: quest.playerId },
