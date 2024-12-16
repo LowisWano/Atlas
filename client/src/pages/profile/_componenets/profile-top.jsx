@@ -59,7 +59,7 @@ export default function ProfileTop() {
         <div className="flex justify-center items-center md:hidden">
           <div className="h-40 w-40 md:h-64 md:w-64 rounded-xl overflow-hidden">
             <img
-              src={playerInfo?.profilePic || 'https://github.com/shadcn.png'}
+              src={playerInfo?.profilePic || 'src/assets/profile/noPfp.jpg'}
               alt="avatar"
               className="h-full w-full object-cover"
             />

@@ -242,8 +242,6 @@ const updateQuestStatus = async (questId, status) => {
   return updatedQuest;
 };
 
-
-
 const earnPlayerRewards = async (playerId, gold, exp, questStatus) => {
   const result = await prisma.$transaction(async (tx) => {
     const player = await tx.player.findUnique({
@@ -259,15 +257,11 @@ const earnPlayerRewards = async (playerId, gold, exp, questStatus) => {
     const rankPointsMod = questStatus === 'COMPLETED' ? -1 : 1;
 
     const newGold = Math.max(0, player.gold + goldMod);
-    let newExp = Math.max(0, player.experience + expMod);
-    let currentLevel = player.level;
-
-    // Check for level up
-    const nextLevelThreshold = currentLevel * 1000;
-    while (newExp >= nextLevelThreshold) {
-      currentLevel += 1;
-      newExp -= nextLevelThreshold;
-    }
+    const newExp = Math.max(0, player.experience + expMod);
+    
+    // Calculate level based on exp required (level * 1000)
+    // Level 1: 0-999, Level 2: 2000-2999, Level 3: 3000-3999, etc.
+    const currentLevel = Math.floor(Math.sqrt(newExp / 1000)) + 1;
 
     const newRankPoints = Math.max(0, player.rankPoints + rankPointsMod);
     let newRank = player.adventurerRank;

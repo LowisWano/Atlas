@@ -20,14 +20,15 @@ import { useSidebar } from "@/components/ui/sidebar";
 import { Link } from "react-router-dom";
 
 const calculateLevelThreshold = (level) => {
-  return level * 1000;
+  return Math.pow(level, 2) * 1000;
 };
 
 const calculateExpProgress = (level, currentExp) => {
+  const prevLevelThreshold = Math.pow(level - 1, 2) * 1000;
   const currentLevelThreshold = calculateLevelThreshold(level);
   
-  const expInCurrentLevel = currentExp; 
-  const expNeededForLevel = currentLevelThreshold;
+  const expInCurrentLevel = currentExp - prevLevelThreshold;
+  const expNeededForLevel = currentLevelThreshold - prevLevelThreshold;
   
   const progressPercentage = Math.floor((expInCurrentLevel / expNeededForLevel) * 100);
   

@@ -42,7 +42,7 @@ export default function DueDatePicker({ date, setDate, disabled }) {
               {format(date, "MM/dd/yyyy")} at {format(date, "hh:mm a")}
             </span>
           ) : (
-            <span>Select Date/time</span>
+            <span>Select Date</span>
           )}
         </Button>
       </PopoverTrigger>
