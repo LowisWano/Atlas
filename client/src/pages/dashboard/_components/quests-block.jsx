@@ -16,9 +16,11 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import AddQuestModal from "./add-quest-modal";
-import { useQuests } from "@/queries/useQuests";
+import { useState } from "react";
 
 export default function QuestsBlock({ questsData, selectedCategory }){
+  const [searchQuery, setSearchQuery] = useState("");
+
   if (questsData.isPending){
     return (
       <div className="flex justify-center items-center w-full">
@@ -36,9 +38,18 @@ export default function QuestsBlock({ questsData, selectedCategory }){
   }
   
   const quests = questsData.data.filter(quest => quest.questType === selectedCategory);
-  const active = quests.filter(q => q.status === "ACTIVE");
-  const completed = quests.filter(q => q.status === "COMPLETED");
-  console.log(quests);
+  
+  const filterQuests = (quests) => {
+    if (!searchQuery) return quests;
+    
+    return quests.filter(quest => 
+      quest.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      quest.description.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  };
+  
+  const active = filterQuests(quests.filter(q => q.status === "ACTIVE"));
+  const completed = filterQuests(quests.filter(q => q.status === "COMPLETED"));
   
   return(
     <div className="pt-5 flex-1">
@@ -63,6 +74,8 @@ export default function QuestsBlock({ questsData, selectedCategory }){
                 type="search"
                 placeholder="Search..."
                 className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
           </div>
