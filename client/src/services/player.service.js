@@ -29,3 +29,10 @@ export const updateUser  = async (playerId, token, name) => {
   });
   return response.data;
 };
+
+export const uploadProfilePic = async (playerId, token, formData) => {
+  const response = await axios.post(`${baseUrl}/${playerId}/profile/upload`, formData, {
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
+};
