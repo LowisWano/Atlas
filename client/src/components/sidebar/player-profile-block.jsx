@@ -17,6 +17,8 @@ import { Progress } from "@/components/ui/progress"
 import { usePlayer } from "@/queries/usePlayer";
 import { useSidebar } from "@/components/ui/sidebar";
 
+import { Link } from "react-router-dom";
+
 const calculateLevelThreshold = (level) => {
   return level * 1000;
 };
@@ -37,7 +39,6 @@ const calculateExpProgress = (level, currentExp) => {
 };
 
 export default function PlayerProfileBlock() {
-  const { token, user } = useUserStore();
   const { getPlayerData } = usePlayer();
   const { playerInfo, userInfo, isLoading } = getPlayerData();
   const { state } = useSidebar();
@@ -65,30 +66,32 @@ export default function PlayerProfileBlock() {
       <SidebarGroupLabel>Profile</SidebarGroupLabel>
       <SidebarMenu>
         <SidebarMenuItem>
-          <SidebarMenuButton className="flex h-24">
-            <div>
-              <Avatar className={state === "collapsed" ? "h-7 w-7" : ""}>
-                <AvatarImage src={playerInfo?.profilePic || "https://github.com/shadcn.png"} alt="avatar" />
-                <AvatarFallback>{userInfo?.name?.charAt(0).toUpperCase() || "U"}</AvatarFallback>
-              </Avatar>
-            </div>
-            <div className="flex flex-col gap-[5px]">
-              <h1 className="text-label tracking-wider">
-                <strong>{userInfo?.name || "Unknown"}</strong>
-              </h1>
-              <p className="text-label tracking-wider">
-                Level {playerInfo?.level || 1} • {playerInfo?.adventurerRank?.charAt(0).toUpperCase() + playerInfo?.adventurerRank?.slice(1).toLowerCase() || "Unknown"}
-              </p>
-              <Progress value={progress} className="h-[7px]" />
-              <span className="text-xs text-muted-foreground">
-                {actualExp.toLocaleString()} / {neededExp.toLocaleString()} EXP
-              </span>
-              <span className="flex items-center gap-1">
-                <img src="/gold.png" alt="gold" className="h-3"/>
-                <p className="text-label tracking-wider">{playerInfo?.gold?.toLocaleString() || 0}</p>
-              </span>
-            </div>
-          </SidebarMenuButton>
+          <Link to="/profile">
+            <SidebarMenuButton className="flex h-24">
+              <div>
+                <Avatar className={state === "collapsed" ? "h-7 w-7" : ""}>
+                  <AvatarImage src={playerInfo?.profilePic || "https://github.com/shadcn.png"} alt="avatar" />
+                  <AvatarFallback>{userInfo?.name?.charAt(0).toUpperCase() || "U"}</AvatarFallback>
+                </Avatar>
+              </div>
+              <div className="flex flex-col gap-[5px]">
+                <h1 className="text-label tracking-wider">
+                  <strong>{userInfo?.name || "Unknown"}</strong>
+                </h1>
+                <p className="text-label tracking-wider">
+                  Level {playerInfo?.level || 1} • {playerInfo?.adventurerRank?.charAt(0).toUpperCase() + playerInfo?.adventurerRank?.slice(1).toLowerCase() || "Unknown"}
+                </p>
+                <Progress value={progress} className="h-[7px]" />
+                <span className="text-xs text-muted-foreground">
+                  {actualExp.toLocaleString()} / {neededExp.toLocaleString()} EXP
+                </span>
+                <span className="flex items-center gap-1">
+                  <img src="/gold.png" alt="gold" className="h-3"/>
+                  <p className="text-label tracking-wider">{playerInfo?.gold?.toLocaleString() || 0}</p>
+                </span>
+              </div>
+            </SidebarMenuButton>
+          </Link>
         </SidebarMenuItem>        
       </SidebarMenu>
     </SidebarGroup>
