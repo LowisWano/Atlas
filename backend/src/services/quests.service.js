@@ -187,12 +187,12 @@ const earnPlayerRewards = async (playerId, gold, exp, questStatus) => {
     const newRankPoints = Math.max(0, player.rankPoints + rankPointsMod);
     let newRank = player.adventurerRank;
 
-    if (newRankPoints >= 1000) newRank = 'ADAMANTITE';
-    else if (newRankPoints >= 800) newRank = 'MYTHRIL';
-    else if (newRankPoints >= 600) newRank = 'PLATINUM';
-    else if (newRankPoints >= 400) newRank = 'GOLD';
-    else if (newRankPoints >= 200) newRank = 'SILVER';
-    else if (newRankPoints >= 100) newRank = 'IRON';
+    if (newRankPoints >= 210) newRank = 'ADAMANTITE';
+    else if (newRankPoints >= 150) newRank = 'MYTHRIL';
+    else if (newRankPoints >= 100) newRank = 'PLATINUM';
+    else if (newRankPoints >= 60) newRank = 'GOLD';
+    else if (newRankPoints >= 30) newRank = 'SILVER';
+    else if (newRankPoints >= 10) newRank = 'IRON';
     else newRank = 'COPPER';
 
     return await tx.player.update({
