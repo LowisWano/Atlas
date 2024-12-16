@@ -9,12 +9,13 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 export default function EditProfileModal({ open, setOpen, playerData, userData }) {
-  const { updatePlayerMutate, updateUserMutate } = usePlayer();
+  const { updatePlayerMutate, updateUserMutate, uploadProfilePicMutate } = usePlayer();
   const { toast } = useToast();
 
   const [editedUser, setEditedUser] = useState(userData);
   const [bio, setBio] = useState(playerData?.bio || "");
-  const [profilePic, setProfilePic] = useState("");
+  const [profilePic, setProfilePic] = useState(playerData?.profilePic || "");
+  const [previewPic, setPreviewPic] = useState("src/assets/profile/noPfp.jpg");
 
   // Sync user data when userData or playerData changes
   useEffect(() => {
@@ -24,6 +25,7 @@ export default function EditProfileModal({ open, setOpen, playerData, userData }
       });
       setBio(playerData?.bio || "");
       setProfilePic(playerData?.profilePic || "");
+      setPreviewPic(null);
     }
   }, [userData, playerData]);
 
@@ -39,48 +41,33 @@ export default function EditProfileModal({ open, setOpen, playerData, userData }
     setBio(e.target.value);
   };
 
-  const handleProfilePicChange = async (file) => {
+  const handleProfilePicChange = (file) => {
     if (!file) return;
-
-    const formData = new FormData();
-    formData.append("profilePic", file);
-
-    try {
-      const response = await fetch("/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to upload image");
-      }
-
-      const data = await response.json();
-      const uploadedFilePath = data.filePath;
-
-      setProfilePic(uploadedFilePath);
-    } catch (error) {
-      console.error("Error uploading image:", error);
-      toast({
-        variant: "destructive",
-        title: "Upload Failed!",
-        description: "There was an error uploading your profile picture.",
-      });
-    }
+    setPreviewPic(URL.createObjectURL(file));
+    setProfilePic(file);
   };
 
   const updateProfileHandler = async (e) => {
     e.preventDefault();
     
     try {
-      // First, update the profile (bio and profile pic)
+      // First, upload the profile picture if a new one is selected
+      let profilePicPath = playerData?.profilePic;
+      if (profilePic instanceof File) {
+        const formData = new FormData();
+        formData.append("profilePic", profilePic);
+        const response = await uploadProfilePicMutate(formData);
+        profilePicPath = response.profilePic;
+      }
+
+      // Then, update the profile (bio and profile pic)
       await updatePlayerMutate({
         id: userData.id,
         bio,
-        profilePic: profilePic || playerData?.profilePic,
+        profilePic: profilePicPath,
       });
 
-      // Then update the name
+      // Finally, update the name
       await updateUserMutate({
         id: userData.id,
         name: editedUser.name,
@@ -103,6 +90,32 @@ export default function EditProfileModal({ open, setOpen, playerData, userData }
           <DialogTitle>Edit Profile</DialogTitle>
         </DialogHeader>
         <form onSubmit={updateProfileHandler}>
+            <div className="flex flex-col gap-2">
+                <Label htmlFor="profilePic">Profile Picture</Label>
+              <div className="flex justify-center">
+                {previewPic ? (
+                  <img src={previewPic} alt="src/assets/profile/noPfp.jpg" className="w-32 h-32 rounded-full" />
+                ) : (
+                  profilePic && <img src={profilePic} alt="src/assets/profile/noPfp.jpg" className="w-32 h-32 rounded-full" />
+                )}
+              </div>
+              <div className="flex justify-center">
+                <Button
+                  type="button"
+                  onClick={() => document.getElementById('profilePicUpload').click()}
+                  
+                >
+                  Upload Profile Picture
+                </Button>
+              </div>
+              <input
+                id="profilePicUpload"
+                type="file"
+                className="hidden"
+                accept="image/*"
+                onChange={(e) => handleProfilePicChange(e.target.files[0])}
+              />
+            </div>
           <div className="flex flex-col gap-4">
             {/* Name Input */}
             <div className="flex flex-col gap-2">
@@ -130,24 +143,6 @@ export default function EditProfileModal({ open, setOpen, playerData, userData }
             </div>
 
             {/* Profile Picture Preview and Upload */}
-            {/* Uncomment to allow uploading profile picture */}
-            {/* <div className="flex flex-col gap-2">
-              <Label htmlFor="profilePic">Profile Picture</Label>
-              {profilePic && <img src={profilePic} alt="Profile Preview" className="w-32 h-32 rounded-full" />}
-              <Button
-                type="button"
-                onClick={() => document.getElementById('profilePicUpload').click()}
-              >
-                Upload Profile Picture
-              </Button>
-              <input
-                id="profilePicUpload"
-                type="file"
-                className="hidden"
-                accept="image/*"
-                onChange={(e) => handleProfilePicChange(e.target.files[0])}
-              />
-            </div> */}
           </div>
 
           <DialogFooter className="mt-4">
