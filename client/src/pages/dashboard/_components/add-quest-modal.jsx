@@ -73,10 +73,13 @@ export default function AddQuestModal() {
             let newStreak = playerInfo?.streak || 0;
 
             if (questsToday.length == 0) {
-                newStreak += 1;
-            } else if (questsYesterday.length === 0) {
-                newStreak = 0;
+                if (questsYesterday.length > 0) {
+                    newStreak += 1;
+                } else {
+                    newStreak = 0;
+                }
             }
+            
 
             if(playerInfo.streak != newStreak) {
               updatePlayerMutate({ ...playerInfo, streak: newStreak });
