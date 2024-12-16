@@ -70,7 +70,7 @@ export default function PlayerProfileBlock() {
             <SidebarMenuButton className="flex h-24">
               <div>
                 <Avatar className={state === "collapsed" ? "h-7 w-7" : ""}>
-                  <AvatarImage src={playerInfo?.profilePic || "https://github.com/shadcn.png"} alt="avatar" />
+                  <AvatarImage src={playerInfo?.profilePic || "src/assets/profile/noPfp.jpg"} alt="avatar" />
                   <AvatarFallback>{userInfo?.name?.charAt(0).toUpperCase() || "U"}</AvatarFallback>
                 </Avatar>
               </div>
