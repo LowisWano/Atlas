@@ -48,45 +48,6 @@ export default function AddQuestModal() {
 
             const quests = getQuests().data || [];
 
-            const today = new Date();
-            const questsToday = quests.filter((quest) => {
-                const questDate = new Date(quest.createdAt);
-                return (
-                    questDate.getFullYear() === today.getFullYear() &&
-                    questDate.getMonth() === today.getMonth() &&
-                    questDate.getDate() === today.getDate()
-                );
-            });
-
-            const yesterday = new Date();
-            yesterday.setDate(today.getDate() - 1);
-
-            const questsYesterday = quests.filter((quest) => {
-                const questDate = new Date(quest.createdAt);
-                return (
-                    questDate.getFullYear() === yesterday.getFullYear() &&
-                    questDate.getMonth() === yesterday.getMonth() &&
-                    questDate.getDate() === yesterday.getDate()
-                );
-            });
-
-            let newStreak = playerInfo?.streak || 0;
-
-            if (questsToday.length > 0) {
-                if(questsYesterday.length == 0){
-                    newStreak = 1;
-                }
-                if (questsYesterday.length > 0) {
-                    newStreak += 1;
-                }
-            } else if (questsToday.length == 0 && questsYesterday.length == 0) {
-                newStreak = 0;
-            }
-
-            if(playerInfo.streak != newStreak) {
-              updatePlayerMutate({ ...playerInfo, streak: newStreak });
-            }
-
             setOpen(false);
         } catch (err) {
             toast({
