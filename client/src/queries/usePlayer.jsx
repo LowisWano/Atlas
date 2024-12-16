@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getPlayerInfo, getUserInfo } from '@/services/player.service';
+import { getPlayerInfo, getUserInfo, updatePlayer, updateUser, uploadProfilePic } from '@/services/player.service';
 import { useUserStore } from "@/hooks/auth-hooks";
 import { useToast } from "@/hooks/use-toast";
 
@@ -38,13 +38,45 @@ export function usePlayer() {
     }
   });
 
+  const updateUserMutation = useMutation({
+    mutationFn: (updatedUser) => updateUser(user.user.id, user.token, updatedUser),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['userInfo'] });
+      toast({
+        title: "Name Updated!",
+        description: "Your name has been updated successfully.",
+      });
+    }
+  });
+
+  const uploadProfilePicMutation = useMutation({
+    mutationFn: (formData) => uploadProfilePic(user.user.id, user.token, formData),
+    onSuccess: async (data) => {
+      await queryClient.invalidateQueries({ queryKey: ['playerInfo'] });
+      toast({
+        title: "Profile Picture Updated!",
+        description: "Your profile picture has been updated successfully.",
+      });
+      return data;
+    }
+  });
+
   const updatePlayerMutate = async (playerData) => {
     updatePlayerMutation.mutate(playerData);
+  };
+
+  const updateUserMutate = async (name) => {
+    updateUserMutation.mutate(name);
+  };
+
+  const uploadProfilePicMutate = async (formData) => {
+    return uploadProfilePicMutation.mutateAsync(formData);
   };
 
   return {
     getPlayerData,
     updatePlayerMutate,
-    // Add more mutations as needed
+    updateUserMutate,
+    uploadProfilePicMutate,
   };
 }

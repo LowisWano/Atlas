@@ -7,6 +7,7 @@ import ProtectedRoutes from './components/layouts/protected-routes.jsx';
 import Calendar from './pages/calendar/index.jsx';
 import Shop from './pages/shop/index.jsx';
 import Achievements from './pages/achievements/index.jsx';
+import Profile from './pages/profile/index.jsx';
 
 const routes = [
   {
@@ -32,6 +33,10 @@ const routes = [
           {
             path: "achievements",
             element: <Achievements />
+          },
+          {
+            path: "profile",
+            element: <Profile />
           }
           // Add more protected routes here
         ],

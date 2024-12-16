@@ -15,3 +15,24 @@ export const getUserInfo = async (playerId, token) => {
   });
   return response.data;
 };
+
+export const updatePlayer = async (playerId, token, updatePlayerInfo) => {
+  const response = await axios.put(`${baseUrl}/${playerId}/profile/update`, updatePlayerInfo, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};
+
+export const updateUser  = async (playerId, token, name) => {
+  const response = await axios.put(`${userUrl}/${playerId}/username`,  name, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};
+
+export const uploadProfilePic = async (playerId, token, formData) => {
+  const response = await axios.post(`${baseUrl}/${playerId}/profile/upload`, formData, {
+    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' },
+  });
+  return response.data;
+};

@@ -10,19 +10,39 @@ const getItems = async () => {
   }
 };
 
+// const getPlayerItems = async (playerId) => {
+//   try {
+//     return await prisma.playerPurchases.findMany({
+//       where: { playerId: parseInt(playerId) },
+//       include: {
+//         item: true
+//       }
+//     });
+//   } catch (error) {
+//     console.error("Error fetching player items:", error);
+//     throw new Error("An unexpected error occurred while fetching player items.");
+//   }
+// };
+
 const getPlayerItems = async (playerId) => {
   try {
-    return await prisma.playerPurchases.findMany({
+    const playerItems = await prisma.playerPurchases.findMany({
       where: { playerId: parseInt(playerId) },
       include: {
-        item: true
+        item: true,
       }
     });
+
+    return playerItems.map(purchase => ({
+      ...purchase.item,
+      price: purchase.item.price,
+    }));
   } catch (error) {
     console.error("Error fetching player items:", error);
     throw new Error("An unexpected error occurred while fetching player items.");
   }
 };
+
 
 const purchaseItem = async (itemId, playerId) => {
   try {

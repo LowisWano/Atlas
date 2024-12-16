@@ -84,10 +84,26 @@ export function useItems() {
     }
   };
 
+  const { isPending: isUserItemsPending, error: userItemsError, data: userItemsData } = useQuery({
+    queryKey: ["playerItems"],
+    queryFn: () => getUserPurchases(user.user.id, user.token),
+    refetchOnWindowFocus: false,
+  });
+  
+
+  function getPlayerItems() {
+    return {
+      isPending: isUserItemsPending,
+      error: userItemsError,
+      data: userItemsData,
+    };
+  }
+
   return {
     getItems,
     getPlayerData,
     purchaseItemMutate,
+    getPlayerItems,
     isPurchasing: purchaseMutation.isPending
   };
 }

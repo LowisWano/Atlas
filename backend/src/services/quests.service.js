@@ -147,17 +147,102 @@ const updateQuest = async (
 }
 
 const updateQuestStatus = async (questId, status) => {
-  const result = await prisma.quest.update({
-    where: {
-      id: questId,
-    },
-    data: {
-      status: status,
-    }
-  })
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
 
-  return result;
-}
+  const quest = await prisma.quest.findUnique({
+      where: { id: questId },
+  });
+
+  if (!quest) {
+      throw new Error("Quest not found");
+  }
+
+  const player = await prisma.player.findUnique({
+      where: { id: quest.playerId },
+  });
+
+  if (!player) {
+      throw new Error("Player not found");
+  }
+
+  const updatedQuest = await prisma.quest.update({
+    where: { id: questId },
+    data: { status: status },
+});
+
+  // Fetch completed quests for today and yesterday
+  const completedQuestsToday = await prisma.quest.findMany({
+      where: {
+          playerId: quest.playerId,
+          status: "COMPLETED",
+          createdAt: {
+              gte: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+          },
+      },
+  });
+
+  const completedQuestsYesterday = await prisma.quest.findMany({
+      where: {
+          playerId: quest.playerId,
+          status: "COMPLETED",
+          createdAt: {
+              gte: new Date(yesterday.getFullYear(), yesterday.getMonth(), yesterday.getDate()),
+              lt: new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+          },
+      },
+  });
+
+  let newStreak = player.streak || 0;
+
+  if (status === "COMPLETED") {
+      if (
+          completedQuestsToday.length == 1 &&
+          completedQuestsYesterday.length >= 0
+      ) {
+          newStreak += 1;
+      }
+      
+      if (
+        completedQuestsToday.length == 0 &&
+        completedQuestsYesterday.length > 0
+      ) {
+          newStreak = 1;
+      }
+  } else if (status === "ACTIVE") {
+      if (
+        completedQuestsToday.length == 0
+      ) {
+        newStreak -= 1;
+      }
+
+      if (
+        completedQuestsYesterday.length == 0
+      ) {
+        newStreak = 1;
+      }
+  }
+
+  if (
+      completedQuestsToday.length === 0 &&
+      completedQuestsYesterday.length === 0
+  ) {
+      // No first quest completed today and no quests completed yesterday
+      newStreak = 0;
+  } 
+
+  // Update quest status and player's streak
+
+  await prisma.player.update({
+      where: { id: quest.playerId },
+      data: { streak: newStreak },
+  });
+
+  return updatedQuest;
+};
+
+
 
 const earnPlayerRewards = async (playerId, gold, exp, questStatus) => {
   const result = await prisma.$transaction(async (tx) => {
