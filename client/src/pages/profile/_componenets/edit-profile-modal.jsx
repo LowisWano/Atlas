@@ -2,22 +2,21 @@
 import { useState, useEffect } from "react";
 import { usePlayer } from "@/queries/usePlayer";
 import { useToast } from "@/hooks/use-toast";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-// import { FileInput } from "@/components/ui/file-input";
 
 export default function EditProfileModal({ open, setOpen, playerData, userData }) {
-  const { updatePlayerMutate } = usePlayer();
+  const { updatePlayerMutate, updateUserMutate } = usePlayer();
   const { toast } = useToast();
 
   const [editedUser, setEditedUser] = useState(userData);
   const [bio, setBio] = useState(playerData?.bio || "");
   const [profilePic, setProfilePic] = useState("");
 
-  // Sync the user data when userData or playerData changes
+  // Sync user data when userData or playerData changes
   useEffect(() => {
     if (userData) {
       setEditedUser({
@@ -72,13 +71,21 @@ export default function EditProfileModal({ open, setOpen, playerData, userData }
 
   const updateProfileHandler = async (e) => {
     e.preventDefault();
+    
     try {
+      // First, update the profile (bio and profile pic)
       await updatePlayerMutate({
         id: userData.id,
-        name: editedUser.name,
         bio,
         profilePic: profilePic || playerData?.profilePic,
       });
+
+      // Then update the name
+      await updateUserMutate({
+        id: userData.id,
+        name: editedUser.name,
+      });
+
       setOpen(false); // Close the modal after successful update
     } catch (err) {
       toast({
@@ -123,6 +130,7 @@ export default function EditProfileModal({ open, setOpen, playerData, userData }
             </div>
 
             {/* Profile Picture Preview and Upload */}
+            {/* Uncomment to allow uploading profile picture */}
             {/* <div className="flex flex-col gap-2">
               <Label htmlFor="profilePic">Profile Picture</Label>
               {profilePic && <img src={profilePic} alt="Profile Preview" className="w-32 h-32 rounded-full" />}
@@ -141,7 +149,7 @@ export default function EditProfileModal({ open, setOpen, playerData, userData }
               />
             </div> */}
           </div>
-          
+
           <DialogFooter className="mt-4">
             <Button type="submit">Save changes</Button>
           </DialogFooter>

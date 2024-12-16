@@ -37,8 +37,8 @@ export default function ProfileTop() {
   const userData = userInfo;
   const playerItems = itemsData.data;
 
-  console.log("playerData:", playerData);
-  console.log("userData:", userData);
+//   console.log("playerData:", playerData);
+//   console.log("userData:", userData);
 
   const expProgress = (playerData?.experience || 0) / (playerData?.level * 1000) * 100;
   const rankProgress = (playerData?.rankPoints || 0) / (playerData?.level * 1000) * 100;

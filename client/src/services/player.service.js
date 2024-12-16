@@ -23,3 +23,10 @@ export const updatePlayer = async (playerId, token, updatePlayerInfo) => {
   });
   return response.data;
 };
+
+export const updateUser  = async (playerId, token, name) => {
+  const response = await axios.put(`${userUrl}/${playerId}/username`,  name, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  return response.data;
+};

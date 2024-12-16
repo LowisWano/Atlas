@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getPlayerInfo, getUserInfo , updatePlayer } from '@/services/player.service';
+import { getPlayerInfo, getUserInfo, updatePlayer, updateUser  } from '@/services/player.service';
 import { useUserStore } from "@/hooks/auth-hooks";
 import { useToast } from "@/hooks/use-toast";
 
@@ -38,14 +38,31 @@ export function usePlayer() {
     }
   });
 
+  const updateUserMutation = useMutation({
+    mutationFn: (updatedUser) => updateUser(user.user.id, user.token, updatedUser),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ['userInfo'] });
+      toast({
+        title: "Name Updated!",
+        description: "Your name has been updated successfully.",
+      });
+    }
+  });
+
   const updatePlayerMutate = async (playerData) => {
     console.log("Update Player Streak");
     updatePlayerMutation.mutate(playerData);
   };
 
+  const updateUserMutate = async (name) => {
+    console.log("Update User Name");
+    updateUserMutation.mutate(name);
+  };
+
   return {
     getPlayerData,
     updatePlayerMutate,
+    updateUserMutate,
     // Add more mutations as needed
   };
 }
