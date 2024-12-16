@@ -45,8 +45,7 @@ export default function Stats() {
         questData && questData.data
             ? questData.data.filter(
                   (quest) =>
-                      quest.status === "COMPLETED" &&
-                      quest.questType === "NORMAL_QUEST"
+                      quest.status === "COMPLETED"
               )
             : [];
 
