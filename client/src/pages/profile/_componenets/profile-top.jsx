@@ -6,6 +6,53 @@ import { useItems } from '@/queries/useItems';
 import { SquarePen } from 'lucide-react';
 import EditProfileModal from './edit-profile-modal';
 
+const calculateLevelThreshold = (level) => {
+  return Math.pow(level, 2) * 1000;
+};
+
+const calculateExpProgress = (level, currentExp) => {
+  const prevLevelThreshold = Math.pow(level - 1, 2) * 1000;
+  const currentLevelThreshold = calculateLevelThreshold(level);
+  
+  const expInCurrentLevel = currentExp - prevLevelThreshold;
+  const expNeededForLevel = currentLevelThreshold - prevLevelThreshold;
+  
+  const progressPercentage = Math.floor((expInCurrentLevel / expNeededForLevel) * 100);
+  
+  return {
+    progress: Math.max(0, Math.min(100, progressPercentage)),
+    actualExp: expInCurrentLevel,
+    neededExp: expNeededForLevel
+  };
+};
+
+const calculateRankProgress = (playerData, rankPoints) => {
+  const thresholds = {
+    COPPER: { min: 0, max: 9 },
+    IRON: { min: 10, max: 29 },
+    SILVER: { min: 30, max: 59 },
+    GOLD: { min: 60, max: 99 },
+    PLATINUM: { min: 100, max: 149 },
+    MYTHRIL: { min: 150, max: 209 },
+    ADAMANTITE: { min: 210, max: 210 }
+  };
+
+  const currentRank = playerData?.adventurerRank || 'COPPER';
+  const currentThreshold = thresholds[currentRank];
+  const nextRankNeeded = currentRank === 'ADAMANTITE' ? 
+    currentThreshold.max : 
+    thresholds[Object.keys(thresholds)[Object.keys(thresholds).indexOf(currentRank) + 1]].min;
+  
+  const progress = ((rankPoints - currentThreshold.min) / (nextRankNeeded - currentThreshold.min)) * 100;
+  
+  return {
+    progress: Math.max(0, Math.min(100, progress)),
+    currentPoints: rankPoints,
+    neededPoints: nextRankNeeded
+  };
+};
+
+
 export default function ProfileTop() {
   const [open, setOpen] = useState(false);
   const { getPlayerData } = usePlayer();
@@ -30,8 +77,11 @@ export default function ProfileTop() {
   const userData = userInfo;
   const playerItems = itemsData.data;
 
-  const expProgress = (playerData?.experience || 0) / (playerData?.level * 1000) * 100;
   const rankProgress = (playerData?.rankPoints || 0) / (playerData?.level * 1000) * 100;
+
+  const { progress, actualExp, neededExp } = calculateExpProgress(playerData?.level || 1, playerData?.experience || 0);
+  const rankProgressData = calculateRankProgress(playerData, playerData.rankPoints || 0);
+ 
 
   const editModalOpener = (e) => {
     e.preventDefault();
@@ -72,19 +122,19 @@ export default function ProfileTop() {
             <span className="text-base text-gray-500">Level: {playerData?.level || 1}</span>
             <div className="relative">
               <div>
-                <Progress value={expProgress} className="h-[12px] w-full" />
+                <Progress value={progress} className="h-[12px] w-full" />
               </div>
               <div className="absolute -inset-y-1 right-1 text-sm">
-                {playerData?.experience} / {playerData?.level * 1000}
+                {actualExp.toLocaleString()} / {neededExp.toLocaleString()}
               </div>
             </div>
-            <span className="text-base text-gray-500">Rank: {playerData?.adventurerRank || 1}</span>
+            <span className="text-base text-gray-500">Rank: {playerData?.adventurerRank || 'COPPER'}</span>
             <div className="relative">
               <div>
-                <Progress value={rankProgress} className="h-[12px] w-full" />
+                <Progress value={rankProgressData.progress} className="h-[12px] w-full" />
               </div>
               <div className="absolute -inset-y-1 right-1 text-sm">
-                {playerData?.rankPoints} / {playerData?.level * 1000}
+                {rankProgressData.currentPoints} / {rankProgressData.neededPoints}
               </div>
             </div>
           </div>

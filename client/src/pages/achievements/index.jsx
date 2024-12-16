@@ -6,7 +6,7 @@ export default function Achievements(){
     const { user } = useUserStore()
 
     return (
-    <div>
+    <div className="p-4 md:p-1">
         <AchievementsHeader />
         <AchievementsBlock />
     </div>

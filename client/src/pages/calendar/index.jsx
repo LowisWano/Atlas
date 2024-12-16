@@ -39,7 +39,7 @@ export default function CalendarPage() {
   }));
 
   return(
-    <div>
+    <div className='p-4 md:p-1'>
       <div className='flex justify-end'>
         <AddQuestModal/>
       </div>

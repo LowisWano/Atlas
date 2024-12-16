@@ -14,7 +14,6 @@ rootRouter.use("/hello", helloRouter);
 rootRouter.use("/player", playerRouter);
 rootRouter.use("/items", shopRouter);
 rootRouter.use("/user", userRouter);
-rootRouter.use("/quests", questsRouter);
 rootRouter.use("/achievements", achievementsRouter);
 
 module.exports = rootRouter;
